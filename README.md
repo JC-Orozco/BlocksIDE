@@ -8,9 +8,6 @@ Git repositories for BlocksIDE are available at
 
  https://github.com/JC-Orozco/BlocksIDE
 
-Please use the github bug tracker to report issues:
- https://github.com/JC-Orozco/BlocksIDE/issues
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
