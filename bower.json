@@ -1,0 +1,21 @@
+{
+  "name": "BlocksIDE",
+  "version": "0.1.0",
+  "authors": [
+    "Juan Carlos Orozco <jorozconews@gmail.com>"
+  ],
+  "license": "Apache version 2",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "blockly": "https://github.com/JC-Orozco/blockly.git",
+    "closure-library": "https://github.com/google/closure-library.git",
+    "juicy-ace-editor": "^1.2.0",
+    "acorn": "^4.0.3"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "BlocksIDE",
+  "version": "1.0.0",
+  "description": "",
+  "main": "js2blocks.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Juan Carlos Orozco",
+  "license": "Apache version 2",
+  "dependencies": {
+    "acorn": "^4.0.3"
+  }
+}

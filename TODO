@@ -1,0 +1,38 @@
+TODO:
+- Add Load and Save
+
+- ES6 syntax on ace editor.
+
+- Save last valid code before generating new blocks (maybe even several copies using diff)
+
+- add run button (maybe undo button to go to the latest compiled OK version)
+
+Fix: AddSub show block name in the 0 field.
+Fix: AddSub itemCount to represent the actual number of items
+
+Is it possible to put inputs inline on a AddSub block?
+
+Parenthesis (Seems to work without implementing the parenthesis block in a simple math example with + and * precedence altered)
+Done -> Maps
+Done -> Try-Catch
+Done -> Catch
+Done -> While (Until)
+Done -> Switch
+Done -> Arrow functions (Gets converted to anonymous function)
+Done -> throw
+Done -> spread ...
+Done -> yield, yield*, function*
+Done -> true, false
+Done -> Class get, set, etc. Use named classes for constructor, and special blocks for get, set, etc.
+Done -> Class extends, super, static
+Done -> prototype (it is treated as a normal field maybe that is enough)
+
+Blocks pending:
+await
+let
+const
+comments
+
+- Setup module option in acorn:
+Some progress -> named export done, some other export cases are not yet handled
+Done -> Import
