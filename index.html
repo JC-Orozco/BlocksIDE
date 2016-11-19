@@ -31,8 +31,29 @@ limitations under the License.
 
   <link rel="stylesheet" type="text/css" href="styles/bi_styles.css">
 
-  <link rel="import" href="bower_components/juicy-ace-editor/juicy-ace-editor.html">
+  <link rel="import" href="components/juicy-ace-editor/juicy-ace-editor.html">
   
+  <!--
+  <script src="https://rawgithub.com/JC-Orozco/blockly/master/blockly_compressed.js"></script>
+  <script src="https://rawgithub.com/JC-Orozco/blockly/master/javascript_compressed.js"></script>  
+-->
+
+<!--
+  <script src="bower_components/blockly/blockly_compressed.js"></script>
+  <script src="bower_components/blockly/blocks_compressed.js"></script>
+  <script src="bower_components/blockly/javascript_compressed.js"></script>
+  <script src="bower_components/blockly/msg/js/en.js"></script>
+-->
+  
+<!-- Debug mode comment block -->  
+  <script src="https://rawgithub.com/JC-Orozco/blockly/master/blockly_compressed.js"></script>
+  <script src="https://rawgithub.com/JC-Orozco/blockly/master/blocks_compressed.js"></script>
+  <script src="https://rawgithub.com/JC-Orozco/blockly/master/javascript_compressed.js"></script>
+  <script src="https://rawgithub.com/JC-Orozco/blockly/master/msg/js/en.js"></script>
+<!---->
+
+<!-- Debug mode uncomment block -->
+<!--
   <script src="bower_components/blockly/blockly_uncompressed.js"></script>
   <script src="bower_components/blockly/generators/javascript.js"></script>
   <script src="bower_components/blockly/generators/javascript/logic.js"></script>
@@ -55,14 +76,20 @@ limitations under the License.
   <script src="bower_components/blockly/blocks/variables.js"></script>
   <script src="bower_components/blockly/blocks/procedures.js"></script>
   <script src="bower_components/blockly/blocks/maps.js"></script>
+-->
+    
   <script src="lib/bi_blockly/blocks/bi_blockly.js"></script>
   <script src="lib/bi_blockly/blocks/bi_blockly_overload.js"></script>
   <script src="lib/bi_blockly/generators/javascript/bi_blockly.js"></script>
   
+<!--
   <script type='text/javascript' src="node_modules/acorn/dist/acorn.js"></script>
   <script type='text/javascript' src="node_modules/acorn/dist/walk.js"></script>
+-->
+  <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/acorn/4.0.3/acorn.js"></script>
+  <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/acorn/4.0.3/walk.js"></script>
+  
 </head>
-
 <body class="vbox viewport" onload="load_()">
   <!-- header -->
   <div>
