@@ -478,10 +478,9 @@ var walk1 = function(ast, options){
     } else {
       if(expression_statement){
         expression_statement = false;
-        block1 = newNode('block', {type:'bi_field_statement'});
-      } else {
-        //block1 = newNode('block', {type:'bi_field_return'});
         block1 = newNode('block', {type:'bi_field'});
+      } else {
+        block1 = newNode('block', {type:'bi_field_return'});
       }
       block1.appendChild(newNode('field',{name:'NAME'},"this"));
       var value1 = newNode('value',{name:'chain'});
@@ -498,10 +497,9 @@ var walk1 = function(ast, options){
     } else {
       if(expression_statement){
         expression_statement = false;
-        block1 = newNode('block', {type:'bi_field_statement'});
-      } else {
-        //block1 = newNode('block', {type:'bi_field_return'});
         block1 = newNode('block', {type:'bi_field'});
+      } else {
+        block1 = newNode('block', {type:'bi_field_return'});
       }
       block1.appendChild(newNode('field',{name:'NAME'},"super"));
       var value1 = newNode('value',{name:'chain'});
@@ -692,7 +690,7 @@ var walk1 = function(ast, options){
     if(is_call){
       current_call = false;
     } else {
-      var block1 = newNode('block', {type:'bi_field'});
+      var block1 = newNode('block', {type:'bi_field_return'});
       block1.appendChild(newNode('field',{name:'NAME'},node.property.name));
       var value1 = newNode('value',{name:'chain'});
       block1.appendChild(value1);
@@ -791,10 +789,9 @@ var walk1 = function(ast, options){
       var block1;
       if(expression_statement){
         expression_statement = false;
-        block1 = newNode('block', {type:'bi_field_statement'});
-      } else {
-        //block1 = newNode('block', {type:'bi_field_return'});
         block1 = newNode('block', {type:'bi_field'});
+      } else {
+        block1 = newNode('block', {type:'bi_field_return'});
       }
       block1.appendChild(newNode('field',{name:'NAME'},node.name));
       var value1 = newNode('value',{name:'chain'});
