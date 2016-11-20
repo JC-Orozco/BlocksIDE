@@ -687,17 +687,37 @@ var walk1 = function(ast, options){
   funcs.MemberExpression = (node, st, c) => {
     if(debug) console.log("MemberExpression "+node.property.name);
     var is_call = current_call;
+    var block1;
+    var block2;
     if(is_call){
       current_call = false;
     } else {
-      var block1 = newNode('block', {type:'bi_field_return'});
-      block1.appendChild(newNode('field',{name:'NAME'},node.property.name));
-      var value1 = newNode('value',{name:'chain'});
-      block1.appendChild(value1);
-      current_path_chain.push(value1);      
+      if(node.computed){
+        block1 = newNode('block', {type:'bi_index'});
+        block2 = newNode('value', {name:'index'});
+        block1.appendChild(block2);
+        var value1 = newNode('value',{name:'chain'});
+        block1.appendChild(value1);
+        current_path_chain.push(value1);
+      } else{
+        block1 = newNode('block', {type:'bi_field_return'});
+        block1.appendChild(newNode('field',{name:'NAME'},node.property.name));
+        var value1 = newNode('value',{name:'chain'});
+        block1.appendChild(value1);
+        current_path_chain.push(value1);
+      }
     }
     c(node.object, st, "Expression")
-    if (node.computed) c(node.property, st, "Expression")
+    if (node.computed){
+      //block2 = newNode('block', {type:'bi_index'});
+      //current_node.appendChild(block2);
+      //let block3 = newNode('value', {name:'index'});
+      //block2.appendChild(block3);
+      let node1 = current_node;
+      current_node = block2;
+      c(node.property, st, "Expression")
+      current_node = node1;
+    }
     if(!is_call){
       if(current_path_chain.length > 0){
         var node1 = current_path_chain.pop();
