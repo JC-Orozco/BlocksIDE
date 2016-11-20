@@ -391,9 +391,9 @@ var walk1 = function(ast, options){
     var block1;
     var generator1;
     if(node.generator){
-      generator1 = newNode('field', {name:'generator'}, 'TRUE')
+      generator1 = newNode('field', {name:'function_type'}, 'generator')
     } else{
-      generator1 = newNode('field', {name:'generator'}, 'FALSE')      
+      generator1 = newNode('field', {name:'function_type'}, 'function')      
     }
     if(node.id){
       //c(node.id, st, "Pattern") // JCOA: We are already using this name below (Function name)
@@ -403,7 +403,7 @@ var walk1 = function(ast, options){
       block1.appendChild(newNode('field', {name:'name'}, node.id.name));
     } else if(node.method){
       block1 = newNode('block', {type:'bi_named_function'});
-      block1.appendChild(generator1)
+      block1.appendChild(newNode('field', {name:'function_type'}, 'method'));
       block1.appendChild(newNode('field', {name:'name'}, node.method));      
     } else{
       block1 = newNode('block', {type:'bi_function'});      
