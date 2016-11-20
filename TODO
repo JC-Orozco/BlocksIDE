@@ -32,7 +32,7 @@ multiple variable declaration. Ex. var a=2, b, c
 Blocks pending:
 computed true: a[1], f1()[1]
 comments
-await
+await (This is ES7 so not a priority for now)
 
 function and generator using dropdown selector
 
