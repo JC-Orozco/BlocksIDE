@@ -26,10 +26,11 @@ Done -> true, false
 Done -> Class get, set, etc. Use named classes for constructor, and special blocks for get, set, etc.
 Done -> Class extends, super, static
 Done -> prototype (it is treated as a normal field maybe that is enough)
+Done -> let, const. Use var block with dropdown selector
+multiple variable declaration. Ex. var a=2, b, c
 
 Blocks pending:
-let, const. Use var block with dropdown selector
-multiple variable declaration. Ex. var a=2, b, c
+computed true: a[1], f1()[1]
 comments
 await
 
