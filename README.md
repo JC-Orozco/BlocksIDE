@@ -7,6 +7,8 @@ BlocksIDE was written by Juan Carlos Orozco and released under an Apache version
 Git repositories for BlocksIDE are available at
 
  https://github.com/JC-Orozco/BlocksIDE
+ 
+Try me: https://jc-orozco.github.io/BlocksIDE/
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

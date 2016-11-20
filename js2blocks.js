@@ -366,14 +366,17 @@ var walk1 = function(ast, options){
   }
   funcs.VariableDeclaration = (node, st, c) => {
     if(debug) console.log("VariableDeclaration");
-    for (let i = 0; i < node.declarations.length; ++i)
+    for (let i = 0; i < node.declarations.length; ++i){
+      node.declarations[i].kind = node.kind;
       c(node.declarations[i], st)
+    }
   }
   funcs.VariableDeclarator = (node, st, c) => {
     if(debug) console.log("VariableDeclarator");
     //c(node.id, st, "Pattern") // Commented to avoid duplicating var name block.
     // JCOA: Can I reuse the blockly block constructor?
     var block1 = newNode('block', {type:'bi_var'})
+    block1.appendChild(newNode('field', {name: 'var_type'}, node.kind));
     block1.appendChild(newNode('field', {name: 'var'}, node.id.name));
     var value1 = newNode('value', {name: 'val'});
     block1.appendChild(value1);

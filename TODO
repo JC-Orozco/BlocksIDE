@@ -28,10 +28,15 @@ Done -> Class extends, super, static
 Done -> prototype (it is treated as a normal field maybe that is enough)
 
 Blocks pending:
-await
-let
-const
+let, const. Use var block with dropdown selector
+multiple variable declaration. Ex. var a=2, b, c
 comments
+await
+
+function and generator using dropdown selector
+
+bi_assignment operator change to dropdown selector
+
 
 - Setup module option in acorn:
 Some progress -> named export done, some other export cases are not yet handled
