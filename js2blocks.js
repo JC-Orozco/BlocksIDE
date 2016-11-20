@@ -191,13 +191,6 @@ var walk1 = function(ast, options){
     }
     current_node = node1
   }
-  //  <block type="bi_return" id="4crO}S}pF60.C@[pmaSu" x="-45" y="28">
-  //    <value name="ret">
-  //      <block type="math_number" id="6zXcB;To,fx.66?,];#f">
-  //        <field name="NUM">0</field>
-  //      </block>
-  //    </value>
-  //  </block>
   funcs.ReturnStatement = (node, st, c) => {
     if(debug) console.log("ReturnStatement");    
     var block1 = newNode('block', {type:'bi_return'});
@@ -579,19 +572,6 @@ var walk1 = function(ast, options){
     c(node.argument, st, "Expression")
     current_node = node1;
   }
-  //  <block type="math_arithmetic" id="hs-FhX+#~:x;p=UT][|(" x="-6" y="53">
-  //    <field name="OP">ADD</field>
-  //    <value name="A">
-  //      <block type="math_number" id="u(0:H,Qm.tBD-(CtlT)F">
-  //        <field name="NUM">0</field>
-  //      </block>
-  //    </value>
-  //    <value name="B">
-  //      <block type="math_number" id="`!c^ih5DKij2oJ]:FU):">
-  //        <field name="NUM">0</field>
-  //      </block>
-  //    </value>
-  //  </block>
   funcs.BinaryExpression = (node, st, c) => {
     if(debug) console.log("BinaryExpression");
     var op;
@@ -623,19 +603,6 @@ var walk1 = function(ast, options){
     c(node.right, st, "Expression")
     current_node = node1;
   }
-  //  <block type="logic_operation" id="mW3_1#Qf:UH/?HZQzTvS" x="110" y="59">
-  //    <field name="OP">AND</field>
-  //    <value name="A">
-  //      <block type="logic_boolean" id="];5{MO=Se`:w7u544w7^">
-  //        <field name="BOOL">TRUE</field>
-  //      </block>
-  //    </value>
-  //    <value name="B">
-  //      <block type="logic_boolean" id="`ea:oHwenO2@z.csMr(p">
-  //        <field name="BOOL">FALSE</field>
-  //      </block>
-  //    </value>
-  //  </block>
   funcs.LogicalExpression = (node, st, c) => {
     if(debug) console.log("LogicalExpression");
     c(node.left, st, "Expression")
@@ -643,8 +610,13 @@ var walk1 = function(ast, options){
   }
   funcs.AssignmentExpression = funcs.AssignmentPattern = (node, st, c) => {
     if(debug) console.log("AssignmentExpression");
-    expression_statement = false; // It appears an assignment was considered an expression statement
-    var block1 = newNode('block', {type:'bi_assignment'});
+    var block1;
+    if(expression_statement){
+      expression_statement = false;
+      block1 = newNode('block', {type:'bi_assignment'});
+    } else{
+      block1 = newNode('block', {type:'bi_assignment_return'});
+    }
     current_node.appendChild(block1);
     var field1 = newNode('field', {name:'operator'}, node.operator);
     block1.appendChild(field1);
@@ -759,32 +731,6 @@ var walk1 = function(ast, options){
     if(debug) console.log("ExportAllDeclaration");
     c(node.source, st, "Expression")
   }
-  
-  
-//    var mutation1 = newNode('mutation', {items:node.cases.length+1-hasDefault}) // TODO: Take out +1 when items count corrected on AddSub block
-//    block1.appendChild(mutation1)
-//    var switch1 = newNode('value', {name:'switch'})
-//    block1.appendChild(switch1)
-//    current_node = switch1;
-//    c(node.discriminant, st, "Expression")
-//    for (let i = 0; i < node.cases.length-hasDefault; ++i) {
-//      let item = newNode('value',{name:'items'+(i+1)})
-//      block1.appendChild(item)
-//      let case1 = newNode('block', {type:'bi_case'})
-//      item.appendChild(case1)
-//      let test1 = newNode('value', {name:'case'})
-//      case1.appendChild(test1)
-//      current_node = test1
-//      let cs = node.cases[i]
-//      if (cs.test) c(cs.test, st, "Expression")
-//      let statement1 = newNode('value', {name:'statement'})
-//      case1.appendChild(statement1)
-//      current_node = statement1
-//      for (let j = 0; j < cs.consequent.length; ++j)
-//        c(cs.consequent[j], st, "Statement")
-//    }
-
-  
   funcs.ImportDeclaration = (node, st, c) => {
     if(debug) console.log("ImportDeclaration");
     var block1 = newNode('block',{type:'bi_import'});
@@ -893,18 +839,6 @@ var walk1 = function(ast, options){
     c(node.tag, st, "Expression")
     c(node.quasi, st)
   }
-  //<block type="bi_class" id="^:A|7)%KVkg}XCYdSWk3" x="68" y="143">
-  //    <field name="NAME">MyClass1</field>
-  //    <statement name="chain">
-  //      <block type="bi_named_function" id="uPeve)8n-A81KJ5V[7H`">
-  //        <field name="name">constructor</field>
-  //        <field name="args">arg1, arg2, etc</field>
-  //      </block>
-  //    </statement>
-  //  </block>  funcs.ClassDeclaration = funcs.ClassExpression = (node, st, c) => c(node, st, "Class")
-
-  // body.body[i].kind -> constructor, get, set, method
-  // body.body[i].key.name
   funcs.Class = (node, st, c) => {
     if(debug) console.log("Class");
     var block1;
@@ -973,14 +907,6 @@ var walk1 = function(ast, options){
         //block1.appendChild(newNode('field', {name:'var'}, node.kind));
         break;
     }
-    //var value1 = newNode('value', {name: 'val'});
-    //block1.appendChild(value1);
-    //    var statement1 = newNode('statement', {name:'chain'});
-    //    block1.appendChild(statement1);
-    //current_node.appendChild(block1);
-    //var node1 = current_node;
-    //    current_node = statement1;
-    //current_node = value1;
     if (node.computed) c(node.key, st, "Expression")
     c(node.value, st, "Expression")
     next1 = newNode('next')
@@ -1043,21 +969,6 @@ var parse1 = function(){
       var code1 = client.responseText;
       //var ast1 = acorn.parse(code1);
       parseCode(code1);
-//      
-//      var ast1 = acorn.parse(code1, {sourceType: 'module'});    
-//      var xml1 = walk1(ast1);
-//      var workspace = Blockly.mainWorkspace;
-//      console.log(xml1);
-//      Blockly.Xml.domToWorkspace(workspace, xml1);
-//      workspace.cleanUp_();
-//      var blockly_code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
-//      console.log(blockly_code);
-
-  //    for (let token of acorn.tokenizer(code1)) {
-  //      tokens.push(token);
-  //      //console.log(''+token.value+' '+token.type.label);
-  //      //out1.innerHTML += ''+token.value+' '+token.type.label+'<br>';
-  //    }
     }
   }
   client.send();
