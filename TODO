@@ -1,4 +1,7 @@
 TODO:
+- Can not delete the last parameter on function call
+- Function call does not have a version with return
+
 - Add Load and Save
 
 - ES6 syntax on ace editor.
