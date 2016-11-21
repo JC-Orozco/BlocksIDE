@@ -419,8 +419,8 @@ var walk1 = function(ast, options){
 
   // FIXME drop these node types in next major version
   // (They are awkward, and in ES6 every block can be a scope.)
-  funcs.ScopeBody = (node, st, c) => c(node, st, "Statement")
-  funcs.ScopeExpression = (node, st, c) => c(node, st, "Expression")
+  //funcs.ScopeBody = (node, st, c) => c(node, st, "Statement")
+  //funcs.ScopeExpression = (node, st, c) => c(node, st, "Expression")
   
   funcs.Pattern = function(node, st, c){
     if(debug) console.log("Pattern "+node.type);
