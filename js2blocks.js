@@ -971,6 +971,7 @@ var walk1 = function(ast, options){
 
 var parseCode = function(code){
   try{
+    console1.value = '';
     var ast1 = acorn.parse(code, {sourceType: 'module'});
     var xml1 = walk1(ast1);
     var workspace = Blockly.mainWorkspace;
