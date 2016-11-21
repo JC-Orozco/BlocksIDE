@@ -97,7 +97,7 @@ limitations under the License.
     <button onclick="">Save</button>
     <button onclick="">Load</button>
 -->
-    <span>  BlocksIDE (pre Alpha). Only tested on Chrome.    By: Juan Carlos Orozco</span>
+    <span>  BlocksIDE (pre Alpha).    By: Juan Carlos Orozco</span>
   </div>
   <!-- content -->
   <div id="box_content">
@@ -542,6 +542,9 @@ limitations under the License.
     function load_(){
       var box2 = document.querySelector("#box2");
       editor2 = document.querySelector("#editor_2").editor;
+      if(!editor2){
+        alert("This browser does not support webcomponents. Try using a current version of Chrome")
+      }
       editor2.on('change', function() {js2blocks()});
       out2 = document.querySelector("#editor_1")
       
