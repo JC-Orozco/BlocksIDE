@@ -1,6 +1,8 @@
 TODO:
 - Add Load and Save
 
+Label console pane.
+
 - ES6 syntax on ace editor.
 
 - Save last valid code before generating new blocks (maybe even several copies using diff)

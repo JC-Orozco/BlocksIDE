@@ -975,6 +975,7 @@ var parseCode = function(code){
     var xml1 = walk1(ast1);
     var workspace = Blockly.mainWorkspace;
     //console.log(xml1);
+    Blockly.mainWorkspace.clear();
     Blockly.Xml.domToWorkspace(workspace, xml1);
     workspace.cleanUp_();
     //var blockly_code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
