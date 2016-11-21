@@ -138,6 +138,10 @@ html, body, .viewport {
   height: 20%;
 }
 
+textarea {
+    resize: none;
+}
+
 #console_1 {
   flex: 1;
 /*  width: 98%;*/
