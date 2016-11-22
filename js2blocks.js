@@ -647,14 +647,14 @@ var walk1 = function(ast, options){
     var block1;
     var name;
     if(node.callee.type == "MemberExpression"){
-      block1 = newNode('block', {type:'bi_call'});
+      block1 = newNode('block', {type:'bi_call_editable_return'});
       name = node.callee.property.name;
     } else if(node.callee.type == "Identifier"){
       if(expression_statement){
         expression_statement = false;
-        block1 = newNode('block', {type:'bi_call_statement'});
+        block1 = newNode('block', {type:'bi_call_editable'});
       } else {
-        block1 = newNode('block', {type:'bi_call'});
+        block1 = newNode('block', {type:'bi_call_editable_return'});
       }
       current_node.appendChild(block1);
       name = node.callee.name;
