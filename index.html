@@ -38,12 +38,14 @@ limitations under the License.
   <script src="https://rawgithub.com/JC-Orozco/blockly/master/javascript_compressed.js"></script>  
 -->
 
+<!--  -->
 <!--
   <script src="bower_components/blockly/blockly_compressed.js"></script>
   <script src="bower_components/blockly/blocks_compressed.js"></script>
   <script src="bower_components/blockly/javascript_compressed.js"></script>
   <script src="bower_components/blockly/msg/js/en.js"></script>
 -->
+<!---->
   
 <!-- Debug mode comment block -->  
   <script src="https://rawgithub.com/JC-Orozco/blockly/master/blockly_compressed.js"></script>
@@ -65,7 +67,6 @@ limitations under the License.
   <script src="bower_components/blockly/generators/javascript/variables.js"></script>
   <script src="bower_components/blockly/generators/javascript/procedures.js"></script>
   <script src="bower_components/blockly/generators/javascript/maps.js"></script>
-
   <script src="bower_components/blockly/msg/messages.js"></script>
   <script src="bower_components/blockly/blocks/logic.js"></script>
   <script src="bower_components/blockly/blocks/loops.js"></script>
@@ -77,6 +78,7 @@ limitations under the License.
   <script src="bower_components/blockly/blocks/procedures.js"></script>
   <script src="bower_components/blockly/blocks/maps.js"></script>
 -->
+<!-- -->
     
   <script src="lib/bi_blockly/blocks/bi_blockly.js"></script>
   <script src="lib/bi_blockly/blocks/bi_blockly_overload.js"></script>
@@ -93,6 +95,7 @@ limitations under the License.
 <body class="vbox viewport" onload="load_()">
   <!-- header -->
   <div>
+<!--    <button onclick="bi_run()">Run</button>-->
 <!--
     <button onclick="">Save</button>
     <button onclick="">Load</button>
@@ -108,7 +111,7 @@ limitations under the License.
       <div id="box1_2">
         <div id="menu_box1_2">
           <span>Console:</span>
-<!--          <button onclick="">Clear</button>-->
+          <button onclick="bi_console1_clear()">Clear</button>
         </div>
         <textarea readonly id="console_1"></textarea>
       </div>
@@ -117,7 +120,10 @@ limitations under the License.
       <div id="box2">
         <juicy-ace-editor id="editor_2" mode="ace/mode/javascript">var x=10</juicy-ace-editor>
       </div>
-      <button onclick="copyEd1_Ed2()">COPY ^^^^</button>
+      <div>
+        <button onclick="copyEd1_Ed2()">COPY ^^^^</button>
+        <button onclick="bi_run()">RUN vvvv</button>
+      </div>
       <div id="editor-container">
         <textarea readonly id="editor_1"></textarea>
       </div>
@@ -452,6 +458,7 @@ limitations under the License.
       <block type="bi_named_function"></block>
 <!--      <block type="bi_call"></block>      -->
       <block type="bi_function_call"></block>      
+      <block type="bi_function_call_return"></block>      
       <block type="bi_field"></block>
       <block type="bi_field_return"></block>
       <block type="bi_adaptor"></block>
@@ -541,7 +548,20 @@ limitations under the License.
       editor2.setValue(out2.value);
       js2blocks();
     }
-
+    
+    function bi_run(){
+      try{
+        eval(out2.value);
+      }
+      catch(err){
+        console1.value += err;
+      }
+    }
+    
+    function bi_console1_clear(){
+      console1.value = '';
+    }
+    
     function load_(){
       var box2 = document.querySelector("#box2");
       editor2 = document.querySelector("#editor_2").editor;
