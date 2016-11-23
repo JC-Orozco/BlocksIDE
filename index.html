@@ -93,13 +93,13 @@ limitations under the License.
   
 </head>
 <body class="vbox viewport" onload="load_()">
+  <input id="open-js-file" type="file" name="openjsfile" accept='.js' style="display: none;" />
+
   <!-- header -->
   <div>
 <!--    <button onclick="bi_run()">Run</button>-->
-<!--
-    <button onclick="">Save</button>
-    <button onclick="">Load</button>
--->
+    <button onclick="bi_open_js()">Open</button>
+<!--    <button onclick="">Save</button>-->
     <span>  BlocksIDE (pre Alpha).    By: Juan Carlos Orozco</span>
   </div>
   <!-- content -->
@@ -542,7 +542,7 @@ limitations under the License.
       parseCode(editor2.getValue())
       //parseCode(textarea1.value);
     }
-
+    
     function copyEd1_Ed2(){
       //textarea1.value = out2.value;
       editor2.setValue(out2.value);
@@ -561,8 +561,28 @@ limitations under the License.
     function bi_console1_clear(){
       console1.value = '';
     }
-    
+
+    var bi_init_open = function(){
+      var openFile = document.getElementById('open-js-file');
+      openFile.addEventListener('change', bi_open, false);
+    }
+    var bi_open_js = function (event) {
+      var openFile = document.getElementById('open-js-file');
+      openFile.click();
+    }
+    var bi_open = function (event) {
+      var input = event.target;
+      console.log("open "+input.files[0]);
+      var reader = new FileReader();
+      reader.onload = function(){
+        editor2.setValue(reader.result);
+      }
+      reader.readAsText(input.files[0]);
+    }
+
     function load_(){
+      bi_init_open();
+      
       var box2 = document.querySelector("#box2");
       editor2 = document.querySelector("#editor_2").editor;
       if(!editor2){
