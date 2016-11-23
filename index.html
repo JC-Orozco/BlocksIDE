@@ -33,6 +33,8 @@ limitations under the License.
 
   <link rel="import" href="components/juicy-ace-editor/juicy-ace-editor.html">
   
+  <script src="https://rawgithub.com/eligrey/FileSaver.js/master/FileSaver.min.js"></script>
+  
   <!--
   <script src="https://rawgithub.com/JC-Orozco/blockly/master/blockly_compressed.js"></script>
   <script src="https://rawgithub.com/JC-Orozco/blockly/master/javascript_compressed.js"></script>  
@@ -99,7 +101,7 @@ limitations under the License.
   <div>
 <!--    <button onclick="bi_run()">Run</button>-->
     <button onclick="bi_open_js()">Open</button>
-<!--    <button onclick="">Save</button>-->
+    <button onclick="bi_save_js()">Save</button>
     <span>  BlocksIDE (pre Alpha).    By: Juan Carlos Orozco</span>
   </div>
   <!-- content -->
@@ -562,6 +564,13 @@ limitations under the License.
       console1.value = '';
     }
 
+    var bi_save_js = function (event) {
+      var blob = new Blob([editor2.getValue()], {
+          type : 'text/plain'
+        });
+      saveAs(blob, 'script1.js');
+    }
+    
     var bi_init_open = function(){
       var openFile = document.getElementById('open-js-file');
       openFile.addEventListener('change', bi_open, false);
