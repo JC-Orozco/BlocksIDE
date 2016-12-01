@@ -94,7 +94,7 @@ limitations under the License.
   <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/acorn/4.0.3/walk.js"></script>
   
 </head>
-<body class="vbox viewport" onload="load_()">
+<body class="vbox viewport" onload="bi_load()">
   <input id="open-js-file" type="file" name="openjsfile" accept='.js' style="display: none;" />
 
   <!-- header -->
@@ -112,7 +112,7 @@ limitations under the License.
       </div>
       <div id="box1_2">
         <div id="menu_box1_2">
-          <span>Console:</span>
+          <span>console1:</span>
           <button onclick="bi_console1_clear()">Clear</button>
         </div>
         <textarea readonly id="console_1"></textarea>
@@ -493,6 +493,12 @@ limitations under the License.
     </category>
     <sep></sep>
     <category name="Library" expanded="true">
+      <!--
+      <block type="bi_var"></block>
+      <category name="Test">
+        <block type="bi_var"></block>
+      </category>
+      -->
     </category>
   </xml>
 
@@ -502,8 +508,20 @@ limitations under the License.
     var editor;
     var editor2;
     var textarea1;
-    var console1;
+    var bi_console1;
     var out2;
+    
+    var console1 = {
+      log: function(msg){
+        bi_console1.value += msg
+      },
+      logln: function(msg){
+        bi_console1.value += msg + '\n'
+      },
+      clear: function(){
+        bi_console1.value = ''  
+      }
+    }
     
     var updateWorkspace = function (e){
       console.log("updateWorkspace");
@@ -556,12 +574,12 @@ limitations under the License.
         eval(out2.value);
       }
       catch(err){
-        console1.value += err;
+        bi_console1.value += err;
       }
     }
     
     function bi_console1_clear(){
-      console1.value = '';
+      bi_console1.value = '';
     }
 
     var bi_save_js = function (event) {
@@ -589,7 +607,7 @@ limitations under the License.
       reader.readAsText(input.files[0]);
     }
 
-    function load_(){
+    function bi_load(){
       bi_init_open();
       
       var box2 = document.querySelector("#box2");
@@ -600,7 +618,7 @@ limitations under the License.
       editor2.on('change', function() {js2blocks()});
       out2 = document.querySelector("#editor_1")
       
-      console1 = document.querySelector("#console_1")      
+      bi_console1 = document.querySelector("#console_1")      
       
       bi_xml_basic = document.getElementById('toolbox'); // 
       var blocklyArea = document.getElementById('blocklyArea');

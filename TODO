@@ -1,4 +1,14 @@
 TODO:
+http://webcomponents.org/
+https://customelements.io/x-tag/modal/
+
+https://css-tricks.com/modular-future-web-components/
+
+- About dialog.
+http://www.w3schools.com/howto/howto_css_modals.asp
+polyfill for major browsers:
+https://github.com/GoogleChrome/dialog-polyfill
+
 - Can not delete the last parameter on function call
 - Function call does not have a version with return
 
