@@ -637,9 +637,28 @@ var walk1 = function(ast, options){
   }
   funcs.NewExpression = (node, st, c) => {
     if(debug) console.log("NewExpression");
+    var block1 = newNode('block', {type:'bi_new'});
+    current_node.appendChild(block1);
+    var value1 = newNode('value',{name:'chain'});
+    block1.appendChild(value1);
+    current_call = true;
+    var call1 = newNode('block', {type:'bi_call_editable_return'});
+    value1.appendChild(call1)
+    var mutation1 = newNode('mutation', {items:node.arguments.length+1, names:''}) // TODO: Take out +1 when AddSub... is fixed on the actual length required.
+    call1.appendChild(mutation1);
+    call1.appendChild(newNode('field',{name:'NAME'},node.callee.name));
     c(node.callee, st, "Expression")
-    if (node.arguments) for (let i = 0; i < node.arguments.length; ++i)
+    //if (node.arguments) for (let i = 0; i < node.arguments.length; ++i)
+    //  c(node.arguments[i], st, "Expression")
+    var node1 = current_node;
+    if (node.arguments) for (let i = 0; i < node.arguments.length; ++i){
+      let value2 = newNode('value', {name:'items'+(i+1)});
+      call1.appendChild(value2);
+      current_node = value2;
       c(node.arguments[i], st, "Expression")
+    }
+    current_node = node1;
+    block1.appendChild(value1);
   }
   funcs.CallExpression = (node, st, c) => {
     if(debug) console.log("CallExpression");
