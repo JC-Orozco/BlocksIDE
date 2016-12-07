@@ -92,9 +92,9 @@ limitations under the License.
 -->
   <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/acorn/4.0.3/acorn.js"></script>
   <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/acorn/4.0.3/walk.js"></script>
-  
 </head>
 <body class="vbox viewport" onload="bi_load()">
+  <script src="elements/custom-tabs.js"></script>
   <input id="open-js-file" type="file" name="openjsfile" accept='.js' style="display: none;" />
 
   <!-- header -->
@@ -120,15 +120,39 @@ limitations under the License.
     </div>
     <div id="box_h2">
       <div id="box2">
-        <juicy-ace-editor id="editor_2" mode="ace/mode/javascript">var x=10</juicy-ace-editor>
+<!--        <juicy-ace-editor id="editor_2" mode="ace/mode/javascript">var x=10</juicy-ace-editor>-->
+        <custom-tabs background>
+          <button slot="title" selected>pane1:</button>
+          <button slot="title">Help</button>
+          <section>
+          </section>
+          <section>
+          </section>
+        </custom-tabs>
       </div>
       <div>
-        <button onclick="copyEd1_Ed2()">COPY ^^^^</button>
-        <button onclick="bi_run()">RUN vvvv</button>
+        <button onclick="copyEd1_Ed2()">SYNC: JS Editor &lt;- JS Generated</button>
+        <button onclick="bi_run()">RUN: JS Generated</button>
       </div>
+      <div id="editor-container">
+        <custom-tabs background>
+          <button slot="title" selected>JS Editor</button>
+          <button slot="title">JS Generated</button>
+          <section>
+<!--            <div id="box2">-->
+              <juicy-ace-editor id="editor_2" mode="ace/mode/javascript">var x=10</juicy-ace-editor>
+<!--            </div>-->
+          </section>
+          <section>
+            <textarea readonly id="editor_1"></textarea>
+          </section>
+        </custom-tabs>      
+      </div>
+<!--
       <div id="editor-container">
         <textarea readonly id="editor_1"></textarea>
       </div>
+-->
     </div>      
   </div>
   <!-- footer -->
@@ -610,11 +634,13 @@ limitations under the License.
     function bi_load(){
       bi_init_open();
       
+      if(!(window.customElements && document.body.attachShadow)){
+        // Load polyfills using this webcomponents support check
+        alert("This browser does not support webcomponents. Try using a current version of Chrome")
+        return null
+      }      
       var box2 = document.querySelector("#box2");
       editor2 = document.querySelector("#editor_2").editor;
-      if(!editor2){
-        alert("This browser does not support webcomponents. Try using a current version of Chrome")
-      }
       editor2.on('change', function() {js2blocks()});
       out2 = document.querySelector("#editor_1")
       
