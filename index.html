@@ -598,6 +598,8 @@ limitations under the License.
     
     function bi_run(){
       try{
+        bi_console1_clear();
+        bi_pane1_clear();
         eval(out2.value);
       }
       catch(err){
@@ -607,6 +609,12 @@ limitations under the License.
     
     function bi_console1_clear(){
       bi_console1.value = '';
+    }
+    
+    function bi_pane1_clear(){
+      while (pane1.firstChild) {
+        pane1.removeChild(pane1.firstChild);
+      }
     }
 
     var bi_save_js = function (event) {
