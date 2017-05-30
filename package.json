@@ -1,14 +1,26 @@
 {
-  "name": "BlocksIDE",
-  "version": "1.0.0",
-  "description": "",
-  "main": "js2blocks.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Juan Carlos Orozco",
-  "license": "Apache version 2",
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "acorn": "^4.0.3"
+    "acorn": "^4.0.13",
+    "acorn-dynamic-import": "^2.0.2",
+    "acorn-jsx-walk": "^1.0.1",
+    "blockly": "https://github.com/JC-Orozco/blockly.git",
+    "node-blockly": "https://github.com/JC-Orozco/node-blockly.git",
+    "react": "^15.5.4",
+    "react-codemirror": "^1.0.0",
+    "react-dom": "^15.5.4",
+    "react-split-pane": "^0.1.63",
+    "react-tabs": "^1.0.0"
+  },
+  "devDependencies": {
+    "react-scripts": "1.0.6"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }
