@@ -381,9 +381,9 @@ class Blockly1 extends Component {
     </category>
   </xml>
 `   
-    var blocklyContainer = document.getElementById('blocklyContainer');
-    var blocklyArea = document.getElementById('blocklyArea');
-    var blocklyDiv = document.getElementById('blocklyDiv');
+    var blocklyContainer = this.blocklyContainer; //document.getElementById('blocklyContainer');
+    var blocklyArea = this.blocklyArea; //document.getElementById('blocklyArea');
+    var blocklyDiv = this.blocklyDiv; //document.getElementById('blocklyDiv');
     var workspace = Blockly.inject(blocklyDiv,
         { toolbox: toolbox,
           zoom:
@@ -411,20 +411,21 @@ class Blockly1 extends Component {
     var onresize = function(e) {
       console.log("blocklyResize")
       // Compute the absolute coordinates and dimensions of blocklyArea.
-      var element = blocklyArea;
+      //var element = blocklyArea;
       // JCOA: Force blocklyArea to 100% height of container 
       blocklyArea.style.height = blocklyContainer.offsetHeight + 'px';
       
-      var x = 0;
-      var y = 0;
-      do {
-        x += element.offsetLeft;
-        y += element.offsetTop;
-        element = element.offsetParent;
-      } while (element);
+      // JCOA: We are not requiring this maybe react is solving this offset
+      //      var x = 0;
+      //      var y = 0;
+      //      do {
+      //        x += element.offsetLeft;
+      //        y += element.offsetTop;
+      //        element = element.offsetParent;
+      //      } while (element);
       // Position blocklyDiv over blocklyArea.
-      blocklyDiv.style.left = x + 'px';
-      blocklyDiv.style.top = y + 'px';
+      blocklyDiv.style.left = '0px' // x + 'px';
+      blocklyDiv.style.top = '0px' // y + 'px';
       blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
       blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
       Blockly.svgResize(workspace);
@@ -451,9 +452,9 @@ class Blockly1 extends Component {
       position: "absolute"
     }
     return(
-      <div id="blocklyContainer" style={styleDiv}>
-        <div id="blocklyArea" style={styleBArea}></div>
-        <div id="blocklyDiv" style={styleBDiv}></div>
+      <div id="blocklyContainer" ref={ref => this.blocklyContainer = ref} style={styleDiv}>
+        <div id="blocklyArea" ref={ref => this.blocklyArea = ref} style={styleBArea}></div>
+        <div id="blocklyDiv" ref={ref => this.blocklyDiv = ref} style={styleBDiv}></div>
       </div>
     );
   }

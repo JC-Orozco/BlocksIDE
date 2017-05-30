@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import Split1 from './Split1.jsx'
+import Header from './Header.jsx'
 
 class Layout1 extends Component {
   render() {
     return (
       <div>
+        <Header />
         <Split1 />
       </div>
     );

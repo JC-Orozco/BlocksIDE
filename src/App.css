@@ -1,15 +1,19 @@
 /* "height: 100vh" may be overspecified */ 
-/* html {
+html, body {
   height: 100vh;  
-} */
+}
 
-/* #root {
+#root {
   height: 100vh;  
-} */
+}
 
 .App {
   /* display: flex; */
-  /* height: 100vh; */
+  height: 100vh;
+}
+
+.Layout1 {
+  height: 100vh;  
 }
 
 .Resizer {

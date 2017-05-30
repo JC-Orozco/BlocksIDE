@@ -26,6 +26,9 @@ class Editor1 extends Component {
     window._BIDE.code = newCode
     parseCode(newCode)
   }
+  componentDidMount() {
+    parseCode(this.state.code)    
+  }
   render() {
     var style1 = {
       //height: "100vh;", // Full screen 

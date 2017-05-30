@@ -18,10 +18,7 @@ class Split1b extends Component {
     }
     return (
       <SplitPane style={style} onChange={this.resize} split="horizontal" minSize={150} defaultSize={'50vh'}>
-        <div>
-          <div><b>BlocksIDE</b> (Alpha) 0.3.0 by Juan Carlos Orozco. Requires Chrome</div>
-          <Tabs1 />
-        </div>
+        <Tabs1 />
         <Tabs2 />
       </SplitPane>
     );
