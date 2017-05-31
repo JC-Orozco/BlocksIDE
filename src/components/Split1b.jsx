@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SplitPane from "react-split-pane";
 import Tabs1 from "./Tabs1.jsx"
-import Tabs2 from "./Tabs2.jsx"
+import Layout1b2 from "./Layout1b2.jsx"
 
 class Split1b extends Component {
   resize() {
@@ -13,13 +13,10 @@ class Split1b extends Component {
     }
   }
   render() {
-    var style = {
-      top: "20px"
-    }
     return (
-      <SplitPane style={style} onChange={this.resize} split="horizontal" minSize={150} defaultSize={'50vh'}>
+      <SplitPane onChange={this.resize} split="horizontal" minSize={150} defaultSize={'40vh'}>
         <Tabs1 />
-        <Tabs2 />
+        <Layout1b2 />
       </SplitPane>
     );
   }

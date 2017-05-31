@@ -24,6 +24,7 @@ class App extends Component {
       })
     }
     _BIDE.blockly_code = ""
+    _BIDE.code_prev = ""
   }
   componentDidMount() {
     window.addEventListener('resize', window._BIDE.resize.resize, false)

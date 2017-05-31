@@ -27,7 +27,12 @@ class Editor1 extends Component {
     parseCode(newCode)
   }
   componentDidMount() {
-    parseCode(this.state.code)    
+    window._BIDE.editor1 = this.editor.codeMirror;
+    // Check if old code == newCOde do not execute. Save old code
+    if(window._BIDE.code_prev != this.state.code){
+      parseCode(this.state.code)
+      window._BIDE.code_prev = window._BIDE.code;
+    }
   }
   render() {
     var style1 = {
@@ -50,7 +55,7 @@ class Editor1 extends Component {
     };
     return (
       <div style={style1}>
-        <CodeMirror style={style2} value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
+        <CodeMirror style={style2} ref={ref => this.editor = ref} value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
       </div>
     );
   }
