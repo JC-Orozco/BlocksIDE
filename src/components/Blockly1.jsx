@@ -55,7 +55,7 @@ class Blockly1 extends Component {
     </category>
     <category id="catMath" name="Math" colour="230">
       <block type="math_number"></block>
-      <block type="math_arithmetic">
+      <block type="bi_math_arithmetic">
         <value name="A">
           <shadow type="math_number">
             <field name="NUM">1</field>
@@ -395,7 +395,7 @@ class Blockly1 extends Component {
               scaleSpeed: 1.2},
           trashcan: false});
     var updateWorkspace = function (e){
-      console.log("updateWorkspace");
+      //console.log("updateWorkspace");
       // Set this on a getCode function
       let blockly_code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
       window._BIDE.blockly_code = blockly_code;
@@ -409,7 +409,7 @@ class Blockly1 extends Component {
     }
     workspace.addChangeListener(updateWorkspace);
     var onresize = function(e) {
-      console.log("blocklyResize")
+      // console.log("blocklyResize")
       // Compute the absolute coordinates and dimensions of blocklyArea.
       //var element = blocklyArea;
       // JCOA: Force blocklyArea to 100% height of container 

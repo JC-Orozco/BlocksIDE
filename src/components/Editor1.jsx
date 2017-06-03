@@ -3,7 +3,8 @@ import 'codemirror/lib/codemirror.css';
 import 'codemirror/mode/javascript/javascript';
 
 import CodeMirror from 'react-codemirror';
-//import acorn from '../../node_modules/acorn/dist/acorn.js';
+//import { walk } from 'acorn/dist/walk.js';
+
 import { parseCode } from '../lib/js2blocks.js';
 
 //var CodeMirror = require('react-codemirror');
@@ -27,6 +28,8 @@ class Editor1 extends Component {
     parseCode(newCode)
   }
   componentDidMount() {
+    //console.log(walk)
+    //console.log(walk.recursive)
     window._BIDE.editor1 = this.editor.codeMirror;
     // Check if old code == newCOde do not execute. Save old code
     if(window._BIDE.code_prev !== this.state.code){

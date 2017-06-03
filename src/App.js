@@ -18,7 +18,7 @@ class App extends Component {
         _BIDE.resize.callbackList.push(callback)  
       }
     _BIDE.resize.resize = function(){
-      console.log("Resize")
+      // console.log("Resize")
       _BIDE.resize.callbackList.forEach(function(cb) {
         cb()
       })

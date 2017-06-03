@@ -908,7 +908,7 @@ export function walk1(ast, options){
   funcs.BinaryExpression = (node, st, c) => {
     if(debug) console.log("BinaryExpression");
     var op;
-    var type = 'math_arithmetic';
+    var type = 'bi_math_arithmetic';
     switch(node.operator){
       case '+': op='ADD'; break;
       case '-': op='MINUS'; break;

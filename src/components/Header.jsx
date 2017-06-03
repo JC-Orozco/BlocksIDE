@@ -1,8 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { saveAs } from 'file-saver'
-import { parseCode } from '../lib/js2blocks.js';
+import { parseCode } from '../lib/js2blocks.js'
+import { version } from '../version.json'
 
 class Header extends Component {
+  //  constructor() {
+  //    super()
+  //    console.log(version)
+  //    this.version = version
+  //  }
+  //  componentWillMount(){    
+  //  }
   save() {
   console.log("Save")
     var blob = new Blob([window._BIDE.code], {
@@ -39,7 +47,7 @@ class Header extends Component {
         <input id="open-js-file" type="file" name="openjsfile" accept='.js' style={{display: "none"}} ref={ref => this.openFileInput = ref} />
         <button onClick={this.open}>Open</button>
         <button onClick={this.save}>Save</button>
-        <span><b> BlocksIDE</b> (Alpha) 0.3.2 by Juan Carlos Orozco. Works with latest Chrome or Firefox</span>
+        <span><b> BlocksIDE</b> (Alpha) {version} by Juan Carlos Orozco. Works with latest Chrome or Firefox</span>
       </div>
     );
   }
