@@ -4,10 +4,10 @@ import { parseCode } from '../lib/js2blocks.js';
 
 class Layout1b2 extends Component {
   componentDidMount() {
-    console.log("Layout1b2")
+    //console.log("Layout1b2")
   }
   copyEd2_Ed1(){
-    console.log("copyEd2_Ed1")
+    //console.log("copyEd2_Ed1")
    
    window._BIDE.code = window._BIDE.blockly_code;
     window._BIDE.editor1.setValue(window._BIDE.code);
@@ -16,11 +16,15 @@ class Layout1b2 extends Component {
     window._BIDE.code_prev = window._BIDE.code;
   }
   bi_run(){
-    console.log("bi_run")
+    //console.log("bi_run")
     try{
       //bi_console1_clear();
+      window.console1.clear()
       //bi_pane1_clear();
-      eval(window._BIDE.blockly_code);
+      
+      // JCOA: Is there a safe eval with debug options?
+      // eslint-disable-next-line
+      eval(window._BIDE.blockly_code)      
     }
     catch(err){
       //bi_console1.value += err;

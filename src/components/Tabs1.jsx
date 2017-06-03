@@ -13,6 +13,9 @@ class Tabs1 extends Component {
     //tabs1_this.setState({ tabIndex: index });
     this.setState({ tabIndex: index });
   }
+  componentDidMount() {
+    window._BIDE.pane1 = this.pane1
+  }
   render() {
     return (
       <Tabs onSelect={this.handleSelect.bind(this)}
@@ -54,7 +57,7 @@ class Tabs1 extends Component {
         */}
 
         <TabPanel>
-          <div id='pane1'></div>
+          <div id='pane1' ref={ref => this.pane1 = ref}></div>
         </TabPanel>
         <TabPanel>
           <h2>Help place holder.</h2>

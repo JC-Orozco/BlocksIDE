@@ -11,12 +11,20 @@ class Split1a extends Component {
       console.log(err)
     }
   }
+  componentDidMount() {
+    window._BIDE.console1 = this.console1
+  }
   render() {
     return (
       <SplitPane onChange={this.resize} split="horizontal" minSize={300} defaultSize={'75vh'}>
         <Blockly1 />
-        <div>console1:</div>        
-        <div id='console1'>console1:</div>
+        <div>
+          <div>
+            <span>console1:</span>
+            <button onClick={window.console1.clear}>Clear</button>
+          </div>
+          <div id='console1' ref={ref => this.console1 = ref} />
+        </div>
       </SplitPane>
     );
   }

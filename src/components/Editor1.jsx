@@ -29,7 +29,7 @@ class Editor1 extends Component {
   componentDidMount() {
     window._BIDE.editor1 = this.editor.codeMirror;
     // Check if old code == newCOde do not execute. Save old code
-    if(window._BIDE.code_prev != this.state.code){
+    if(window._BIDE.code_prev !== this.state.code){
       parseCode(this.state.code)
       window._BIDE.code_prev = window._BIDE.code;
     }

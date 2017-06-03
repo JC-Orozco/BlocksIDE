@@ -21,7 +21,7 @@ class Editor2 extends Component {
       });
   }
   componentDidMount() {
-    console.log("Editor2");
+    //console.log("Editor2");
     window._BIDE.editor2 = this.editor.codeMirror;
   }
   render() {

@@ -1,24 +1,14 @@
-TODO:
-http://webcomponents.org/
-https://customelements.io/x-tag/modal/
+Juan Carlos Orozco TODO list:
 
-https://css-tricks.com/modular-future-web-components/
+Layout:
+Fix layout to avoid overflowing the full page.
+Add scrollbar to console1 pane
 
-- About dialog.
-http://www.w3schools.com/howto/howto_css_modals.asp
-polyfill for major browsers:
-https://github.com/GoogleChrome/dialog-polyfill
-
-- Can not delete the last parameter on function call
-- Function call does not have a version with return
+- Support comments.
 
 - Add Load and Save
 
-- ES6 syntax on ace editor.
-
 - Save last valid code before generating new blocks (maybe even several copies using diff)
-
-- add run button (maybe undo button to go to the latest compiled OK version)
 
 Fix: Use blocks with AddSub for function calls and function definition. The same for methods.
 Fix: AddSub show block name in the 0 field.

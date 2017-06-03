@@ -25,6 +25,19 @@ class App extends Component {
     }
     _BIDE.blockly_code = ""
     _BIDE.code_prev = ""
+    
+    window.console1 = {
+      log: function(msg){
+        if(_BIDE.console1){
+          _BIDE.console1.innerHTML += msg + '<br>' // value += msg + '\n'
+        }
+      },
+      clear: function(){
+        if(_BIDE.console1){
+          _BIDE.console1.innerHTML = '' // value = ''
+        }
+      }
+    }
   }
   componentDidMount() {
     window.addEventListener('resize', window._BIDE.resize.resize, false)
