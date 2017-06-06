@@ -1321,7 +1321,14 @@ export function walk1(ast, options){
     } else {
       let block2 = newNode('block', {type:'text'})
       key1.appendChild(block2);
-      let field2 = newNode('field', {name:'TEXT'}, node.key.name);
+      let field2;
+      if(node.key.name){
+        // This applies to: myKey: 'value'
+        field2 = newNode('field', {name:'TEXT'}, node.key.name);
+      } else {
+        // This applies to: 'myKey: 'value'
+        field2 = newNode('field', {name:'TEXT'}, node.key.value);
+      }
       block2.appendChild(field2);
     }
     var value1 = newNode('value', {name:'VAL'});
