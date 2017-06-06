@@ -4,6 +4,22 @@ import React, { Component } from 'react';
 
 //var blockly1_this
 class Blockly1 extends Component {
+  //  updateWorkspace(e){
+  //    let Blockly = window.Blockly
+  //    console.log("updateWorkspace");
+  //    // Set this on a getCode function
+  //    if(!window._BIDE.b2c_error){
+  //      let blockly_code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
+  //      window._BIDE.blockly_code = blockly_code;
+  //      try{
+  //        window._BIDE.editor2.setValue(blockly_code)
+  //      }
+  //      catch(e){
+  //        // editor2 not opened yet.
+  //      }
+  //    }
+  //  }
+   
   componentDidMount() {
     let Blockly = window.Blockly
     //    var toolbox = `
@@ -394,20 +410,7 @@ class Blockly1 extends Component {
               minScale: 0.2,
               scaleSpeed: 1.2},
           trashcan: false});
-    var updateWorkspace = function (e){
-      //console.log("updateWorkspace");
-      // Set this on a getCode function
-      let blockly_code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
-      window._BIDE.blockly_code = blockly_code;
-      try{
-        window._BIDE.editor2.setValue(blockly_code)
-      }
-      catch(e){
-        // editor2 not opened yet.
-      }
-      //myUpdate();
-    }
-    workspace.addChangeListener(updateWorkspace);
+    workspace.addChangeListener(window._BIDE.updateWorkspace);
     var onresize = function(e) {
       // console.log("blocklyResize")
       // Compute the absolute coordinates and dimensions of blocklyArea.

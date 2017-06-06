@@ -47,7 +47,7 @@ class Header extends Component {
         <input id="open-js-file" type="file" name="openjsfile" accept='.js' style={{display: "none"}} ref={ref => this.openFileInput = ref} />
         <button onClick={this.open}>Open</button>
         <button onClick={this.save}>Save</button>
-        <span><b> BlocksIDE</b> (Alpha) {version} by Juan Carlos Orozco. Works with latest Chrome or Firefox</span>
+        <span><b> BlocksIDE</b> (Alpha) {version} by Juan Carlos Orozco. Works with latest Firefox</span>
       </div>
     );
   }

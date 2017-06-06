@@ -168,6 +168,7 @@ Blockly.JavaScript['bi_set_to'] = function(block) {
   return code;
 };
 
+// Fix, init statements must be separated by a comma
 Blockly.JavaScript['bi_for'] = function(block) {
   var statement_init = Blockly.JavaScript.statementToCode(block, 'init');
   var value_test = Blockly.JavaScript.valueToCode(block, 'test', Blockly.JavaScript.ORDER_ATOMIC);

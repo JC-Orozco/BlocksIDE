@@ -3,13 +3,18 @@ import './App.css';
 import 'react-tabs/style/react-tabs.css';
 import Layout1 from './components/Layout1.jsx';
 import Blockly from './blockly';
+//import Snap from 'snapsvg';
+const Snap = require(`imports-loader?this=>window,fix=>module.exports=0!snapsvg/dist/snap.svg.js`);
 
 class App extends Component {
   componentWillMount(){
     // Global scope
     window.Blockly = Blockly
+    window.Snap = Snap
+
     window._BIDE = {}
     let _BIDE = window._BIDE
+    _BIDE.b2c_error = false
     _BIDE.code = 'var i=10'
     
     _BIDE.resize = {}
@@ -38,6 +43,22 @@ class App extends Component {
         }
       }
     }
+    window._BIDE.updateWorkspace = function(e){
+      let Blockly = window.Blockly
+      console.log("updateWorkspace");
+      // Set this on a getCode function
+      //if(!window._BIDE.b2c_error){
+        let blockly_code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
+        window._BIDE.blockly_code = blockly_code;
+        try{
+          window._BIDE.editor2.setValue(blockly_code)
+        }
+        catch(e){
+          // editor2 not opened yet.
+        }
+      //}
+    }
+
   }
   componentDidMount() {
     window.addEventListener('resize', window._BIDE.resize.resize, false)

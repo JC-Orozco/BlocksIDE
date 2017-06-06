@@ -683,8 +683,14 @@ export function walk1(ast, options){
   }
   funcs.ForInit = (node, st, c) => {
     if(debug) console.log("ForInit");
-    if (node.type === "VariableDeclaration") c(node, st)
-    else c(node, st, "Expression")
+    if (node.type === "VariableDeclaration"){
+      c(node, st)
+    }
+    // else { c(node, st, "Statement") }
+    else {
+      expression_statement = true;
+      c(node, st, "Expression") 
+    }
   }
   funcs.DebuggerStatement = ignore
 
@@ -1328,19 +1334,27 @@ export function walk1(ast, options){
 
 export function parseCode(code){
   let Blockly = window.Blockly;
+  var workspace = Blockly.mainWorkspace;
   try{
     //console1.value = '';
+    window._BIDE.b2c_error = false
     var ast1 = acorn.parse(code, {sourceType: 'module'});
     var xml1 = walk1(ast1);
-    var workspace = Blockly.mainWorkspace;
     //console.log(xml1);
-    Blockly.mainWorkspace.clear();
+    workspace.clear();
     Blockly.Xml.domToWorkspace(workspace, xml1);
     workspace.cleanUp_();
+    window._BIDE.updateWorkspace()
+ //workspace.addChangeListener(window._BIDE.updateWorkspace);
     //var blockly_code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
     //console.log(blockly_code);  
   } catch(err){
     console.log(err)
+    window._BIDE.b2c_error = true
+    //workspace.clear();
+    //Blockly.Xml.domToWorkspace(workspace, xml1);
+    //workspace.cleanUp_();    //workspace.addChangeListener(window._BIDE.updateWorkspace);
+
     //console1.value += err+'\n';
   }
 }

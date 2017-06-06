@@ -14,9 +14,14 @@ class Tabs1 extends Component {
     this.setState({ tabIndex: index });
   }
   componentDidMount() {
-    window._BIDE.pane1 = this.pane1
+    //window._BIDE.pane1 = this.pane1
+    window.pane1 = this.pane1
+    window.svg1 = this.svg1
   }
   render() {
+    var pane1Style = {
+      height: '300px' // '100%'
+    }
     return (
       <Tabs onSelect={this.handleSelect.bind(this)}
         //selectedIndex={2}
@@ -57,7 +62,14 @@ class Tabs1 extends Component {
         */}
 
         <TabPanel>
-          <div id='pane1' ref={ref => this.pane1 = ref}></div>
+          <div id='pane1' style={pane1Style} ref={ref => this.pane1 = ref}>
+
+            {/*
+            <svg id='svg' style={pane1Style} ref={ref => this.svg1 = ref}>
+            </svg>
+            */}
+
+          </div>
         </TabPanel>
         <TabPanel>
           <h2>Help place holder.</h2>
