@@ -1200,23 +1200,29 @@ export function walk1(ast, options){
     //    block1.appendChild(field1);
     var block1;
     var field1;
-    switch(typeof node.value){ 
-      case 'number':
-        block1 = newNode('block', {type:'math_number'});
-        block1.appendChild(newNode('field', {name:'NUM'}, node.value.toString()));
-        break;
-      case 'boolean':
-        block1 = newNode('block', {type:'logic_boolean'})
-        if(node.value){
-          field1 = newNode('field', {name:'BOOL'}, 'TRUE')
-        } else {
-          field1 = newNode('field', {name:'BOOL'}, 'FALSE')          
-        }
-        block1.appendChild(field1)
-        break
-      default:
-        block1 = newNode('block', {type:'text'});
-        block1.appendChild(newNode('field', {name:'TEXT'}, node.value));
+    if(node.value instanceof RegExp){
+      // TODO JCOA: Add a specific block for RegExp
+      block1 = newNode('block', {type:'bi_var_name'});
+      block1.appendChild(newNode('field', {name:"NAME"}, node.value));
+    } else {
+      switch(typeof node.value){ 
+        case 'number':
+          block1 = newNode('block', {type:'math_number'});
+          block1.appendChild(newNode('field', {name:'NUM'}, node.value.toString()));
+          break;
+        case 'boolean':
+          block1 = newNode('block', {type:'logic_boolean'})
+          if(node.value){
+            field1 = newNode('field', {name:'BOOL'}, 'TRUE')
+          } else {
+            field1 = newNode('field', {name:'BOOL'}, 'FALSE')          
+          }
+          block1.appendChild(field1)
+          break
+        default:
+          block1 = newNode('block', {type:'text'});
+          block1.appendChild(newNode('field', {name:'TEXT'}, node.value));
+      }
     }
     current_node.appendChild(block1);    
   } // ignore()
