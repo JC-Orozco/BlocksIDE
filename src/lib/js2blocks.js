@@ -936,10 +936,12 @@ export function walk1(ast, options){
     current_node.appendChild(block1);
     var node1 = current_node;
     current_node = value1;
+    expression_statement = false; // JCOA: Avoid incompatible type link on the blocks
     c(node.left, st, "Expression")
     var value2 = newNode('value',{name:'B'});
     block1.appendChild(value2);
-    current_node = value2;    
+    current_node = value2;
+    expression_statement = false; // JCOA: Avoid incompatible type link on the blocks
     c(node.right, st, "Expression")
     current_node = node1;
   }
