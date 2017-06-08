@@ -1222,8 +1222,11 @@ export function walk1(ast, options){
           block1.appendChild(field1)
           break
         default:
-          block1 = newNode('block', {type:'text'});
-          block1.appendChild(newNode('field', {name:'TEXT'}, node.value));
+          block1 = newNode('block', {type:'bi_string_return'});
+          block1.appendChild(newNode('field', {name:'NAME'}, node.value));
+          let value1 = newNode('value',{name:'chain'});
+          block1.appendChild(value1);
+          current_path_chain.push(value1);
       }
     }
     current_node.appendChild(block1);    

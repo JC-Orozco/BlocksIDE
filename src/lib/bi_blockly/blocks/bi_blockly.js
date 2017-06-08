@@ -689,6 +689,21 @@ Blockly.Blocks['bi_field_return'] = {
   }
 };
 
+Blockly.Blocks['bi_string_return'] = {
+  init: function() {
+    this.appendValueInput('chain')
+        .appendField('"')
+        .appendField(new Blockly.FieldTextInput(''), 'NAME')
+        .appendField('"')
+        .setCheck(null); // (['Field','Method']);
+    this.setOutput(true, null); // 'Field');
+    //this.setPreviousStatement(true, 'Field');
+    this.setColour(120);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+  
 Blockly.Blocks['bi_index'] = {
   init: function() {
     this.appendValueInput('index')

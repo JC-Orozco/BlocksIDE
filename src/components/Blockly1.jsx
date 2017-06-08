@@ -164,7 +164,7 @@ class Blockly1 extends Component {
       <block type="math_random_float"></block>
     </category>
     <category id="catText" name="Text" colour="160">
-      <block type="text"></block>
+      <block type="bi_string_return"></block>
       <block type="text_join"></block>
       <block type="text_append">
         <value name="TEXT">
