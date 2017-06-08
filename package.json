@@ -1,6 +1,6 @@
 {
   "name": "BlocksIDE",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "homepage": "https://jc-orozco.github.io/BlocksIDE/build",
   "private": true,
   "dependencies": {
