@@ -468,9 +468,65 @@ Blockly.Blocks['bi_call_return'] = {
   }
 };
 
+Blockly.Blocks['bi_anon_call_editable'] = {
+  /**
+   * Block for building anonymous call
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.appendValueInput('function')
+        .appendField('(');
+    this.appendDummyInput()
+        .appendField(')(');
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(330);
+    this.appendAddSubGroup('', 'items',
+                             null,
+                             '');
+    this.appendValueInput('chain')
+        .appendField(')')
+        .setCheck(null); // (['Method', 'Field']);
+    this.itemCount_ = 1;
+    this.updateShape_();
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null); // 'Method');
+    this.setNextStatement(true, null); // 'Method');
+    //this.setOutput(true, 'Array');
+    this.setTooltip('');
+  }
+};
+
+Blockly.Blocks['bi_anon_call_editable_return'] = {
+  /**
+   * Block for building anonymous call with return
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.appendValueInput('function')
+        .appendField('(');
+    this.appendDummyInput()
+        .appendField(')(');
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(330);
+    this.appendAddSubGroup('', 'items',
+                             null,
+                             '');
+    this.appendValueInput('chain')
+        .appendField(')')
+        .setCheck(null); // (['Method', 'Field']);
+    this.itemCount_ = 1;
+    this.updateShape_();
+    this.setInputsInline(true);
+    //this.setPreviousStatement(true, null); // 'Method');
+    //this.setNextStatement(true, null); // 'Method');
+    this.setOutput(true, 'Array');
+    this.setTooltip('');
+  }
+};
+  
 Blockly.Blocks['bi_call_editable'] = {
   /**
-   * Block for creating a list with any number of elements of any type.
+   * Block for ...
    * @this Blockly.Block
    */
   init: function() {

@@ -1049,6 +1049,8 @@ export function walk1(ast, options){
     if(debug) console.log("CallExpression");
     current_call = true;
     var block1;
+    var node3;
+    var value1;
     var name;
     if(node.callee.type === "MemberExpression"){
       block1 = newNode('block', {type:'bi_call_editable_return'});
@@ -1062,13 +1064,30 @@ export function walk1(ast, options){
       }
       current_node.appendChild(block1);
       name = node.callee.name;
+    } else if(node.callee.type === "FunctionExpression"){
+      if(expression_statement){
+        expression_statement = false;
+        block1 = newNode('block', {type:'bi_anon_call_editable'});
+      } else {
+        block1 = newNode('block', {type:'bi_anon_call_editable_return'});
+      }
+      current_node.appendChild(block1);
     }
     var mutation1 = newNode('mutation', {items:node.arguments.length+1, names:''}) // TODO: Take out +1 when AddSub... is fixed on the actual length required.
     block1.appendChild(mutation1);
-    block1.appendChild(newNode('field',{name:'NAME'},name));
-    let value1 = newNode('value',{name:'chain'});
+    node3 = current_node
+    if(node.callee.type === "FunctionExpression"){
+      let func1 = newNode('value',{name:'function'},'')
+      block1.appendChild(func1);
+      current_node = func1
+      current_call = false
+    } else {
+      block1.appendChild(newNode('field',{name:'NAME'},name));
+    }
+    value1 = newNode('value',{name:'chain'});
     current_path_chain.push(value1);
     c(node.callee, st, "Expression")
+    current_node = node3;
     var path_chain1 = current_path_chain; // Save path chain
     current_path_chain = [];
     var node1 = current_node;

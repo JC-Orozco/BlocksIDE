@@ -286,8 +286,49 @@ Blockly.JavaScript['bi_call'] = function(block) {
   //return code;
 };
 
+Blockly.JavaScript['bi_anon_call_editable'] = function(block) {
+  var value_function = Blockly.JavaScript.valueToCode(block, 'function', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_chain = Blockly.JavaScript.valueToCode(block, 'chain', Blockly.JavaScript.ORDER_ATOMIC);
+  var codeArr = new Array(block.itemCount_-1); // block.itemCount_);
+  for (var n = 1; n < block.itemCount_; n++) {
+    // code[n] = Blockly.JavaScript.valueToCode(block, 'ADD' + n,
+    //     Blockly.JavaScript.ORDER_COMMA) || 'null';
+    // TODO: Fix the naming on the AddSubGroup block and use code above
+    codeArr[n-1] = Blockly.JavaScript.valueToCode(block, 'items' + n,
+        Blockly.JavaScript.ORDER_COMMA) || 'null';
+  }
+  var chain = "";
+  if(value_chain !== ""){
+    chain = "\n  ."+value_chain.trim();
+  }
+  //var code = text_name.substr(1, text_name.length-2) + '(' + codeArr.join(', ') + ')' + chain;
+  var code = '(' + value_function + ')(' + codeArr.join(', ') + ')' + chain+'\n';
+  //return [code, Blockly.JavaScript.ORDER_ATOMIC];
+  return code;
+};
+
+Blockly.JavaScript['bi_anon_call_editable_return'] = function(block) {
+  var value_function = Blockly.JavaScript.valueToCode(block, 'function', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_chain = Blockly.JavaScript.valueToCode(block, 'chain', Blockly.JavaScript.ORDER_ATOMIC);
+  var codeArr = new Array(block.itemCount_-1); // block.itemCount_);
+  for (var n = 1; n < block.itemCount_; n++) {
+    // code[n] = Blockly.JavaScript.valueToCode(block, 'ADD' + n,
+    //     Blockly.JavaScript.ORDER_COMMA) || 'null';
+    // TODO: Fix the naming on the AddSubGroup block and use code above
+    codeArr[n-1] = Blockly.JavaScript.valueToCode(block, 'items' + n,
+        Blockly.JavaScript.ORDER_COMMA) || 'null';
+  }
+  var chain = "";
+  if(value_chain !== ""){
+    chain = "\n  ."+value_chain.trim();
+  }
+  //var code = text_name.substr(1, text_name.length-2) + '(' + codeArr.join(', ') + ')' + chain;
+  var code = '(' + value_function + ')(' + codeArr.join(', ') + ')' + chain;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+  //return code;
+};
+  
 Blockly.JavaScript['bi_call_editable'] = function(block) {
-  // Create a list with any number of elements of any type.
   var text_name = block.getFieldValue('NAME');
   var value_chain = Blockly.JavaScript.valueToCode(block, 'chain', Blockly.JavaScript.ORDER_ATOMIC);
   var codeArr = new Array(block.itemCount_-1); // block.itemCount_);
@@ -309,7 +350,6 @@ Blockly.JavaScript['bi_call_editable'] = function(block) {
 };
 
 Blockly.JavaScript['bi_call_editable_return'] = function(block) {
-  // Create a list with any number of elements of any type.
   var text_name = block.getFieldValue('NAME');
   var value_chain = Blockly.JavaScript.valueToCode(block, 'chain', Blockly.JavaScript.ORDER_ATOMIC);
   var codeArr = new Array(block.itemCount_-1); // block.itemCount_);
