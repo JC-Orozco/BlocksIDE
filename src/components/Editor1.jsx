@@ -1,3 +1,7 @@
+// Copyright 2016 Juan Carlos Orozco
+// Licensed under the Apache License, Version 2.0 (the "License");
+// https://github.com/JC-Orozco/BlocksIDE
+
 import React, { Component } from 'react';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/mode/javascript/javascript';
@@ -26,6 +30,7 @@ class Editor1 extends Component {
     });
     window._BIDE.code = newCode
     parseCode(newCode)
+    window._BIDE.code_prev = window._BIDE.code;
   }
   componentDidMount() {
     //console.log(walk)

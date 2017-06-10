@@ -181,7 +181,7 @@ Blockly.JavaScript['bi_for'] = function(block) {
   // g on this REGEX means match all ocurences 
   statement_init = statement_init.replace(', ', '').replace(/\n {2}/g, '').trim();
   statement_update = statement_update.replace(', ', '').replace(/\n {2}/g, '').trim();
-  var code = 'for( '+statement_init+'; '+value_test+'; '+statement_update+'){\n'+statement_chain+'}\n';
+  var code = 'for( '+statement_init+'; '+value_test+'; '+statement_update+' ){\n'+statement_chain+'}\n';
   return code;
 };
 

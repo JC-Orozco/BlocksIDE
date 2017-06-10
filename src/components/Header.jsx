@@ -1,3 +1,7 @@
+// Copyright 2016 Juan Carlos Orozco
+// Licensed under the Apache License, Version 2.0 (the "License");
+// https://github.com/JC-Orozco/BlocksIDE
+
 import React, { Component } from 'react'
 import { saveAs } from 'file-saver'
 import { parseCode } from '../lib/js2blocks.js'
@@ -41,6 +45,7 @@ class Header extends Component {
       window._BIDE.editor1.setValue(reader.result);
       
       parseCode(reader.result)
+      window._BIDE.code_prev = window._BIDE.code
     }
     reader.readAsText(input.files[0]);
   }
