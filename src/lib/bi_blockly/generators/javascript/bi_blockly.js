@@ -178,8 +178,8 @@ Blockly.JavaScript['bi_for'] = function(block) {
   var statement_update = Blockly.JavaScript.statementToCode(block, 'update');
   Blockly.Generator.prototype.STATEMENT_PREFIX = null;
   var statement_chain = Blockly.JavaScript.statementToCode(block, 'chain');
-  statement_init = statement_init.replace(', ', '').trim();
-  statement_update = statement_update.replace(', ', '').trim();
+  statement_init = statement_init.replace(', ', '').replace('\n', '').trim();
+  statement_update = statement_update.replace(', ', '').replace('\n', '').trim();
   var code = 'for( '+statement_init+'; '+value_test+'; '+statement_update+'){\n'+statement_chain+'}\n';
   return code;
 };
