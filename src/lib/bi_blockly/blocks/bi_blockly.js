@@ -391,6 +391,30 @@ Blockly.Blocks['bi_break'] = {
   }
 };
 
+Blockly.Blocks['bi_s1'] = {
+  /**
+   * Block for creating a list with any number of elements of any type.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendAddSubStatement('for init', 'items',
+                             null,
+                             '');
+    this.appendValueInput('test')
+        .appendField('test')
+        .setCheck(null);
+    this.itemCount_ = 1;
+    this.updateShape_();
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null); // 'Method');
+    this.setNextStatement(true, null); // 'Method');
+    //this.setOutput(true, 'Array');
+    this.setTooltip('');
+  }
+};
+
 Blockly.Blocks['bi_call'] = {
   /**
    * Block for creating a list with any number of elements of any type.

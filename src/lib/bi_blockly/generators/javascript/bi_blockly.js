@@ -170,11 +170,17 @@ Blockly.JavaScript['bi_set_to'] = function(block) {
 
 // Fix, init statements must be separated by a comma
 Blockly.JavaScript['bi_for'] = function(block) {
+  Blockly.Generator.prototype.STATEMENT_PREFIX = ', '
   var statement_init = Blockly.JavaScript.statementToCode(block, 'init');
+  Blockly.Generator.prototype.STATEMENT_PREFIX = null;
   var value_test = Blockly.JavaScript.valueToCode(block, 'test', Blockly.JavaScript.ORDER_ATOMIC);
+  Blockly.Generator.prototype.STATEMENT_PREFIX = ', '
   var statement_update = Blockly.JavaScript.statementToCode(block, 'update');
+  Blockly.Generator.prototype.STATEMENT_PREFIX = null;
   var statement_chain = Blockly.JavaScript.statementToCode(block, 'chain');
-  var code = 'for('+statement_init+'; '+value_test+'; '+statement_update+'){\n'+statement_chain+'}\n';
+  statement_init = statement_init.replace(', ', '').trim();
+  statement_update = statement_update.replace(', ', '').trim();
+  var code = 'for( '+statement_init+'; '+value_test+'; '+statement_update+'){\n'+statement_chain+'}\n';
   return code;
 };
 
@@ -212,6 +218,28 @@ Blockly.JavaScript['bi_continue'] = function(block) {
 Blockly.JavaScript['bi_break'] = function(block) {
   return '\nbreak\n'  
 }
+
+Blockly.JavaScript['bi_s1'] = function(block) {
+  // Create a list with any number of elements of any type.
+  var value_chain = Blockly.JavaScript.valueToCode(block, 'chain', Blockly.JavaScript.ORDER_ATOMIC);
+  var codeArr = new Array(block.itemCount_); // block.itemCount_);
+  for (var n = 0; n < block.itemCount_; n++) {
+    // code[n] = Blockly.JavaScript.valueToCode(block, 'ADD' + n,
+    //     Blockly.JavaScript.ORDER_COMMA) || 'null';
+    // TODO: Fix the naming on the AddSubGroup block and use code above
+    codeArr[n] = //Blockly.JavaScript.valueToCode(block, 'items' + n,
+    //    Blockly.JavaScript.ORDER_COMMA) || 'null';
+    Blockly.JavaScript.statementToCode(block, 'items' + n) || '';
+  }
+  var chain = "";
+  if(value_chain !== ""){
+    chain = "\n  ."+value_chain.trim();
+  }
+  //var code = text_name.substr(1, text_name.length-2) + '(' + codeArr.join(', ') + ')' + chain;
+  var code = 'for(' + codeArr.join(', ') + '){' + chain+'}\n';
+  //return [code, Blockly.JavaScript.ORDER_ATOMIC];
+  return code;
+};
 
 Blockly.JavaScript['bi_call_statement'] = function(block) {
   // Create a list with any number of elements of any type.

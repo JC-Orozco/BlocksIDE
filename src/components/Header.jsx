@@ -12,8 +12,16 @@ class Header extends Component {
   //  componentWillMount(){    
   //  }
   save() {
-  console.log("Save")
+    console.log("Save JS Editor")
     var blob = new Blob([window._BIDE.code], {
+        type : 'text/plain'
+      });
+    console.log(saveAs)
+    saveAs(blob, 'script1.js');
+  }
+  saveGen() {
+    console.log("Save Generated JS")
+    var blob = new Blob([window._BIDE.blockly_code], {
         type : 'text/plain'
       });
     console.log(saveAs)
@@ -46,7 +54,8 @@ class Header extends Component {
       <div>
         <input id="open-js-file" type="file" name="openjsfile" accept='.js' style={{display: "none"}} ref={ref => this.openFileInput = ref} />
         <button onClick={this.open}>Open</button>
-        <button onClick={this.save}>Save</button>
+        <button onClick={this.saveGen}>Save JS Generated</button>
+        <button onClick={this.save}>Save JS Editor</button>
         <span><b> BlocksIDE</b> (Alpha) {version} by Juan Carlos Orozco. Works with latest Firefox</span>
       </div>
     );
