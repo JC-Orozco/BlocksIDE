@@ -761,19 +761,25 @@ export function walk1(ast, options){
     } else{
       generator1 = newNode('field', {name:'function_type'}, 'function ')      
     }
+    //console.log(expression_statement)
     if(node.id){
       //c(node.id, st, "Pattern") // JCOA: We are already using this name below (Function name)
       //console.log(node.id.name);
-      block1 = newNode('block', {type:'bi_named_function'});
+      if(expression_statement){
+        block1 = newNode('block', {type:'bi_function_return'});
+      } else {
+        block1 = newNode('block', {type:'bi_function'});
+      }
       block1.appendChild(generator1)
       block1.appendChild(newNode('field', {name:'name'}, node.id.name));
     } else if(node.method){
-      block1 = newNode('block', {type:'bi_named_function'});
+      block1 = newNode('block', {type:'bi_function'});
       block1.appendChild(newNode('field', {name:'function_type'}, ''));
       block1.appendChild(newNode('field', {name:'name'}, node.method));      
     } else{
-      block1 = newNode('block', {type:'bi_function'});      
+      block1 = newNode('block', {type:'bi_function_return'});      
       block1.appendChild(generator1)
+      block1.appendChild(newNode('field', {name:'name'}, ''));
     }
     var args = [];
     for (var i = 0; i < node.params.length; i++){
@@ -1067,9 +1073,9 @@ export function walk1(ast, options){
     } else if(node.callee.type === "FunctionExpression"){
       if(expression_statement){
         expression_statement = false;
-        block1 = newNode('block', {type:'bi_anon_call_editable'});
+        block1 = newNode('block', {type:'bi_direct_call_editable'});
       } else {
-        block1 = newNode('block', {type:'bi_anon_call_editable_return'});
+        block1 = newNode('block', {type:'bi_direct_call_editable_return'});
       }
       current_node.appendChild(block1);
     }
@@ -1081,6 +1087,7 @@ export function walk1(ast, options){
       block1.appendChild(func1);
       current_node = func1
       current_call = false
+      expression_statement = true;      
     } else {
       block1.appendChild(newNode('field',{name:'NAME'},name));
     }

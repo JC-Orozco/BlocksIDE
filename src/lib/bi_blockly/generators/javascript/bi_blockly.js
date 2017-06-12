@@ -286,7 +286,7 @@ Blockly.JavaScript['bi_call'] = function(block) {
   //return code;
 };
 
-Blockly.JavaScript['bi_anon_call_editable'] = function(block) {
+Blockly.JavaScript['bi_direct_call_editable'] = function(block) {
   var value_function = Blockly.JavaScript.valueToCode(block, 'function', Blockly.JavaScript.ORDER_ATOMIC);
   var value_chain = Blockly.JavaScript.valueToCode(block, 'chain', Blockly.JavaScript.ORDER_ATOMIC);
   var codeArr = new Array(block.itemCount_-1); // block.itemCount_);
@@ -307,7 +307,7 @@ Blockly.JavaScript['bi_anon_call_editable'] = function(block) {
   return code;
 };
 
-Blockly.JavaScript['bi_anon_call_editable_return'] = function(block) {
+Blockly.JavaScript['bi_direct_call_editable_return'] = function(block) {
   var value_function = Blockly.JavaScript.valueToCode(block, 'function', Blockly.JavaScript.ORDER_ATOMIC);
   var value_chain = Blockly.JavaScript.valueToCode(block, 'chain', Blockly.JavaScript.ORDER_ATOMIC);
   var codeArr = new Array(block.itemCount_-1); // block.itemCount_);
@@ -370,13 +370,14 @@ Blockly.JavaScript['bi_call_editable_return'] = function(block) {
   //return code;
 };
 
-Blockly.JavaScript['bi_function'] = function(block) {
+Blockly.JavaScript['bi_function_return'] = function(block) {
   //var text_name = block.getFieldValue('name');
   var function_type = block.getFieldValue('function_type');
+  var text_name = block.getFieldValue('name');
   var text_args = block.getFieldValue('args');
   var statements_chain = Blockly.JavaScript.statementToCode(block, 'chain');
   var chain = statements_chain;
-  var code = function_type+'(';
+  var code = function_type+text_name+'(';
   code += text_args + '){\n' + chain +'}\n';
 
   //return [code, Blockly.JavaScript.ORDER_NONE];
@@ -384,7 +385,7 @@ Blockly.JavaScript['bi_function'] = function(block) {
   //return code;
 };
 
-Blockly.JavaScript['bi_named_function'] = function(block) {
+Blockly.JavaScript['bi_function'] = function(block) {
   var text_name = block.getFieldValue('name');
   var function_type = block.getFieldValue('function_type');
   var text_args = block.getFieldValue('args');

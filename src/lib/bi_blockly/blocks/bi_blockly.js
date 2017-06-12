@@ -468,7 +468,7 @@ Blockly.Blocks['bi_call_return'] = {
   }
 };
 
-Blockly.Blocks['bi_anon_call_editable'] = {
+Blockly.Blocks['bi_direct_call_editable'] = {
   /**
    * Block for building anonymous call
    * @this Blockly.Block
@@ -496,7 +496,7 @@ Blockly.Blocks['bi_anon_call_editable'] = {
   }
 };
 
-Blockly.Blocks['bi_anon_call_editable_return'] = {
+Blockly.Blocks['bi_direct_call_editable_return'] = {
   /**
    * Block for building anonymous call with return
    * @this Blockly.Block
@@ -578,10 +578,11 @@ Blockly.Blocks['bi_call_editable_return'] = {
   }
 };
 
-Blockly.Blocks['bi_function'] = {
+Blockly.Blocks['bi_function_return'] = {
   init: function() {
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown([['function', 'function'], ['generator', 'function*']]), 'function_type')
+        .appendField(new Blockly.FieldTextInput(''), 'name')
         .appendField('(')
         .appendField(new Blockly.FieldTextInput('arg1, arg2, etc'), 'args')
         .appendField(')');
@@ -594,7 +595,7 @@ Blockly.Blocks['bi_function'] = {
   }
 };
 
-Blockly.Blocks['bi_named_function'] = {
+Blockly.Blocks['bi_function'] = {
   init: function() {
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown([['function', 'function '], ['generator', 'function* '], ['method', '']]), 'function_type')

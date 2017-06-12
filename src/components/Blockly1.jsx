@@ -358,8 +358,8 @@ class Blockly1 extends Component {
       <block type="bi_named_function"></block>
 <!--      <block type="bi_call"></block>      -->
       <block type="bi_call_editable"></block>      
-      <block type="bi_call_editable_return"></block>     <block type="bi_anon_call_editable"></block>      
-      <block type="bi_anon_call_editable_return"></block>      
+      <block type="bi_call_editable_return"></block>     <block type="bi_direct_call_editable"></block>      
+      <block type="bi_direct_call_editable_return"></block>      
       <block type="bi_field"></block>
       <block type="bi_field_return"></block>
       <block type="bi_adaptor"></block>
