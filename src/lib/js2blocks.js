@@ -396,6 +396,7 @@ export function walk1(ast, options){
   var xml1 = goog.dom.createDom('xml');
   var root_node = xml1;
   var current_node = root_node;
+  //var variable_next = null;
   var current_call = false;
   var current_path_chain = [];
   var expression_statement = false;
@@ -706,6 +707,7 @@ export function walk1(ast, options){
   }
   funcs.VariableDeclaration = (node, st, c) => {
     first_variable_declarator = true;
+    //variable_next = null;
     if(debug) console.log("VariableDeclaration");
     for (let i = 0; i < node.declarations.length; ++i){
       node.declarations[i].kind = node.kind;
@@ -716,39 +718,59 @@ export function walk1(ast, options){
     if(debug) console.log("VariableDeclarator");
     //c(node.id, st, "Pattern") // Commented to avoid duplicating var name block.
     // JCOA: Can I reuse the blockly block constructor?
-    if(for_init && !first_variable_declarator){
+    if(!first_variable_declarator){
       let next1 = newNode('next');
       current_node.children[0].appendChild(next1);
       current_node = next1;
       //let node1 = current_node;
-      
-      let block1 = newNode('block', {type:'bi_assignment'});
-      current_node.appendChild(block1);
-      var field1 = newNode('field', {name:'operator'}, '=');
-      block1.appendChild(field1);
-      var left = newNode('value', {name:'left'});    
-      block1.appendChild(left);
-      var node1 = current_node;
-      current_node = left;
-      c(node.id, st, "Pattern")
-      var right = newNode('value', {name:'right'});    
-      block1.appendChild(right);
-      current_node = right;
+      if(for_init){
+        let block1 = newNode('block', {type:'bi_assignment'});
+        current_node.appendChild(block1);
+        var field1 = newNode('field', {name:'operator'}, '=');
+        block1.appendChild(field1);
+        var left = newNode('value', {name:'left'});    
+        block1.appendChild(left);
+        var node1 = current_node;
+        current_node = left;
+        c(node.id, st, "Pattern")
+        var right = newNode('value', {name:'right'});    
+        block1.appendChild(right);
+        current_node = right;
 
-      if (node.init) c(node.init, st, "Expression")
-      current_node = node1;       
+        if (node.init) c(node.init, st, "Expression")
+        current_node = node1;
+      } else {
+        let node1 = current_node;
+        let block1 = newNode('block', {type:'bi_var'})
+        block1.appendChild(newNode('field', {name: 'var_type'}, node.kind));
+        block1.appendChild(newNode('field', {name: 'var'}, node.id.name));
+        let value1 = newNode('value', {name: 'val'});
+        block1.appendChild(value1);
+        current_node.appendChild(block1);
+        current_node = value1;
+        if (node.init) c(node.init, st, "Expression")
+        current_node = node1;        
+      }
     }
     else {
+      let node1 = current_node;
       let block1 = newNode('block', {type:'bi_var'})
       block1.appendChild(newNode('field', {name: 'var_type'}, node.kind));
       block1.appendChild(newNode('field', {name: 'var'}, node.id.name));
       let value1 = newNode('value', {name: 'val'});
       block1.appendChild(value1);
-      current_node.appendChild(block1);
-      let node1 = current_node;
+      //if(variable_next){
+      //  variable_next.appendChild(block1)
+      //} else {
+        current_node.appendChild(block1);
+      //}
       current_node = value1;
       if (node.init) c(node.init, st, "Expression")
       current_node = node1;
+      //variable_next = newNode('next')
+      //current_node.appendChild(variable_next);
+      ////current_node.appendChild(variable_next);
+      //block1.appendChild(variable_next);
     }
     first_variable_declarator = false;
   }
@@ -921,7 +943,7 @@ export function walk1(ast, options){
     }
     current_node = node1;
   }
-  // TODO. Separatee and add debug print to each of this methods
+  // TODO. Separate and add debug print to each of this methods
   funcs.FunctionExpression = funcs.ArrowFunctionExpression = funcs.FunctionDeclaration
   funcs.SequenceExpression = funcs.TemplateLiteral = (node, st, c) => {
     if(debug) console.log("SequenceExpression");
