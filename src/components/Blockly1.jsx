@@ -52,6 +52,12 @@ class Blockly1 extends Component {
         </value>
       </block>
       <block type="controls_whileUntil"></block>
+      <block type="bi_for"></block>
+      <block type="bi_for_in"></block>
+      <block type="bi_switch"></block>
+      <block type="bi_case"></block>
+      <block type="bi_continue"></block>
+      <block type="bi_break"></block>
       <block type="controls_for">
         <value name="FROM">
           <shadow type="math_number">
@@ -72,9 +78,15 @@ class Blockly1 extends Component {
       <block type="controls_forEach"></block>
       <block type="controls_forEachKey"></block>
       <block type="controls_flow_statements"></block>
+      <block type="bi_throw"></block>
+      <block type="bi_yield"></block>
+      <block type="bi_yield_return"></block>      
     </category>
     <category id="catMath" name="Math" colour="230">
       <block type="math_number"></block>
+      <block type="bi_parenthesis"></block>
+      <block type="bi_unary"></block>
+      <block type="bi_unary_return"></block>
       <block type="bi_math_arithmetic">
         <value name="A">
           <shadow type="math_number">
@@ -349,17 +361,23 @@ class Blockly1 extends Component {
     <category name="Variables" custom="VARIABLE"></category>
     <category name="Functions" custom="PROCEDURE"></category>
 -->
-    <category name="Advanced js">
+    <category id="catVariables" name="Variables" colour="330">
       <block type="bi_var"></block>
       <block type="bi_var_name"></block>      
       <block type="bi_assignment"></block>      
       <block type="bi_assignment_return"></block>      
+    </category>
+    <category id="catFunctions" name="Functions" colour="290">
       <block type="bi_function"></block>
-      <block type="bi_named_function"></block>
+      <block type="bi_function_return"></block>
 <!--      <block type="bi_call"></block>      -->
       <block type="bi_call_editable"></block>      
       <block type="bi_call_editable_return"></block>     <block type="bi_direct_call_editable"></block>      
       <block type="bi_direct_call_editable_return"></block>      
+      <block type="bi_return"></block>
+      <block type="bi_spread"></block>
+    </category>
+    <category id="catClasses" name="Classes" colour="55">
       <block type="bi_field"></block>
       <block type="bi_field_return"></block>
       <block type="bi_adaptor"></block>
@@ -371,22 +389,12 @@ class Blockly1 extends Component {
       <block type="bi_static"></block>      
       <block type="bi_get"></block>
       <block type="bi_set"></block>
-      <block type="bi_return"></block>
-      <block type="bi_for"></block>
-      <block type="bi_for_in"></block>
-      <block type="bi_switch"></block>
-      <block type="bi_case"></block>
-      <block type="bi_continue"></block>
-      <block type="bi_break"></block>
-      <block type="bi_parenthesis"></block>
-      <block type="bi_unary"></block>
-      <block type="bi_unary_return"></block>
-      <block type="bi_spread"></block>
+    </category>
+
+
+    <category name="Advanced js">
       <block type="bi_try_catch"></block>      
       <block type="bi_catch"></block>      
-      <block type="bi_throw"></block>
-      <block type="bi_yield"></block>
-      <block type="bi_yield_return"></block>      
       <block type="bi_export"></block>
       <block type="bi_import"></block>
       <block type="bi_import_as"></block>      

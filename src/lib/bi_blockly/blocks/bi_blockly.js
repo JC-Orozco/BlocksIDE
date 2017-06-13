@@ -42,7 +42,7 @@ Blockly.Blocks['bi_assignment'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(330);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -59,7 +59,7 @@ Blockly.Blocks['bi_assignment_return'] = {
         .appendField(new Blockly.FieldTextInput('='), 'operator');
     this.setInputsInline(true);
     this.setOutput(true);    
-    this.setColour(230);
+    this.setColour(330);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -144,7 +144,7 @@ Blockly.Blocks['bi_throw'] = {
     // this.setOutput(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(120);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -159,7 +159,7 @@ Blockly.Blocks['bi_yield'] = {
     //this.setOutput(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(120);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -174,7 +174,7 @@ Blockly.Blocks['bi_yield_return'] = {
     this.setOutput(true);
 //    this.setPreviousStatement(true, null);
 //    this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(120);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -306,7 +306,7 @@ Blockly.Blocks['bi_for'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     //this.setInputsInline(true);
-    this.setColour(330);
+    this.setColour(120);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -324,7 +324,7 @@ Blockly.Blocks['bi_for_in'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     //this.setInputsInline(true);
-    this.setColour(330);
+    this.setColour(120);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -345,7 +345,7 @@ Blockly.Blocks['bi_switch'] = {
         .appendField('default');
     this.setInputsInline(false);
     this.setHelpUrl('http://www.example.com/');
-    this.setColour(330);
+    this.setColour(120);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     //    this.setOutput(true, null);
@@ -361,7 +361,7 @@ Blockly.Blocks['bi_case'] = {
     this.appendStatementInput('statement')
         .setCheck(null);
     this.setHelpUrl('http://www.example.com/');
-    this.setColour(330);
+    this.setColour(120);
     this.setOutput(true, null);
     this.setTooltip('');
   }
@@ -372,7 +372,7 @@ Blockly.Blocks['bi_continue'] = {
     this.appendDummyInput()
         .appendField('continue');
     this.setHelpUrl('http://www.example.com/');
-    this.setColour(330);
+    this.setColour(120);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setTooltip('');
@@ -384,7 +384,7 @@ Blockly.Blocks['bi_break'] = {
     this.appendDummyInput()
         .appendField('break');
     this.setHelpUrl('http://www.example.com/');
-    this.setColour(330);
+    this.setColour(120);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setTooltip('');
@@ -398,7 +398,7 @@ Blockly.Blocks['bi_s1'] = {
    */
   init: function() {
     this.setHelpUrl('http://www.example.com/');
-    this.setColour(120);
+    this.setColour(290);
     this.appendAddSubStatement('for init', 'items',
                              null,
                              '');
@@ -425,7 +425,7 @@ Blockly.Blocks['bi_call'] = {
         .appendField(new Blockly.FieldTextInput('call1'), 'NAME')
         .appendField('(');
     this.setHelpUrl(Blockly.Msg.LISTS_CREATE_WITH_HELPURL);
-    this.setColour(Blockly.Blocks.lists.HUE);
+    this.setColour(290);
     this.appendAddSubNamed('', 'items',
                            null,
                            '');
@@ -452,7 +452,7 @@ Blockly.Blocks['bi_call_return'] = {
         .appendField(new Blockly.FieldTextInput('fcall1'), 'NAME')
         .appendField('(');
     this.setHelpUrl(Blockly.Msg.LISTS_CREATE_WITH_HELPURL);
-    this.setColour(Blockly.Blocks.lists.HUE);
+    this.setColour(290);
     this.appendAddSubNamed('n1', 'items',
                            null,
                            'n1');
@@ -479,7 +479,7 @@ Blockly.Blocks['bi_direct_call_editable'] = {
     this.appendDummyInput()
         .appendField(')(');
     this.setHelpUrl('http://www.example.com/');
-    this.setColour(330);
+    this.setColour(290);
     this.appendAddSubGroup('', 'items',
                              null,
                              '');
@@ -507,7 +507,7 @@ Blockly.Blocks['bi_direct_call_editable_return'] = {
     this.appendDummyInput()
         .appendField(')(');
     this.setHelpUrl('http://www.example.com/');
-    this.setColour(330);
+    this.setColour(290);
     this.appendAddSubGroup('', 'items',
                              null,
                              '');
@@ -534,7 +534,7 @@ Blockly.Blocks['bi_call_editable'] = {
         .appendField(new Blockly.FieldTextInput('fcall1'), 'NAME')
         .appendField('(');
     this.setHelpUrl('http://www.example.com/');
-    this.setColour(330);
+    this.setColour(290);
     this.appendAddSubGroup('', 'items',
                              null,
                              '');
@@ -561,7 +561,7 @@ Blockly.Blocks['bi_call_editable_return'] = {
         .appendField(new Blockly.FieldTextInput('fcall1'), 'NAME')
         .appendField('(');
     this.setHelpUrl('http://www.example.com/');
-    this.setColour(330);
+    this.setColour(290);
     this.appendAddSubGroup('', 'items',
                              null,
                              '');
@@ -635,7 +635,7 @@ Blockly.Blocks['bi_var'] = {
         .appendField(new Blockly.FieldTextInput('var1'), 'var');
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(290);
+    this.setColour(330);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -647,7 +647,7 @@ Blockly.Blocks['bi_var_name'] = {
         .appendField('')
         .appendField(new Blockly.FieldTextInput('var1'), 'NAME');
     this.setOutput(true, null);
-    this.setColour(290);
+    this.setColour(330);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -660,7 +660,7 @@ Blockly.Blocks['bi_new'] = {
         .setCheck(null);
     //this.setPreviousStatement(true, null);
     this.setOutput(true, null);
-    this.setColour(290);
+    this.setColour(55);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -677,7 +677,7 @@ Blockly.Blocks['bi_anonymous_class'] = {
     this.appendStatementInput('chain')
         .setCheck(null);
     this.setHelpUrl('http://www.example.com/');
-    this.setColour(330);
+    this.setColour(55);
     //this.setPreviousStatement(true, null);
     //this.setNextStatement(true, null);
     this.setOutput(true, null);
@@ -696,7 +696,7 @@ Blockly.Blocks['bi_class'] = {
     this.appendStatementInput('chain')
         .setCheck(null);
     this.setHelpUrl('http://www.example.com/');
-    this.setColour(330);
+    this.setColour(55);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     //this.setOutput(true, null);
@@ -711,7 +711,7 @@ Blockly.Blocks['bi_static'] = {
         .appendField('static');
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(55);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -724,7 +724,7 @@ Blockly.Blocks['bi_get'] = {
         .appendField('get');
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(55);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -737,7 +737,7 @@ Blockly.Blocks['bi_set'] = {
         .appendField('set');
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(55);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -750,7 +750,7 @@ Blockly.Blocks['bi_field'] = {
         .setCheck(null); // (['Field','Method']);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(290);
+    this.setColour(55);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -764,7 +764,7 @@ Blockly.Blocks['bi_field_return'] = {
         .setCheck(null); // (['Field','Method']);
     this.setOutput(true, null); // 'Field');
     //this.setPreviousStatement(true, 'Field');
-    this.setColour(290);
+    this.setColour(55);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -779,7 +779,7 @@ Blockly.Blocks['bi_string_return'] = {
         .setCheck(null); // (['Field','Method']);
     this.setOutput(true, null); // 'Field');
     //this.setPreviousStatement(true, 'Field');
-    this.setColour(120);
+    this.setColour(160);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -796,7 +796,7 @@ Blockly.Blocks['bi_index'] = {
     this.setInputsInline(true);
     this.setOutput(true, null); // 'Field');
     //this.setPreviousStatement(true, 'Field');
-    this.setColour(290);
+    this.setColour(55);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -810,7 +810,7 @@ Blockly.Blocks['bi_adaptor'] = {
         .setCheck(null);
     //this.setPreviousStatement(true, null);
     this.setOutput(true, null);
-    this.setColour(290);
+    this.setColour(55);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -840,7 +840,7 @@ Blockly.Blocks['bi_unary'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     //this.setOutput(true, null);
-    this.setColour(290);
+    this.setColour(230);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -854,7 +854,7 @@ Blockly.Blocks['bi_unary_return'] = {
 //    this.setPreviousStatement(true, null);
 //    this.setNextStatement(true, null);
     this.setOutput(true, null);
-    this.setColour(290);
+    this.setColour(230);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -878,7 +878,7 @@ Blockly.Blocks['bi_parenthesis'] = {
         .setCheck(null)
         .appendField('(_)');
     this.setOutput(true, null);
-    this.setColour(290);
+    this.setColour(230);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
