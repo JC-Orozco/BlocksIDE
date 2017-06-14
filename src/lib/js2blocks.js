@@ -602,10 +602,10 @@ export function walk1(ast, options){
     current_node = try1
     c(node.block, st, "Statement")
     if (node.handler){
-      let catch1 = newNode('statement', {name:'catch'})
-      block1.appendChild(catch1)
       let param1 = newNode('field', {name:'parameter'}, node.handler.param.name)
       block1.appendChild(param1)
+      let catch1 = newNode('statement', {name:'catch'})
+      block1.appendChild(catch1)
       current_node = catch1
       c(node.handler, st)
     }
@@ -619,7 +619,7 @@ export function walk1(ast, options){
   }
   funcs.CatchClause = (node, st, c) => {
     if(debug) console.log("CatchClause");
-    c(node.param, st, "Pattern")
+    //c(node.param, st, "Pattern") // JCOA: Already taken care of in the TryStatement
     c(node.body, st, "ScopeBody")
   }
   funcs.WhileStatement = funcs.DoWhileStatement = (node, st, c) => {

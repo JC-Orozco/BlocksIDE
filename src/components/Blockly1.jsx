@@ -262,6 +262,7 @@ class Blockly1 extends Component {
         <mutation items="0"></mutation>
       </block> -->
       <block type="lists_create_with"></block>
+      <block type="bi_index"></block>
       <block type="lists_repeat">
         <value name="NUM">
           <shadow type="math_number">
@@ -366,6 +367,8 @@ class Blockly1 extends Component {
       <block type="bi_var_name"></block>      
       <block type="bi_assignment"></block>      
       <block type="bi_assignment_return"></block>      
+      <block type="bi_field"></block>
+      <block type="bi_field_return"></block>
     </category>
     <category id="catFunctions" name="Functions" colour="290">
       <block type="bi_function"></block>
@@ -378,11 +381,8 @@ class Blockly1 extends Component {
       <block type="bi_spread"></block>
     </category>
     <category id="catClasses" name="Classes" colour="55">
-      <block type="bi_field"></block>
-      <block type="bi_field_return"></block>
-      <block type="bi_adaptor"></block>
-<!--      <block type="bi_statement"></block>-->
-      <block type="bi_index"></block>
+<!--      <block type="bi_adaptor"></block> -->
+<!--      <block type="bi_statement"></block> -->
       <block type="bi_new"></block>
       <block type="bi_anonymous_class"></block>
       <block type="bi_class"></block>

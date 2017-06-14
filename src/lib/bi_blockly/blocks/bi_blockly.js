@@ -750,7 +750,7 @@ Blockly.Blocks['bi_field'] = {
         .setCheck(null); // (['Field','Method']);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(55);
+    this.setColour(330);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -764,7 +764,7 @@ Blockly.Blocks['bi_field_return'] = {
         .setCheck(null); // (['Field','Method']);
     this.setOutput(true, null); // 'Field');
     //this.setPreviousStatement(true, 'Field');
-    this.setColour(55);
+    this.setColour(330);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -796,7 +796,7 @@ Blockly.Blocks['bi_index'] = {
     this.setInputsInline(true);
     this.setOutput(true, null); // 'Field');
     //this.setPreviousStatement(true, 'Field');
-    this.setColour(55);
+    this.setColour(260);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
