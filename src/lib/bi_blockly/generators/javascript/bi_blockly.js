@@ -576,6 +576,34 @@ Blockly.JavaScript['bi_unary_return'] = function(block) {
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
   //return code;
 };
+  
+Blockly.JavaScript['bi_unary_postfix'] = function(block) {
+  function isLetter(c) {
+    return c.toLowerCase() !== c.toUpperCase();
+  }
+  var value_expression = Blockly.JavaScript.valueToCode(block, 'expression', Blockly.JavaScript.ORDER_ATOMIC);
+  var text_operator = block.getFieldValue('operator');
+  if(isLetter(text_operator[0])){
+    text_operator += ' '; 
+  }
+  var code = value_expression+text_operator+'\n';
+  //return [code, Blockly.JavaScript.ORDER_ATOMIC];
+  return code;
+};
+
+Blockly.JavaScript['bi_unary_postfix_return'] = function(block) {
+  function isLetter(c) {
+    return c.toLowerCase() !== c.toUpperCase();
+  }
+  var value_expression = Blockly.JavaScript.valueToCode(block, 'expression', Blockly.JavaScript.ORDER_ATOMIC);
+  var text_operator = block.getFieldValue('operator');
+  if(isLetter(text_operator[0])){
+    text_operator += ' '; 
+  }
+  var code = value_expression+text_operator;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+  //return code;
+};
 
 Blockly.JavaScript['bi_spread'] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, 'arg_array', Blockly.JavaScript.ORDER_ATOMIC);

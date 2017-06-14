@@ -87,6 +87,8 @@ class Blockly1 extends Component {
       <block type="bi_parenthesis"></block>
       <block type="bi_unary"></block>
       <block type="bi_unary_return"></block>
+      <block type="bi_unary_postfix"></block>
+      <block type="bi_unary_postfix_return"></block>
       <block type="bi_math_arithmetic">
         <value name="A">
           <shadow type="math_number">

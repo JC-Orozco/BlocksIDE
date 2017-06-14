@@ -966,9 +966,17 @@ export function walk1(ast, options){
     var block1
     if(expression_statement){
       expression_statement = false; // Force to false.
-      block1 = newNode('block', {type:'bi_unary'});
+      if(node.prefix){
+        block1 = newNode('block', {type:'bi_unary'});
+      } else {
+        block1 = newNode('block', {type:'bi_unary_postfix'});        
+      }
     } else{
-      block1 = newNode('block', {type:'bi_unary_return'});
+      if(node.prefix){
+        block1 = newNode('block', {type:'bi_unary_return'});
+      } else {
+        block1 = newNode('block', {type:'bi_unary_postfix_return'});        
+      }
     } 
     current_node.appendChild(block1);
     var field1 = newNode('field', {name:'operator'}, node.operator);

@@ -860,6 +860,37 @@ Blockly.Blocks['bi_unary_return'] = {
   }
 };
 
+// TODO: JCOA Make a drop down list of unary operators
+Blockly.Blocks['bi_unary_postfix'] = {
+  init: function() {
+    this.appendValueInput('expression')
+        .appendField('postfix')
+        .setCheck(null)
+        .appendField(new Blockly.FieldTextInput('++'), 'operator');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    //this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.Blocks['bi_unary_postfix_return'] = {
+  init: function() {
+    this.appendValueInput('expression')
+        .appendField('postfix')
+        .setCheck(null)
+        .appendField(new Blockly.FieldTextInput('++'), 'operator');
+//    this.setPreviousStatement(true, null);
+//    this.setNextStatement(true, null);
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+  
 Blockly.Blocks['bi_spread'] = {
   init: function() {
     this.appendValueInput('arg_array')
