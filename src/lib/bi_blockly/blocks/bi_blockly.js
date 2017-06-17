@@ -627,6 +627,37 @@ Blockly.Blocks['bi_return'] = {
   }
 };
 
+Blockly.Blocks['bi_maps_set'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField('set')
+        .appendField(new Blockly.FieldTextInput('property'), 'name')
+        .appendField('(')
+        .appendField(new Blockly.FieldTextInput('val'), 'val')
+        .appendField(')');
+    this.appendStatementInput('chain')
+        .setCheck(null);
+    this.setOutput(true, null);
+    this.setColour(345);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.Blocks['bi_maps_get'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField('get')
+        .appendField(new Blockly.FieldTextInput('property'), 'name');
+    this.appendStatementInput('chain')
+        .setCheck(null);
+    this.setOutput(true, null);
+    this.setColour(345);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+  
 Blockly.Blocks['bi_var'] = {
   init: function() {
     this.appendValueInput('val')

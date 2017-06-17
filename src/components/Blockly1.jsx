@@ -316,6 +316,8 @@ class Blockly1 extends Component {
       <block type="maps_length"></block>
       <block type="maps_isempty"></block>
       <block type="maps_create"></block>
+      <block type="bi_maps_set"></block>
+      <block type="bi_maps_get"></block>
       <block type="maps_getIndex"></block>
       <block type="maps_setIndex"></block>
       <block type="maps_keys"></block>

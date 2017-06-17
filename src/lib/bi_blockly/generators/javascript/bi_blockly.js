@@ -403,6 +403,31 @@ Blockly.JavaScript['bi_return'] = function(block) {
   return code;
 };
 
+Blockly.JavaScript['bi_maps_set'] = function(block) {
+  var text_name = block.getFieldValue('name');
+  var text_val = block.getFieldValue('val');
+  var statements_chain = Blockly.JavaScript.statementToCode(block, 'chain');
+  var chain = statements_chain;
+  var code = 'set '+text_name+'(';
+  code += text_val + '){\n' + chain +'}\n';
+
+  //return [code, Blockly.JavaScript.ORDER_NONE];
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+  //return code;
+};
+
+Blockly.JavaScript['bi_maps_get'] = function(block) {
+  var text_name = block.getFieldValue('name');
+  var statements_chain = Blockly.JavaScript.statementToCode(block, 'chain');
+  var chain = statements_chain;
+  var code = 'get ' + text_name+'(';
+  code += '){\n' + chain +'}\n';
+
+  //return [code, Blockly.JavaScript.ORDER_NONE];
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+  //return code;
+};
+  
 Blockly.JavaScript['bi_var'] = function(block) {
   var var_type = block.getFieldValue('var_type');
   var text_var = block.getFieldValue('var');

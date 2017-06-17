@@ -1410,34 +1410,63 @@ export function walk1(ast, options){
   } 
   // TODO: Take into account all node.computed cases.
   funcs.Property = (node, st, c) => {
-    if(debug) console.log("Property "+node.value);
-    var block1 = newNode('block', {type:'maps_create'});
-    current_node.appendChild(block1);
-    //var key1 = newNode('value', {name:'KEY'}, node.key.name);
-    var key1 = newNode('value', {name:'KEY'});
-    block1.appendChild(key1);
-    var node1 = current_node;
-    current_node = key1;    
-    if (node.computed){
-      c(node.key, st, "Expression")
-    } else {
-      let block2 = newNode('block', {type:'text'})
-      key1.appendChild(block2);
-      let field2;
-      if(node.key.name){
-        // This applies to: myKey: 'value'
-        field2 = newNode('field', {name:'TEXT'}, node.key.name);
-      } else {
-        // This applies to: 'myKey: 'value'
-        field2 = newNode('field', {name:'TEXT'}, node.key.value);
-      }
-      block2.appendChild(field2);
+    if(debug) console.log("Property "+node.kind);
+    var block1;
+    var node1;
+    var chain1;
+    switch(node.kind){
+      case 'set':
+        block1 = newNode('block', {type:'bi_maps_set'});
+        current_node.appendChild(block1);
+        block1.appendChild(newNode('field', {name:'name'}, node.key.name));
+        block1.appendChild(newNode('field', {name:'val'}, node.value.params[0].name));
+        chain1 = newNode('statement', {name:'chain'});
+        block1.appendChild(chain1);
+        node1 = current_node;
+        current_node = chain1;    
+        c(node.value.body, st, "Statement")
+        current_node = node1;
+        break;
+      case 'get':
+        block1 = newNode('block', {type:'bi_maps_get'});
+        current_node.appendChild(block1);
+        block1.appendChild(newNode('field', {name:'name'}, node.key.name));
+        chain1 = newNode('statement', {name:'chain'});
+        block1.appendChild(chain1);
+        node1 = current_node;
+        current_node = chain1;    
+        c(node.value.body, st, "Statement")
+        current_node = node1;
+        break;
+      default:
+        block1 = newNode('block', {type:'maps_create'});
+        current_node.appendChild(block1);
+        //var key1 = newNode('value', {name:'KEY'}, node.key.name);
+        let key1 = newNode('value', {name:'KEY'});
+        block1.appendChild(key1);
+        node1 = current_node;
+        current_node = key1;    
+        if (node.computed){
+          c(node.key, st, "Expression")
+        } else {
+          let block2 = newNode('block', {type:'text'})
+          key1.appendChild(block2);
+          let field2;
+          if(node.key.name){
+            // This applies to: myKey: 'value'
+            field2 = newNode('field', {name:'TEXT'}, node.key.name);
+          } else {
+            // This applies to: 'myKey': 'value'
+            field2 = newNode('field', {name:'TEXT'}, node.key.value);
+          }
+          block2.appendChild(field2);
+        }
+        let value1 = newNode('value', {name:'VAL'});
+        block1.appendChild(value1);
+        current_node = value1;    
+        c(node.value, st, "Expression")
+        current_node = node1;
     }
-    var value1 = newNode('value', {name:'VAL'});
-    block1.appendChild(value1);
-    current_node = value1;    
-    c(node.value, st, "Expression")
-    current_node = node1;
   }
   
   // acorn.
