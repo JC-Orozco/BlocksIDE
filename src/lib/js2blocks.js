@@ -1418,7 +1418,11 @@ export function walk1(ast, options){
       case 'set':
         block1 = newNode('block', {type:'bi_maps_set'});
         current_node.appendChild(block1);
-        block1.appendChild(newNode('field', {name:'name'}, node.key.name));
+        if(node.computed==false){
+          block1.appendChild(newNode('field', {name:'name'}, node.key.name));
+        } else {
+          block1.appendChild(newNode('field', {name:'name'}, '['+node.key.name+']'));          
+        }
         block1.appendChild(newNode('field', {name:'val'}, node.value.params[0].name));
         chain1 = newNode('statement', {name:'chain'});
         block1.appendChild(chain1);
@@ -1430,7 +1434,11 @@ export function walk1(ast, options){
       case 'get':
         block1 = newNode('block', {type:'bi_maps_get'});
         current_node.appendChild(block1);
-        block1.appendChild(newNode('field', {name:'name'}, node.key.name));
+        if(node.computed==false){
+          block1.appendChild(newNode('field', {name:'name'}, node.key.name));
+        } else {
+          block1.appendChild(newNode('field', {name:'name'}, '['+node.key.name+']'));          
+        }
         chain1 = newNode('statement', {name:'chain'});
         block1.appendChild(chain1);
         node1 = current_node;
