@@ -1,11 +1,11 @@
 {
   "name": "BlocksIDE",
   "author": "Juan Carlos Orozco",
-  "version": "0.3.18",
+  "version": "0.3.19",
   "homepage": "https://jc-orozco.github.io/BlocksIDE/build",
   "private": true,
   "dependencies": {
-    "acorn": "^4.0.13",
+    "acorn": "^5.0.3",
     "acorn-dynamic-import": "^2.0.2",
     "acorn-jsx-walk": "^1.0.1",
     "blockly": "https://github.com/JC-Orozco/blockly.git",

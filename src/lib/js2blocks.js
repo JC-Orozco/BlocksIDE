@@ -49,8 +49,6 @@ import acorn from 'acorn-dynamic-import';
 
 var debug = true;
 
-var Comments = [];
-
 //var outln = function(msg){
 //  out1.innerHTML += msg+'<br>';
 //}
@@ -735,14 +733,14 @@ export function walk1(ast, options){
       if(for_init){
         let block1 = newNode('block', {type:'bi_assignment'}, '', node);
         current_node.appendChild(block1);
-        var field1 = newNode('field', {name:'operator'}, '=');
+        var field1 = newNode('field', {name:'OP'}, '=');
         block1.appendChild(field1);
-        var left = newNode('value', {name:'left'});    
+        var left = newNode('value', {name:'A'});    
         block1.appendChild(left);
         var node1 = current_node;
         current_node = left;
         c(node.id, st, "Pattern")
-        var right = newNode('value', {name:'right'});    
+        var right = newNode('value', {name:'B'});    
         block1.appendChild(right);
         current_node = right;
 
@@ -1013,7 +1011,11 @@ export function walk1(ast, options){
       case '<=': op='LTE'; type = 'logic_compare'; break;        
       case '>': op='GT'; type = 'logic_compare'; break;        
       case '>=': op='GTE'; type = 'logic_compare'; break;
+      case '&&': op='AND'; type = 'logic_operation'; break;
+      case '||': op='OR'; type = 'logic_operation'; break;
       default:
+        op = node.operator;
+        type = 'bi_assignment_return';
     }
     var block1 = newNode('block', {type: type}, '', node);
     block1.appendChild(newNode('field',{name:'OP'},op));
@@ -1033,8 +1035,28 @@ export function walk1(ast, options){
   }
   funcs.LogicalExpression = (node, st, c) => {
     if(debug) console.log("LogicalExpression");
+    var op;
+    var type = 'logic_operation';
+    switch(node.operator){
+      case '&&': op='AND'; break;
+      case '||': op='OR'; break;
+      default:
+    }
+    var block1 = newNode('block', {type: type}, '', node);
+    block1.appendChild(newNode('field',{name:'OP'},op));
+    var value1 = newNode('value',{name:'A'});
+    block1.appendChild(value1);
+    current_node.appendChild(block1);
+    var node1 = current_node;
+    current_node = value1;
+    expression_statement = false; // JCOA: Avoid incompatible type link on the blocks
     c(node.left, st, "Expression")
+    var value2 = newNode('value',{name:'B'});
+    block1.appendChild(value2);
+    current_node = value2;
+    expression_statement = false; // JCOA: Avoid incompatible type link on the blocks
     c(node.right, st, "Expression")
+    current_node = node1;
   }
   funcs.AssignmentExpression = funcs.AssignmentPattern = (node, st, c) => {
     if(debug) console.log("AssignmentExpression");
@@ -1046,14 +1068,14 @@ export function walk1(ast, options){
       block1 = newNode('block', {type:'bi_assignment_return'}, '', node);
     }
     current_node.appendChild(block1);
-    var field1 = newNode('field', {name:'operator'}, node.operator);
+    var field1 = newNode('field', {name:'OP'}, node.operator);
     block1.appendChild(field1);
-    var left = newNode('value', {name:'left'});    
+    var left = newNode('value', {name:'A'});    
     block1.appendChild(left);
     var node1 = current_node;
     current_node = left;
     c(node.left, st, "Pattern")
-    var right = newNode('value', {name:'right'});    
+    var right = newNode('value', {name:'B'});    
     block1.appendChild(right);
     current_node = right;
     c(node.right, st, "Expression")
@@ -1498,17 +1520,17 @@ export function parseCode(code){
   let workspace = Blockly.mainWorkspace;
   let ast1, xml1;
   let options;
+  let comments = [];
   try{
     //console1.value = '';
     window._BIDE.b2c_error = false
-    Comments = [];
     options = {
       sourceType: 'module',
       locations: true,
-      onComment: Comments
+      onComment: comments
     };
     ast1 = acorn.parse(code, options);
-    console.log(Comments)
+    console.log(comments)
     xml1 = walk1(ast1);
     //console.log(xml1);
     workspace.clear();

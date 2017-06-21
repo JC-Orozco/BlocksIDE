@@ -23,17 +23,17 @@
 module.exports = function(Blockly){
 
 Blockly.JavaScript['bi_assignment'] = function(block) {
-  var value_left = Blockly.JavaScript.valueToCode(block, 'left', Blockly.JavaScript.ORDER_ATOMIC);
-  var value_right = Blockly.JavaScript.valueToCode(block, 'right', Blockly.JavaScript.ORDER_ATOMIC);
-  var text_operator = block.getFieldValue('operator');
+  var value_left = Blockly.JavaScript.valueToCode(block, 'A', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_right = Blockly.JavaScript.valueToCode(block, 'B', Blockly.JavaScript.ORDER_ATOMIC);
+  var text_operator = block.getFieldValue('OP');
   var code = value_left+' '+text_operator+' '+value_right +"\n";
   return code;
 };
 
 Blockly.JavaScript['bi_assignment_return'] = function(block) {
-  var value_left = Blockly.JavaScript.valueToCode(block, 'left', Blockly.JavaScript.ORDER_ATOMIC);
-  var value_right = Blockly.JavaScript.valueToCode(block, 'right', Blockly.JavaScript.ORDER_ATOMIC);
-  var text_operator = block.getFieldValue('operator');
+  var value_left = Blockly.JavaScript.valueToCode(block, 'A', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_right = Blockly.JavaScript.valueToCode(block, 'B', Blockly.JavaScript.ORDER_ATOMIC);
+  var text_operator = block.getFieldValue('OP');
   var code = value_left+' '+text_operator+' '+value_right;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
@@ -48,8 +48,12 @@ Blockly.JavaScript['bi_math_arithmetic'] = function(block) {
     'POWER': [null, Blockly.JavaScript.ORDER_COMMA]  // Handle power separately.
   };
   var tuple = OPERATORS[block.getFieldValue('OP')];
-  var operator = tuple[0];
-  var order = tuple[1];
+  var operator = ' ';
+  var order = Blockly.JavaScript.ORDER_ATOMIC;
+  if(tuple){
+    operator = tuple[0];
+    order = tuple[1];
+  }
   var argument0 = Blockly.JavaScript.valueToCode(block, 'A', order) || '0';
   var argument1 = Blockly.JavaScript.valueToCode(block, 'B', order) || '0';
   var code;

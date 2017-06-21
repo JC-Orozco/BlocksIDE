@@ -33,12 +33,12 @@ goog.require('Blockly.Blocks');
 // TODO: JCOA Add drop down list with operator options
 Blockly.Blocks['bi_assignment'] = {
   init: function() {
-    this.appendValueInput('left')
+    this.appendValueInput('A')
         .setCheck(null)
         .appendField('');
-    this.appendValueInput('right')
+    this.appendValueInput('B')
         .setCheck(null)
-        .appendField(new Blockly.FieldTextInput('='), 'operator');
+        .appendField(new Blockly.FieldTextInput('='), 'OP');
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -51,12 +51,12 @@ Blockly.Blocks['bi_assignment'] = {
 // TODO: JCOA Add drop down list with operator options
 Blockly.Blocks['bi_assignment_return'] = {
   init: function() {
-    this.appendValueInput('left')
+    this.appendValueInput('A')
         .setCheck(null)
         .appendField('');
-    this.appendValueInput('right')
+    this.appendValueInput('B')
         .setCheck(null)
-        .appendField(new Blockly.FieldTextInput('='), 'operator');
+        .appendField(new Blockly.FieldTextInput('='), 'OP');
     this.setInputsInline(true);
     this.setOutput(true);    
     this.setColour(330);
@@ -66,7 +66,7 @@ Blockly.Blocks['bi_assignment_return'] = {
 };
 
 Blockly.Blocks['bi_math_arithmetic'] = {
-    /**
+  /**
    * Block for basic arithmetic operator.
    * @this Blockly.Block
    */
