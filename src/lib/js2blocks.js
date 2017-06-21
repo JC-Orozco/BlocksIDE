@@ -49,6 +49,8 @@ import acorn from 'acorn-dynamic-import';
 
 var debug = true;
 
+var Comments = [];
+
 //var outln = function(msg){
 //  out1.innerHTML += msg+'<br>';
 //}
@@ -402,8 +404,15 @@ export function walk1(ast, options){
   var expression_statement = false;
   var for_init = false;
   var first_variable_declarator = true;
+  var id = 0;
 
-  var newNode = function(name, attrs, text){
+  var newNode = function(name, attrs, text, ast_node){
+    if(name === 'block'){
+      attrs.id = id++;
+      //if(ast_node){
+        console.log(id+' '+ast_node.loc.start.line);
+      //}
+    }
     var block1 = goog.dom.createDom(name);
     for(var key in attrs){
       block1.setAttribute(key, attrs[key]);
@@ -444,7 +453,7 @@ export function walk1(ast, options){
   }
   funcs.IfStatement = (node, st, c) => {
     if(debug) console.log("IfStatement");
-    var block1 = newNode('block', {type:'controls_if'});
+    var block1 = newNode('block', {type:'controls_if'}, '', node);
     current_node.appendChild(block1);
     if(node.alternate){
       var mutation1 = newNode('mutation', {else:'1'});
@@ -473,12 +482,12 @@ export function walk1(ast, options){
   }
   funcs.BreakStatement = function(node, st, c) {
     if(debug) console.log("ContinueStatement");
-    var block1 = newNode('block',{type:'bi_break'})
+    var block1 = newNode('block',{type:'bi_break'}, '', node)
     current_node.appendChild(block1)
   } // ignore
   funcs.ContinueStatement = function(node, st, c) {
     if(debug) console.log("BreakStatement");
-    var block1 = newNode('block',{type:'bi_continue'})
+    var block1 = newNode('block',{type:'bi_continue'}, '', node)
     current_node.appendChild(block1)  
   } // ignore
   funcs.WithStatement = (node, st, c) => {
@@ -488,7 +497,7 @@ export function walk1(ast, options){
   }
   funcs.SwitchStatement = (node, st, c) => {
     if(debug) console.log("SwitchStatement");
-    var block1 = newNode('block', {type:'bi_switch'});
+    var block1 = newNode('block', {type:'bi_switch'}, '', node);
     current_node.appendChild(block1);
     var node1 = current_node;
     // Check if default case is present
@@ -506,7 +515,7 @@ export function walk1(ast, options){
     for (let i = 0; i < node.cases.length-hasDefault; ++i) {
       let item = newNode('value',{name:'items'+(i+1)})
       block1.appendChild(item)
-      let case1 = newNode('block', {type:'bi_case'})
+      let case1 = newNode('block', {type:'bi_case'}, '', node)
       item.appendChild(case1)
       let test1 = newNode('value', {name:'case'})
       case1.appendChild(test1)
@@ -531,7 +540,7 @@ export function walk1(ast, options){
   }
   funcs.ReturnStatement = (node, st, c) => {
     if(debug) console.log("ReturnStatement");    
-    var block1 = newNode('block', {type:'bi_return'});
+    var block1 = newNode('block', {type:'bi_return'}, '', node);
     var value1 = newNode('value', {name:'ret'});
     block1.appendChild(value1);
     current_node.appendChild(block1);
@@ -551,9 +560,9 @@ export function walk1(ast, options){
     }
     if(expression_statement){
       expression_statement = false;
-      block1 = newNode('block', {type:'bi_yield'});
+      block1 = newNode('block', {type:'bi_yield'}, '', node);
     } else{
-      block1 = newNode('block', {type:'bi_yield_return'});
+      block1 = newNode('block', {type:'bi_yield_return'}, '', node);
     }
     block1.appendChild(delegate1);
     var value1 = newNode('value', {name:'yield'});
@@ -571,7 +580,7 @@ export function walk1(ast, options){
   funcs.ThrowStatement =
     (node, st, c) => {
     if(debug) console.log("ThrowStatement");
-    var block1 = newNode('block', {type:'bi_throw'})
+    var block1 = newNode('block', {type:'bi_throw'}, '', node)
     current_node.appendChild(block1)
     var throw1 = newNode('value', {name:'throw'})
     block1.appendChild(throw1)
@@ -583,7 +592,7 @@ export function walk1(ast, options){
   funcs.SpreadElement =
     (node, st, c) => {
     if(debug) console.log("SpreadElement");
-    var block1 = newNode('block', {type:'bi_spread'})
+    var block1 = newNode('block', {type:'bi_spread'}, '', node)
     current_node.appendChild(block1)
     var spread1 = newNode('value', {name:'arg_array'})
     block1.appendChild(spread1)
@@ -594,7 +603,7 @@ export function walk1(ast, options){
   }
   funcs.TryStatement = (node, st, c) => {
     if(debug) console.log("TryStatement");
-    var block1 = newNode('block', {type:'bi_try_catch'})
+    var block1 = newNode('block', {type:'bi_try_catch'}, '', node)
     current_node.appendChild(block1)
     var node1 = current_node
     var try1 = newNode('statement', {name:'try'})
@@ -624,7 +633,7 @@ export function walk1(ast, options){
   }
   funcs.WhileStatement = funcs.DoWhileStatement = (node, st, c) => {
     if(debug) console.log("WhileStatement");
-    var block1 = newNode('block', {type:'controls_whileUntil'})
+    var block1 = newNode('block', {type:'controls_whileUntil'}, '', node)
     current_node.appendChild(block1);
     var mode1 = newNode('field', {name:'MODE'}, 'WHILE')
     block1.appendChild(mode1)
@@ -641,7 +650,7 @@ export function walk1(ast, options){
   }
   funcs.ForStatement = (node, st, c) => {
     if(debug) console.log("ForStatement");
-    var block1 = newNode('block', {type: 'bi_for'});
+    var block1 = newNode('block', {type: 'bi_for'}, '', node);
     current_node.appendChild(block1);
     var init1 = newNode('statement', {name:'init'});
     block1.appendChild(init1);
@@ -668,7 +677,7 @@ export function walk1(ast, options){
   // Only works with one variable declaration.
   funcs.ForInStatement = funcs.ForOfStatement = (node, st, c) => {
     if(debug) console.log("ForInStatement");
-    var block1 = newNode('block', {type: 'bi_for_in'});
+    var block1 = newNode('block', {type: 'bi_for_in'}, '', node);
     current_node.appendChild(block1);
     var init1 = newNode('field', {name:'var'}, node.left.declarations[0].id.name); // Only one declaration allowed.
     block1.appendChild(init1);
@@ -724,7 +733,7 @@ export function walk1(ast, options){
       current_node = next1;
       //let node1 = current_node;
       if(for_init){
-        let block1 = newNode('block', {type:'bi_assignment'});
+        let block1 = newNode('block', {type:'bi_assignment'}, '', node);
         current_node.appendChild(block1);
         var field1 = newNode('field', {name:'operator'}, '=');
         block1.appendChild(field1);
@@ -741,7 +750,7 @@ export function walk1(ast, options){
         current_node = node1;
       } else {
         let node1 = current_node;
-        let block1 = newNode('block', {type:'bi_var'})
+        let block1 = newNode('block', {type:'bi_var'}, '', node)
         block1.appendChild(newNode('field', {name: 'var_type'}, node.kind));
         block1.appendChild(newNode('field', {name: 'var'}, node.id.name));
         let value1 = newNode('value', {name: 'val'});
@@ -754,7 +763,7 @@ export function walk1(ast, options){
     }
     else {
       let node1 = current_node;
-      let block1 = newNode('block', {type:'bi_var'})
+      let block1 = newNode('block', {type:'bi_var'}, '', node)
       block1.appendChild(newNode('field', {name: 'var_type'}, node.kind));
       block1.appendChild(newNode('field', {name: 'var'}, node.id.name));
       let value1 = newNode('value', {name: 'val'});
@@ -788,18 +797,18 @@ export function walk1(ast, options){
       //c(node.id, st, "Pattern") // JCOA: We are already using this name below (Function name)
       //console.log(node.id.name);
       if(expression_statement){
-        block1 = newNode('block', {type:'bi_function_return'});
+        block1 = newNode('block', {type:'bi_function_return'}, '', node);
       } else {
-        block1 = newNode('block', {type:'bi_function'});
+        block1 = newNode('block', {type:'bi_function'}, '', node);
       }
       block1.appendChild(generator1)
       block1.appendChild(newNode('field', {name:'name'}, node.id.name));
     } else if(node.method){
-      block1 = newNode('block', {type:'bi_function'});
+      block1 = newNode('block', {type:'bi_function'}, '', node);
       block1.appendChild(newNode('field', {name:'function_type'}, ''));
       block1.appendChild(newNode('field', {name:'name'}, node.method));      
     } else{
-      block1 = newNode('block', {type:'bi_function_return'});      
+      block1 = newNode('block', {type:'bi_function_return'}, '', node);      
       block1.appendChild(generator1)
       block1.appendChild(newNode('field', {name:'name'}, ''));
     }
@@ -828,7 +837,7 @@ export function walk1(ast, options){
     if (node.type === "Identifier"){
       //make_text_block_from_text(node.name);
       //outln(node.name); // TODO: Maybe do this on the custom VariablePattern funcs function
-      //      var block1 = newNode('block', {type:'bi_field_return'});
+      //      var block1 = newNode('block', {type:'bi_field_return'}, '', node);
       //      block1.appendChild(newNode('field',{name:'NAME'},node.name));
       //      var statement1 = newNode('statement',{name:'chain'});
       //      block1.appendChild(statement1);
@@ -844,7 +853,7 @@ export function walk1(ast, options){
   };
   funcs.VariablePattern = function(node, st, c) {
     if(debug) console.log("VariablePattern "+node.name);
-    var block1 = newNode('block', {type:'bi_var_name'});
+    var block1 = newNode('block', {type:'bi_var_name'}, '', node);
     block1.appendChild(newNode('field',{name:'NAME'},node.name));
     current_node.appendChild(block1);
   }; // ignore
@@ -879,9 +888,9 @@ export function walk1(ast, options){
     } else {
       if(expression_statement){
         expression_statement = false;
-        block1 = newNode('block', {type:'bi_field'});
+        block1 = newNode('block', {type:'bi_field'}, '', node);
       } else {
-        block1 = newNode('block', {type:'bi_field_return'});
+        block1 = newNode('block', {type:'bi_field_return'}, '', node);
       }
       block1.appendChild(newNode('field',{name:'NAME'},"this"));
       var value1 = newNode('value',{name:'chain'});
@@ -898,9 +907,9 @@ export function walk1(ast, options){
     } else {
       if(expression_statement){
         expression_statement = false;
-        block1 = newNode('block', {type:'bi_field'});
+        block1 = newNode('block', {type:'bi_field'}, '', node);
       } else {
-        block1 = newNode('block', {type:'bi_field_return'});
+        block1 = newNode('block', {type:'bi_field_return'}, '', node);
       }
       block1.appendChild(newNode('field',{name:'NAME'},"super"));
       var value1 = newNode('value',{name:'chain'});
@@ -914,7 +923,7 @@ export function walk1(ast, options){
   }; // ignore
   funcs.ArrayExpression = (node, st, c) => {
     if(debug) console.log("ArrayExpression");
-    var block1 = newNode('block',{type:'lists_create_with'});
+    var block1 = newNode('block',{type:'lists_create_with'}, '', node);
     current_node.appendChild(block1);
     var mutation1 = newNode('mutation',{items:node.elements.length+1}); // TODO: Take out the +1 when list items number is corrected on core/blocks.js AddSub...
     block1.appendChild(mutation1);
@@ -930,7 +939,7 @@ export function walk1(ast, options){
   }
   funcs.ObjectExpression = (node, st, c) => {
     if(debug) console.log("ObjectExpression");
-    var block1 = newNode('block',{type:'maps_create_with'});
+    var block1 = newNode('block',{type:'maps_create_with'}, '', node);
     current_node.appendChild(block1);
     var mutation1 = newNode('mutation',{items:node.properties.length+1}); // TODO: Take out the +1 when list items number is corrected on core/blocks.js AddSub...
     block1.appendChild(mutation1);    
@@ -967,15 +976,15 @@ export function walk1(ast, options){
     if(expression_statement){
       expression_statement = false; // Force to false.
       if(node.prefix){
-        block1 = newNode('block', {type:'bi_unary'});
+        block1 = newNode('block', {type:'bi_unary'}, '', node);
       } else {
-        block1 = newNode('block', {type:'bi_unary_postfix'});        
+        block1 = newNode('block', {type:'bi_unary_postfix'}, '', node);        
       }
     } else{
       if(node.prefix){
-        block1 = newNode('block', {type:'bi_unary_return'});
+        block1 = newNode('block', {type:'bi_unary_return'}, '', node);
       } else {
-        block1 = newNode('block', {type:'bi_unary_postfix_return'});        
+        block1 = newNode('block', {type:'bi_unary_postfix_return'}, '', node);        
       }
     } 
     current_node.appendChild(block1);
@@ -1006,7 +1015,7 @@ export function walk1(ast, options){
       case '>=': op='GTE'; type = 'logic_compare'; break;
       default:
     }
-    var block1 = newNode('block', {type: type});
+    var block1 = newNode('block', {type: type}, '', node);
     block1.appendChild(newNode('field',{name:'OP'},op));
     var value1 = newNode('value',{name:'A'});
     block1.appendChild(value1);
@@ -1032,9 +1041,9 @@ export function walk1(ast, options){
     var block1;
     if(expression_statement){
       expression_statement = false;
-      block1 = newNode('block', {type:'bi_assignment'});
+      block1 = newNode('block', {type:'bi_assignment'}, '', node);
     } else{
-      block1 = newNode('block', {type:'bi_assignment_return'});
+      block1 = newNode('block', {type:'bi_assignment_return'}, '', node);
     }
     current_node.appendChild(block1);
     var field1 = newNode('field', {name:'operator'}, node.operator);
@@ -1058,12 +1067,12 @@ export function walk1(ast, options){
   }
   funcs.NewExpression = (node, st, c) => {
     if(debug) console.log("NewExpression");
-    var block1 = newNode('block', {type:'bi_new'});
+    var block1 = newNode('block', {type:'bi_new'}, '', node);
     current_node.appendChild(block1);
     var value1 = newNode('value',{name:'chain'});
     block1.appendChild(value1);
     current_call = true;
-    var call1 = newNode('block', {type:'bi_call_editable_return'});
+    var call1 = newNode('block', {type:'bi_call_editable_return'}, '', node);
     value1.appendChild(call1)
     var mutation1 = newNode('mutation', {items:node.arguments.length+1, names:''}) // TODO: Take out +1 when AddSub... is fixed on the actual length required.
     call1.appendChild(mutation1);
@@ -1089,23 +1098,23 @@ export function walk1(ast, options){
     var value1;
     var name;
     if(node.callee.type === "MemberExpression"){
-      block1 = newNode('block', {type:'bi_call_editable_return'});
+      block1 = newNode('block', {type:'bi_call_editable_return'}, '', node);
       name = node.callee.property.name;
     } else if(node.callee.type === "Identifier"){
       if(expression_statement){
         expression_statement = false;
-        block1 = newNode('block', {type:'bi_call_editable'});
+        block1 = newNode('block', {type:'bi_call_editable'}, '', node);
       } else {
-        block1 = newNode('block', {type:'bi_call_editable_return'});
+        block1 = newNode('block', {type:'bi_call_editable_return'}, '', node);
       }
       current_node.appendChild(block1);
       name = node.callee.name;
     } else if(node.callee.type === "FunctionExpression"){
       if(expression_statement){
         expression_statement = false;
-        block1 = newNode('block', {type:'bi_direct_call_editable'});
+        block1 = newNode('block', {type:'bi_direct_call_editable'}, '', node);
       } else {
-        block1 = newNode('block', {type:'bi_direct_call_editable_return'});
+        block1 = newNode('block', {type:'bi_direct_call_editable_return'}, '', node);
       }
       current_node.appendChild(block1);
     }
@@ -1153,11 +1162,11 @@ export function walk1(ast, options){
       current_call = false;
     } else {
       if(node.computed){
-        block1 = newNode('block', {type:'bi_index'});
+        block1 = newNode('block', {type:'bi_index'}, '', node);
         block2 = newNode('value', {name:'index'});
         block1.appendChild(block2);
       } else{
-        block1 = newNode('block', {type:'bi_field_return'});
+        block1 = newNode('block', {type:'bi_field_return'}, '', node);
         block1.appendChild(newNode('field',{name:'NAME'},node.property.name));
       }
       var value1 = newNode('value',{name:'chain'});
@@ -1169,7 +1178,7 @@ export function walk1(ast, options){
       if(is_call){
         current_call = false;
       } else{
-        //block2 = newNode('block', {type:'bi_index'});
+        //block2 = newNode('block', {type:'bi_index'}, '', node);
         //current_node.appendChild(block2);
         //let block3 = newNode('value', {name:'index'});
         //block2.appendChild(block3);
@@ -1196,7 +1205,7 @@ export function walk1(ast, options){
   }
   funcs.ExportNamedDeclaration = (node, st, c) => {
     if(debug) console.log("ExportNamedDeclaration");
-    var block1 = newNode('block',{type:'bi_export'});
+    var block1 = newNode('block',{type:'bi_export'}, '', node);
     current_node.appendChild(block1);
     var statement1 = newNode('statement', {name:'export'});
     block1.appendChild(statement1)
@@ -1219,7 +1228,7 @@ export function walk1(ast, options){
   }
   funcs.ImportDeclaration = (node, st, c) => {
     if(debug) console.log("ImportDeclaration");
-    var block1 = newNode('block',{type:'bi_import'});
+    var block1 = newNode('block',{type:'bi_import'}, '', node);
     current_node.appendChild(block1);
     var node1 = current_node;
     var mutation1 = newNode('mutation', {items:node.specifiers.length+1}) // TODO: Take out +1 when items count corrected on AddSub block
@@ -1240,10 +1249,10 @@ export function walk1(ast, options){
     if(debug) console.log("ImportSpecifier");
     var block1
     if(node.imported.name === node.local.name){
-      block1 = newNode('block', {type:'bi_var_name'});
+      block1 = newNode('block', {type:'bi_var_name'}, '', node);
       block1.appendChild(newNode('field',{name:'NAME'},node.local.name));
     } else{
-      block1 = newNode('block', {type:'bi_import_as'});
+      block1 = newNode('block', {type:'bi_import_as'}, '', node);
       block1.appendChild(newNode('field',{name:'input'},node.imported.name));
       block1.appendChild(newNode('field',{name:'as'},node.local.name));
     }
@@ -1253,10 +1262,10 @@ export function walk1(ast, options){
     if(debug) console.log("ImportDefaultSpecifier");
     var block1
     if(node.local.name === ''){
-      block1 = newNode('block', {type:'bi_var_name'});
+      block1 = newNode('block', {type:'bi_var_name'}, '', node);
       block1.appendChild(newNode('field',{name:'NAME'},'*'));
     } else{
-      block1 = newNode('block', {type:'bi_import_as'});
+      block1 = newNode('block', {type:'bi_import_as'}, '', node);
       block1.appendChild(newNode('field',{name:'input'},'*'));
       block1.appendChild(newNode('field',{name:'as'},node.local.name));
     }
@@ -1264,7 +1273,7 @@ export function walk1(ast, options){
   } //ignore
   funcs.ImportNamespaceSpecifier = function(node, st, c){
     if(debug) console.log("ImportNameSpecifier");
-    var block1 = newNode('block', {type:'bi_var_name'});
+    var block1 = newNode('block', {type:'bi_var_name'}, '', node);
     block1.appendChild(newNode('field',{name:'NAME'},node.local.name));
     current_node.appendChild(block1);
   } //ignore
@@ -1277,9 +1286,9 @@ export function walk1(ast, options){
       var block1;
       if(expression_statement){
         expression_statement = false;
-        block1 = newNode('block', {type:'bi_field'});
+        block1 = newNode('block', {type:'bi_field'}, '', node);
       } else {
-        block1 = newNode('block', {type:'bi_field_return'});
+        block1 = newNode('block', {type:'bi_field_return'}, '', node);
       }
       block1.appendChild(newNode('field',{name:'NAME'},node.name));
       var value1 = newNode('value',{name:'chain'});
@@ -1301,16 +1310,16 @@ export function walk1(ast, options){
     var field1;
     if(node.value instanceof RegExp){
       // TODO JCOA: Add a specific block for RegExp
-      block1 = newNode('block', {type:'bi_var_name'});
+      block1 = newNode('block', {type:'bi_var_name'}, '', node);
       block1.appendChild(newNode('field', {name:"NAME"}, node.value));
     } else {
       switch(typeof node.value){ 
         case 'number':
-          block1 = newNode('block', {type:'math_number'});
+          block1 = newNode('block', {type:'math_number'}, '', node);
           block1.appendChild(newNode('field', {name:'NUM'}, node.value.toString()));
           break;
         case 'boolean':
-          block1 = newNode('block', {type:'logic_boolean'})
+          block1 = newNode('block', {type:'logic_boolean'}, '', node)
           if(node.value){
             field1 = newNode('field', {name:'BOOL'}, 'TRUE')
           } else {
@@ -1319,7 +1328,7 @@ export function walk1(ast, options){
           block1.appendChild(field1)
           break
         default:
-          block1 = newNode('block', {type:'bi_string_return'});
+          block1 = newNode('block', {type:'bi_string_return'}, '', node);
           block1.appendChild(newNode('field', {name:'NAME'}, node.value));
           let value1 = newNode('value',{name:'chain'});
           block1.appendChild(value1);
@@ -1337,11 +1346,11 @@ export function walk1(ast, options){
     if(debug) console.log("Class");
     var block1;
     if (node.id){
-      block1 = newNode('block',{type:'bi_class'});
+      block1 = newNode('block',{type:'bi_class'}, '', node);
       block1.appendChild(newNode('field', {name:'NAME'}, node.id.name));
       // c(node.id, st, "Pattern") // JCOA: We are already using the class name.
     } else {
-      block1 = newNode('block',{type:'bi_anonymous_class'});
+      block1 = newNode('block',{type:'bi_anonymous_class'}, '', node);
     }
     if (node.superClass){
       let extends1 = newNode('field', {name:'extends'}, node.superClass.name)
@@ -1365,7 +1374,7 @@ export function walk1(ast, options){
     var node1 = current_node
     var statement1
     if(node.static){
-      let static1 = newNode('block', {type:'bi_static'})
+      let static1 = newNode('block', {type:'bi_static'}, '', node)
       current_node.appendChild(static1)
       let statement2 = newNode('statement', {name:'static'})
       static1.appendChild(statement2)
@@ -1373,7 +1382,7 @@ export function walk1(ast, options){
     }
     switch(node.kind){        
       case 'constructor':
-        //block1 = newNode('block', {type: 'bi_var'});
+        //block1 = newNode('block', {type: 'bi_var'}, '', node);
         //block1.appendChild(newNode('field', {name:'var'}, node.kind));
         node.value.method = node.kind
         break;
@@ -1381,7 +1390,7 @@ export function walk1(ast, options){
         node.value.method = node.key.name
         break;
       case 'get':
-        block1 = newNode('block', {type:'bi_get'})
+        block1 = newNode('block', {type:'bi_get'}, '', node)
         current_node.appendChild(block1)
         statement1 = newNode('statement', {name:'get'})
         block1.appendChild(statement1)
@@ -1389,7 +1398,7 @@ export function walk1(ast, options){
         node.value.method = node.key.name
         break
       case 'set':
-        block1 = newNode('block', {type:'bi_set'})
+        block1 = newNode('block', {type:'bi_set'}, '', node)
         current_node.appendChild(block1)
         statement1 = newNode('statement', {name:'set'})
         block1.appendChild(statement1)
@@ -1397,7 +1406,7 @@ export function walk1(ast, options){
         node.value.method = node.key.name
         break
       default: 
-        //block1 = newNode('block', {type: 'bi_var'});
+        //block1 = newNode('block', {type: 'bi_var'}, '', node);
         //block1.appendChild(newNode('field', {name:'var'}, node.kind));
         break;
     }
@@ -1416,9 +1425,9 @@ export function walk1(ast, options){
     var chain1;
     switch(node.kind){
       case 'set':
-        block1 = newNode('block', {type:'bi_maps_set'});
+        block1 = newNode('block', {type:'bi_maps_set'}, '', node);
         current_node.appendChild(block1);
-        if(node.computed==false){
+        if(node.computed===false){
           block1.appendChild(newNode('field', {name:'name'}, node.key.name));
         } else {
           block1.appendChild(newNode('field', {name:'name'}, '['+node.key.name+']'));          
@@ -1432,9 +1441,9 @@ export function walk1(ast, options){
         current_node = node1;
         break;
       case 'get':
-        block1 = newNode('block', {type:'bi_maps_get'});
+        block1 = newNode('block', {type:'bi_maps_get'}, '', node);
         current_node.appendChild(block1);
-        if(node.computed==false){
+        if(node.computed===false){
           block1.appendChild(newNode('field', {name:'name'}, node.key.name));
         } else {
           block1.appendChild(newNode('field', {name:'name'}, '['+node.key.name+']'));          
@@ -1447,7 +1456,7 @@ export function walk1(ast, options){
         current_node = node1;
         break;
       default:
-        block1 = newNode('block', {type:'maps_create'});
+        block1 = newNode('block', {type:'maps_create'}, '', node);
         current_node.appendChild(block1);
         //var key1 = newNode('value', {name:'KEY'}, node.key.name);
         let key1 = newNode('value', {name:'KEY'});
@@ -1457,7 +1466,7 @@ export function walk1(ast, options){
         if (node.computed){
           c(node.key, st, "Expression")
         } else {
-          let block2 = newNode('block', {type:'text'})
+          let block2 = newNode('block', {type:'text'}, '', node)
           key1.appendChild(block2);
           let field2;
           if(node.key.name){
@@ -1486,12 +1495,21 @@ export function walk1(ast, options){
 
 export function parseCode(code){
   let Blockly = window.Blockly;
-  var workspace = Blockly.mainWorkspace;
+  let workspace = Blockly.mainWorkspace;
+  let ast1, xml1;
+  let options;
   try{
     //console1.value = '';
     window._BIDE.b2c_error = false
-    var ast1 = acorn.parse(code, {sourceType: 'module'});
-    var xml1 = walk1(ast1);
+    Comments = [];
+    options = {
+      sourceType: 'module',
+      locations: true,
+      onComment: Comments
+    };
+    ast1 = acorn.parse(code, options);
+    console.log(Comments)
+    xml1 = walk1(ast1);
     //console.log(xml1);
     workspace.clear();
     Blockly.Xml.domToWorkspace(workspace, xml1);
