@@ -22,6 +22,12 @@
 
 module.exports = function(Blockly){
 
+Blockly.JavaScript['bi_comment'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  var code = ''; // '...;\n';
+  return code;
+};
+
 Blockly.JavaScript['bi_assignment'] = function(block) {
   var value_left = Blockly.JavaScript.valueToCode(block, 'A', Blockly.JavaScript.ORDER_ATOMIC);
   var value_right = Blockly.JavaScript.valueToCode(block, 'B', Blockly.JavaScript.ORDER_ATOMIC);

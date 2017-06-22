@@ -29,7 +29,21 @@ module.exports = function(Blockly){
 goog.provide('Blockly.Blocks.mm');
 
 goog.require('Blockly.Blocks');
-  
+
+// TODO: JCOA Add drop down list with operator options
+Blockly.Blocks['bi_comment'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField('comment');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(90);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
 // TODO: JCOA Add drop down list with operator options
 Blockly.Blocks['bi_assignment'] = {
   init: function() {
@@ -223,7 +237,7 @@ Blockly.Blocks['bi_try_catch'] = {
         .appendField('finally');
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(90);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -237,7 +251,7 @@ Blockly.Blocks['bi_catch'] = {
         .appendField(new Blockly.FieldTextInput(''), 'parameter');    
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(90);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -294,7 +308,7 @@ Blockly.Blocks['bi_export'] = {
         .appendField('export');
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(90);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -316,7 +330,7 @@ Blockly.Blocks['bi_import'] = {
         .appendField('from');
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(90);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -331,7 +345,7 @@ Blockly.Blocks['bi_import_as'] = {
         .appendField(new Blockly.FieldTextInput(''), 'as');
     this.setInputsInline(true);
     this.setOutput(true, null);
-    this.setColour(230);
+    this.setColour(90);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }

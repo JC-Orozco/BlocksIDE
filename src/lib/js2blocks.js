@@ -384,10 +384,12 @@ base.MethodDefinition = base.Property = (node, st, c) => {
 }
 
 ///////////////////////////
-export function walk1(ast, options){
+export function walk1(ast, comments, options){
   var st = {};
   var funcs = {};
   options = options || {}
+  comments = comments || []
+  var last_comment = 0
   options.joinTopBlocks = options.joinTopBlocks || false
   
   var goog = window.Blockly.goog;
@@ -405,13 +407,33 @@ export function walk1(ast, options){
   var id = 0;
 
   var newNode = function(name, attrs, text, ast_node){
+    var block1
     if(name === 'block'){
       attrs.id = id++;
       //if(ast_node){
         console.log(id+' '+ast_node.loc.start.line);
       //}
+      block1 = goog.dom.createDom('block');
+      
+      let comm1
+      let first = true
+      let i = last_comment
+      while(i<comments.length && comments[i].loc.start.line <= ast_node.loc.start.line){
+        if(first){
+          first = false
+          comm1 = goog.dom.createDom("comment")
+          comm1.setAttribute('pinned', 'false')
+          comm1.append(comments[i].value)
+          block1.append(comm1)
+        } else {
+          comm1.append('\n'+comments[i].value)
+        }
+        i += 1
+      }
+      last_comment = i
+    } else {
+      block1 = goog.dom.createDom(name);      
     }
-    var block1 = goog.dom.createDom(name);
     for(var key in attrs){
       block1.setAttribute(key, attrs[key]);
     }
@@ -1512,6 +1534,15 @@ export function walk1(ast, options){
   //walk.
   recursive(ast, st, funcs);
   
+  let fake_last_line_node = {}
+  fake_last_line_node.loc = {}
+  fake_last_line_node.loc.start = {}
+  fake_last_line_node.loc.start.line = 999999 // JCOA TODO: Use total lines of text
+  
+  if(last_comment < comments.length){
+    current_node.appendChild(newNode('block', {type:'bi_comment'}, '', fake_last_line_node))
+  }
+  
   return xml1;
 }
 
@@ -1531,7 +1562,7 @@ export function parseCode(code){
     };
     ast1 = acorn.parse(code, options);
     console.log(comments)
-    xml1 = walk1(ast1);
+    xml1 = walk1(ast1, comments);
     //console.log(xml1);
     workspace.clear();
     Blockly.Xml.domToWorkspace(workspace, xml1);

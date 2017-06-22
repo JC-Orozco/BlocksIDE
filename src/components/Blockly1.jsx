@@ -396,12 +396,13 @@ class Blockly1 extends Component {
     </category>
 
 
-    <category name="Advanced js">
+    <category name="Advanced js" colour="90">
       <block type="bi_try_catch"></block>      
       <block type="bi_catch"></block>      
       <block type="bi_export"></block>
       <block type="bi_import"></block>
-      <block type="bi_import_as"></block>      
+      <block type="bi_import_as"></block>
+      <block type="bi_comment"></block>
     </category>
     <sep></sep>
     <category name="Library" expanded="true">
