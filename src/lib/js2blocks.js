@@ -384,7 +384,7 @@ base.MethodDefinition = base.Property = (node, st, c) => {
 }
 
 ///////////////////////////
-export function walk1(ast, comments, options){
+export function walk1(ast, comments, block_loc, options){
   var st = {};
   var funcs = {};
   options = options || {}
@@ -409,10 +409,10 @@ export function walk1(ast, comments, options){
   var newNode = function(name, attrs, text, ast_node){
     var block1
     if(name === 'block'){
-      attrs.id = id++;
-      //if(ast_node){
-        console.log(id+' '+ast_node.loc.start.line);
-      //}
+      block_loc[id] = ast_node.loc
+      console.log(id+' '+ast_node.loc.start.line);
+      attrs.id = id;
+      id += 1;
       block1 = goog.dom.createDom('block');
       
       let comm1
@@ -1552,6 +1552,7 @@ export function parseCode(code){
   let ast1, xml1;
   let options;
   let comments = [];
+  let block_loc = [];
   try{
     //console1.value = '';
     window._BIDE.b2c_error = false
@@ -1562,7 +1563,7 @@ export function parseCode(code){
     };
     ast1 = acorn.parse(code, options);
     console.log(comments)
-    xml1 = walk1(ast1, comments);
+    xml1 = walk1(ast1, comments, block_loc);
     //console.log(xml1);
     workspace.clear();
     Blockly.Xml.domToWorkspace(workspace, xml1);
@@ -1574,6 +1575,11 @@ export function parseCode(code){
   } catch(err){
     console.log(err)
     window._BIDE.b2c_error = true
+    
+    let tb = workspace.topBlocks_
+    let id = tb[tb.length-1].id
+    //console.log(id)
+    console.log('Error line number: '+ block_loc[id].start.line)
     //workspace.clear();
     //Blockly.Xml.domToWorkspace(workspace, xml1);
     //workspace.cleanUp_();    //workspace.addChangeListener(window._BIDE.updateWorkspace);
