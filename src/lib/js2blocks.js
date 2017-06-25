@@ -1567,7 +1567,8 @@ export function parseCode(code){
     //console.log(xml1);
     workspace.clear();
     Blockly.Xml.domToWorkspace(workspace, xml1);
-    workspace.cleanUp_();
+    //workspace.cleanUp_();
+    workspace.align()
     window._BIDE.updateWorkspace()
  //workspace.addChangeListener(window._BIDE.updateWorkspace);
     //var blockly_code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
@@ -1579,7 +1580,9 @@ export function parseCode(code){
     let tb = workspace.topBlocks_
     let id = tb[tb.length-1].id
     //console.log(id)
-    console.log('Error line number: '+ block_loc[id].start.line)
+    if(block_loc[id]){
+      console.log('Error line number: '+ block_loc[id].start.line)
+    }
     //workspace.clear();
     //Blockly.Xml.domToWorkspace(workspace, xml1);
     //workspace.cleanUp_();    //workspace.addChangeListener(window._BIDE.updateWorkspace);
