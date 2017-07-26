@@ -34,6 +34,114 @@ class Blockly1 extends Component {
 
     var toolbox = `
 <xml id="toolbox" style="display: none">    
+  <category name="Properties" custom="VARIABLE" colour="240">
+  </category>
+  <category name="Decisions" colour="330">
+      <block type="controls_if_better"></block>
+      <block type="controls_if"></block>
+      <block type="controls_if"><mutation else="1"></mutation></block>
+      <block type="logic_compare"></block>
+                    <block type="logic_operation"></block>
+                    <block type="logic_negate"></block>
+                  </category>,
+  <category name="Iteration" colour="300">
+                    <block type="controls_forEach"></block>
+                </category>,
+  <category name="Functions" custom="PROCEDURE" colour="210">
+                </category>,
+  <category name="Classes" colour="210">
+                    <block type="class_creation"></block>
+                    <block type="class_creation">
+                        <mutation value="k"></mutation>
+                    </block>
+                </category>,
+  <category name="Calculation" colour="270">
+                    <block type="math_arithmetic"></block>
+                    <block type="math_round"></block>
+                </category>,
+  <category name="Python" colour="180">
+                    <block type="raw_block"></block>
+                    <block type="raw_expression"></block>
+                </category>,
+  <category name="Output" colour="160">
+                    <block type="text_print"></block>
+                    <block type="plot_line"></block>
+                    <block type="plot_scatter"></block>
+                    <block type="plot_hist"></block>
+                    <block type="plot_show"></block>
+                    <block type="plot_title"></block>
+                    <block type="plot_xlabel"></block>
+                    <block type="plot_ylabel"></block>
+                </category>,
+  <category name="Turtles" colour="180">
+                    <block type="turtle_create"></block>
+                    <block type="turtle_forward"></block>
+                    <block type="turtle_backward"></block>
+                    <block type="turtle_left"></block>
+                    <block type="turtle_right"></block>
+                    <block type="turtle_color"></block>
+                </category>,
+  <category name="Values" colour="100">
+                    <block type="text"></block>
+                    <block type="math_number"></block>
+                    <block type="logic_boolean"></block>
+                </category>,
+  <category name="Tuples" colour="40">
+                <block type="tuple_create"></block>
+              </category>,
+  <category name="Lists" colour="30">
+                    <block type="lists_create"></block>
+                    <block type="lists_create_with">
+                        <value name="ADD0">
+                          <block type="math_number"><field name="NUM">0</field></block>
+                        </value>
+                        <value name="ADD1">
+                          <block type="math_number"><field name="NUM">0</field></block>
+                        </value>
+                        <value name="ADD2">
+                          <block type="math_number"><field name="NUM">0</field></block>
+                        </value>
+                    </block>
+                    <block type="lists_create_with"></block>
+                    <block type="lists_create_empty"></block>
+                    <block type="lists_append"></block>
+                </category>,
+  <category name="Dictionaries" colour="0">
+                    <block type="dicts_create_with"></block>
+                    <block type="dict_get_literal"></block>
+                    //<block type="dict_keys"></block>
+                </category>,
+  
+  <category name="Data - Parking" colour="45">
+                    <block type="datetime_day"></block>
+                    <block type="datetime_time"></block>
+                    <block type="logic_compare">
+                        <field name="OP">EQ</field>
+                        <value name="A">
+                          <block type="datetime_time">
+                            <mutation isNow="1"></mutation>
+                            <field name="HOUR">1</field>
+                            <field name="MINUTE">00</field>
+                            <field name="MERIDIAN">PM</field>
+                          </block>
+                        </value>
+                    </block>
+                    <block type="logic_compare">
+                        <field name="OP">EQ</field>
+                        <value name="A">
+                          <block type="datetime_day">
+                            <field name="DAY">Monday</field>
+                          </block>
+                        </value>
+                    </block>
+                    //<block type="datetime_check_day"></block>
+                    //<block type="datetime_check_time"></block>
+                </category>,
+    Separator: <sep></sep>
+`
+    
+    var toolbox2 = `
+<xml id="toolbox" style="display: none">    
     <category id="catLogic" name="Logic" colour="210">
       <block type="controls_if"></block>
       <block type="bi_logic_compare"></block>
