@@ -1568,7 +1568,8 @@ export function parseCode(code){
     workspace.clear();
     Blockly.Xml.domToWorkspace(workspace, xml1);
     //workspace.cleanUp_();
-    workspace.align()
+    //workspace.align()
+    workspace.cleanUp();
     window._BIDE.updateWorkspace()
  //workspace.addChangeListener(window._BIDE.updateWorkspace);
     //var blockly_code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);

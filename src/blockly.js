@@ -45,24 +45,55 @@ window.PLUS_MINUS_updateShape = function(listItemName, startMessage) {
     return function() {
         var that = this;
         function addField(field, block, e) {
-            var rect = field.fieldGroup_.getBoundingClientRect();
-            var yPosition = e.clientY;
-            if (yPosition < rect.top+rect.height/2) {
-                var input = that.appendValueInput(listItemName + that.itemCount_);
-                that.itemCount_ += 1;
-            } else {
+// JCOA: The new blockly does not send e information of the click up to this handler.
+//  We are assumming add function for now:
+          var input = that.appendValueInput(listItemName + that.itemCount_);
+          that.itemCount_ += 1;
+
+//            var rect = field.fieldGroup_.getBoundingClientRect();
+//            var yPosition = e.clientY;
+//            if (yPosition < rect.top+rect.height/2) {
+//                var input = that.appendValueInput(listItemName + that.itemCount_);
+//                that.itemCount_ += 1;
+//            } else {
+//                if (that.itemCount_ > 0) {
+//                    that.itemCount_ -= 1;
+//                    that.removeInput(listItemName + that.itemCount_)
+//                }
+//            }
+        }
+        function removeField(field, block, e) {
+// JCOA: The new blockly does not send e information of the click up to this handler.
+//  We are assumming remove function for now:
                 if (that.itemCount_ > 0) {
                     that.itemCount_ -= 1;
                     that.removeInput(listItemName + that.itemCount_)
                 }
-            }
+
+//            var rect = field.fieldGroup_.getBoundingClientRect();
+//            var yPosition = e.clientY;
+//            if (yPosition < rect.top+rect.height/2) {
+//                var input = that.appendValueInput(listItemName + that.itemCount_);
+//                that.itemCount_ += 1;
+//            } else {
+//                if (that.itemCount_ > 0) {
+//                    that.itemCount_ -= 1;
+//                    that.removeInput(listItemName + that.itemCount_)
+//                }
+//            }
+        }
+        if (!this.getInput('REMOVE')) {
+            var clickableMinus = new Blockly.FieldClickImage("images/minus-button.svg", 12, 24, '+', removeField, '-2px');
+            //clickablePlusMinus.imageElement_.style.y = '-2px';
+            this.appendDummyInput('REMOVE')
+                .appendField(startMessage)
+                .appendField(clickableMinus);
         }
         if (!this.getInput('START')) {
-            var clickablePlusMinus = new Blockly.FieldClickImage("images/plus-minus-button.svg", 12, 24, '+', addField, '-2px');
+            var clickablePlus = new Blockly.FieldClickImage("images/plus-button.svg", 12, 24, '+', addField, '-2px');
             //clickablePlusMinus.imageElement_.style.y = '-2px';
             this.appendDummyInput('START')
-                .appendField(startMessage)
-                .appendField(clickablePlusMinus);
+                .appendField(clickablePlus);
         }
         // Add new inputs.
         for (var i = 0; i < this.itemCount_; i++) {
