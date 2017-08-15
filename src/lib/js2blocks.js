@@ -1553,42 +1553,110 @@ export function parseCode(code){
   let options;
   let comments = [];
   let block_loc = [];
-  try{
-    //console1.value = '';
-    window._BIDE.b2c_error = false
-    options = {
-      sourceType: 'module',
-      locations: true,
-      onComment: comments
-    };
-    ast1 = acorn.parse(code, options);
-    console.log(comments)
-    xml1 = walk1(ast1, comments, block_loc);
-    //console.log(xml1);
-    workspace.clear();
-    Blockly.Xml.domToWorkspace(workspace, xml1);
-    //workspace.cleanUp_();
-    //workspace.align()
-    workspace.cleanUp();
-    window._BIDE.updateWorkspace()
- //workspace.addChangeListener(window._BIDE.updateWorkspace);
-    //var blockly_code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
-    //console.log(blockly_code);  
-  } catch(err){
-    console.log(err)
-    window._BIDE.b2c_error = true
     
-    let tb = workspace.topBlocks_
-    let id = tb[tb.length-1].id
-    //console.log(id)
-    if(block_loc[id]){
-      console.log('Error line number: '+ block_loc[id].start.line)
-    }
-    //workspace.clear();
-    //Blockly.Xml.domToWorkspace(workspace, xml1);
-    //workspace.cleanUp_();    //workspace.addChangeListener(window._BIDE.updateWorkspace);
+  
+  // TODO JCOA: Add drop down list to select JavaScript or Python
+  if(true){
+    // TODO JCOA Use code directly from blockpy editor.js
+    console.log('parseCode Python');
 
-    //console1.value += err+'\n';
+    let blocksFailed = false;
+    let python_code = code;
+    //console.log(window._BIDE.p2b.convertSourceToCodeBlock(code))
+
+    var xml_code = "";
+    if (python_code !== '' && python_code !== undefined && python_code.trim().charAt(0) !== '<') {
+        var result = window._BIDE.p2b.convertSource(python_code);
+        xml_code = result.xml;
+        //window.clearTimeout(this.blocksFailedTimeout);
+        if (result.error !== null) {
+            blocksFailed = result.error;
+            //var editor = this;
+            //            this.blocksFailedTimeout = window.setTimeout(function() {
+            //                if (editor.main.model.settings.editor() != 'Text') {
+            //                    editor.showConversionError();
+            //                }
+            //            }, 500)
+        } else {
+            blocksFailed = false;
+            //this.main.components.feedback.clearEditorErrors();
+        }
+    }
+    var error_code = window._BIDE.p2b.convertSourceToCodeBlock(python_code);
+    var errorXml = Blockly.Xml.textToDom(error_code);
+    if (python_code == '' || python_code == undefined || python_code.trim() == '') {
+        //this.blockly.clear();
+    } else if (xml_code !== '' && xml_code !== undefined) {
+        var blocklyXml = Blockly.Xml.textToDom(xml_code);
+        try {
+            //this.setBlocksFromXml(blocklyXml);
+            workspace.clear();
+            Blockly.Xml.domToWorkspace(blocklyXml, workspace);
+        } catch (e) {
+            console.error(e);
+            //this.setBlocksFromXml(errorXml);
+            workspace.clear();
+            Blockly.Xml.domToWorkspace(errorXml, workspace);
+        }
+    } else {
+        //this.setBlocksFromXml(errorXml);
+        workspace.clear();
+        Blockly.Xml.domToWorkspace(errorXml, workspace);
+    }
+//    Blockly.Events.disable();
+//    // Parsons shuffling
+//    if (this.main.model.assignment.parsons()) {
+//        this.blockly.shuffle();
+//    } else {
+//        //this.blockly.align(); // Obsolete
+//        this.blockly.cleanUp();
+//    }
+//    Blockly.Events.enable();
+//    if (this.previousLine !== null) {
+//        this.refreshBlockHighlight(this.previousLine);
+//    }
+    
+  
+  } else {
+    console.log('parseCode JavaScript')  
+
+    try{
+      //console1.value = '';
+      window._BIDE.b2c_error = false
+      options = {
+        sourceType: 'module',
+        locations: true,
+        onComment: comments
+      };
+      ast1 = acorn.parse(code, options);
+      console.log(comments)
+      xml1 = walk1(ast1, comments, block_loc);
+      //console.log(xml1);
+      workspace.clear();
+      Blockly.Xml.domToWorkspace(workspace, xml1);
+      //workspace.cleanUp_();
+      //workspace.align()
+      workspace.cleanUp();
+      window._BIDE.updateWorkspace()
+   //workspace.addChangeListener(window._BIDE.updateWorkspace);
+      //var blockly_code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
+      //console.log(blockly_code);  
+    } catch(err){
+      console.log(err)
+      window._BIDE.b2c_error = true
+
+      let tb = workspace.topBlocks_
+      let id = tb[tb.length-1].id
+      //console.log(id)
+      if(block_loc[id]){
+        console.log('Error line number: '+ block_loc[id].start.line)
+      }
+      //workspace.clear();
+      //Blockly.Xml.domToWorkspace(workspace, xml1);
+      //workspace.cleanUp_();    //workspace.addChangeListener(window._BIDE.updateWorkspace);
+
+      //console1.value += err+'\n';
+    }
   }
 }
 

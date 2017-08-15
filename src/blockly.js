@@ -15,9 +15,6 @@ biBlocks(Blockly);
 //import('../node_modules/blockpy/blockly/blocks/corgis.js')
 //import('../node_modules/blockpy/blockly/blocks/plot.js')
 
-const dictsBlocks = require('../node_modules/blockpy/blockly/blocks/dicts.js')
-dictsBlocks(Blockly);
-
 const blocklyJS = require('node-blockly/lib/javascript_compressed');
 blocklyJS(Blockly);
 

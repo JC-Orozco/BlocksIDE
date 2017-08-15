@@ -20,7 +20,8 @@
     "snapsvg": "^0.5.1"
   },
   "devDependencies": {
-    "react-scripts": "1.0.6"
+    "react-scripts": "1.0.6",
+    "script-loader": "^0.7.0"
   },
   "scripts": {
     "start": "react-scripts start",

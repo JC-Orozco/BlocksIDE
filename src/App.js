@@ -9,6 +9,14 @@ import Layout1 from './components/Layout1.jsx';
 import Blockly from './blockly';
 //import Snap from 'snapsvg';
 const Snap = require(`imports-loader?this=>window,fix=>module.exports=0!snapsvg/dist/snap.svg.js`);
+// Equivalent to script tag on a webpage
+require(`script-loader!../node_modules/blockpy/src/python_to_blockly.js`);
+
+//<script src="http://www.skulpt.org/static/skulpt.min.js" type="text/javascript"></script> 
+//<script src="http://www.skulpt.org/static/skulpt-stdlib.js" type="text/javascript"></script> 
+require(`script-loader!./lib/skulpt/skulpt.min.js`);
+//require(`script-loader!./lib/skulpt/skulpt-stdlib.js`);
+
 
 class App extends Component {
   componentWillMount(){
@@ -16,10 +24,19 @@ class App extends Component {
     window.Blockly = Blockly
     window.Snap = Snap
 
+    window.workspace = Blockly.mainWorkspace;
+    
+    console.log(window.Sk)
+    //window.Sk = Sk
+    
     window._BIDE = {}
     let _BIDE = window._BIDE
+    
+    _BIDE.p2b = new window.PythonToBlocks()
+    
     _BIDE.b2c_error = false
-    _BIDE.code = 'var i=10'
+    //_BIDE.code = 'var i=10'
+    _BIDE.code = ''
     
     _BIDE.resize = {}
     _BIDE.resize.callbackList = []
@@ -52,7 +69,10 @@ class App extends Component {
       console.log("updateWorkspace");
       // Set this on a getCode function
       //if(!window._BIDE.b2c_error){
-        let blockly_code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
+        // TODO JCOA Dropdown selector between JavaScript and Python:
+        ////let blockly_code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
+        let blockly_code = Blockly.Python.workspaceToCode(Blockly.mainWorkspace);
+      
         window._BIDE.blockly_code = blockly_code;
         try{
           window._BIDE.editor2.setValue(blockly_code)

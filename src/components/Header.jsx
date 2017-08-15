@@ -44,7 +44,9 @@ class Header extends Component {
       window._BIDE.code = reader.result
       window._BIDE.editor1.setValue(reader.result);
       
+      // TODO JCOA Dropdown selector between JavaScript and Python:
       parseCode(reader.result)
+      
       window._BIDE.code_prev = window._BIDE.code
     }
     reader.readAsText(input.files[0]);

@@ -16,7 +16,9 @@ class Layout1b2 extends Component {
    window._BIDE.code = window._BIDE.blockly_code;
     window._BIDE.editor1.setValue(window._BIDE.code);
  
+    // TODO JCOA Dropdown selector between JavaScript and Python:
     parseCode(window._BIDE.code)
+    
     window._BIDE.code_prev = window._BIDE.code;
   }
   bi_pane1_clear(){

@@ -22,4 +22,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-Uses other open source components like Blockly and acornjs
+Uses other open source components like Blockly, acornjs and BlockPy

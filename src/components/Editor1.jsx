@@ -29,7 +29,10 @@ class Editor1 extends Component {
         code: newCode,
     });
     window._BIDE.code = newCode
+    
+    // TODO JCOA Dropdown selector between JavaScript and Python:
     parseCode(newCode)
+    
     window._BIDE.code_prev = window._BIDE.code;
   }
   componentDidMount() {
@@ -38,6 +41,7 @@ class Editor1 extends Component {
     window._BIDE.editor1 = this.editor.codeMirror;
     // Check if old code == newCOde do not execute. Save old code
     if(window._BIDE.code_prev !== this.state.code){
+      // TODO JCOA Dropdown selector between JavaScript and Python:
       parseCode(this.state.code)
       window._BIDE.code_prev = window._BIDE.code;
     }
