@@ -1066,5 +1066,6 @@ Blockly.Blocks['bi_parenthesis'] = {
     this.setHelpUrl('http://www.example.com/');
   }
 };
+  
 return Blockly.Blocks;
 }

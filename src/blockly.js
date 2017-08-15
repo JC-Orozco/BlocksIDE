@@ -11,6 +11,13 @@ if (typeof window !== 'undefined') {
 const biBlocks = require('./lib/bi_blockly/blocks/bi_blockly.js')
 biBlocks(Blockly);
 
+//import('../node_modules/blockpy/blockly/blocks/dicts.js')
+//import('../node_modules/blockpy/blockly/blocks/corgis.js')
+//import('../node_modules/blockpy/blockly/blocks/plot.js')
+
+const dictsBlocks = require('../node_modules/blockpy/blockly/blocks/dicts.js')
+dictsBlocks(Blockly);
+
 const blocklyJS = require('node-blockly/lib/javascript_compressed');
 blocklyJS(Blockly);
 
@@ -19,6 +26,7 @@ blocklyPy(Blockly);
 
 const biBlocksJS = require('./lib/bi_blockly/generators/javascript/bi_blockly.js')
 biBlocksJS(Blockly);
+
 
 import('../node_modules/blockpy/src/blockly_blocks/class.js')
 import('../node_modules/blockpy/src/blockly_blocks/comment.js')
