@@ -1,5 +1,5 @@
 /* "height: 100vh" may be overspecified */ 
-html {
+html, body {
   height: 100vh;  
 }
 
