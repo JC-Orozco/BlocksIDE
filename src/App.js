@@ -71,7 +71,7 @@ class App extends Component {
       //if(!window._BIDE.b2c_error){
         // TODO JCOA Dropdown selector between JavaScript and Python:
         ////let blockly_code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
-        let blockly_code = Blockly.Python.workspaceToCode(Blockly.mainWorkspace);
+        let blockly_code = Blockly.Python.workspaceToCode(_BIDE.workspace);
       
         window._BIDE.blockly_code = blockly_code;
         try{

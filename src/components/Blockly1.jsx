@@ -536,6 +536,8 @@ class Blockly1 extends Component {
               minScale: 0.2,
               scaleSpeed: 1.2},
           trashcan: false});
+   
+    window._BIDE.workspace = workspace;
     workspace.addChangeListener(window._BIDE.updateWorkspace);
     var onresize = function(e) {
       // console.log("blocklyResize")
