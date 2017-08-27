@@ -6,6 +6,8 @@ import React, { Component } from 'react';
 //import BlocklyEditor from 'react-blockly-component';
 //import Blockly from '../blockly';
 
+import loadBlockly from '../blockly';
+
 //var blockly1_this
 class Blockly1 extends Component {
   //  updateWorkspace(e){
@@ -25,7 +27,7 @@ class Blockly1 extends Component {
   //  }
    
   componentDidMount() {
-    let Blockly = window.Blockly
+    //let Blockly = window.Blockly
     //    var toolbox = `
     //      <xml>
     //        <block type="controls_if"></block>
@@ -526,7 +528,10 @@ class Blockly1 extends Component {
     var blocklyContainer = this.blocklyContainer; //document.getElementById('blocklyContainer');
     var blocklyArea = this.blocklyArea; //document.getElementById('blocklyArea');
     var blocklyDiv = this.blocklyDiv; //document.getElementById('blocklyDiv');
-    var workspace = Blockly.inject(blocklyDiv,
+    
+    var workspace;
+    loadBlockly(function() {
+      workspace = window.Blockly.inject(blocklyDiv,
         { toolbox: toolbox,
           zoom:
             { controls: true,
@@ -536,7 +541,7 @@ class Blockly1 extends Component {
               minScale: 0.2,
               scaleSpeed: 1.2},
           trashcan: false});
-   
+     
     window._BIDE.workspace = workspace;
     workspace.addChangeListener(window._BIDE.updateWorkspace);
     var onresize = function(e) {
@@ -559,12 +564,14 @@ class Blockly1 extends Component {
       blocklyDiv.style.top = '0px' // y + 'px';
       blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
       blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
-      Blockly.svgResize(workspace);
+      window.Blockly.svgResize(workspace);
     };
     //window.addEventListener('resize', onresize, false);
     window._BIDE.resize.addCallback(onresize)
     onresize();
-    Blockly.svgResize(workspace);
+    window.Blockly.svgResize(workspace);
+    
+    });
   }
   render() {
     var styleDiv = {

@@ -3,41 +3,95 @@
 // https://github.com/JC-Orozco/BlocksIDE
 
 let Blockly;
-if (typeof window !== 'undefined') {
-  Blockly = require('../node_modules/node-blockly/browser-raw.js');
-} else {
-  Blockly = require('../node_modules/node-blockly/_blockly.js');
+
+//if (typeof window !== 'undefined') {
+//  Blockly = require('../node_modules/node-blockly/browser-raw.js');
+//} else {
+//  Blockly = require('../node_modules/node-blockly/_blockly.js');
+//}
+
+var load = require('load-script')
+
+var loadBlockly = function(_callback) {
+  load('blockly/blockly_compressed.js', function (err, script) {
+    if (err) {
+    }
+    else {
+      console.log(script.src);// Prints 'foo'.js'
+      console.log(window.Blockly)
+      load('blockly/blocks_compressed.js', function (err, script) {
+        if (err) {
+        } else {
+          console.log(script.src);// Prints 'foo'.js' 
+          load('blockly/msg/js/en.js', function (err, script) {
+            if (err) {
+            } else {
+              console.log(script.src);// Prints 'foo'.js' 
+              //window.Blockly = Blockly;
+              window.workspace = window.Blockly.mainWorkspace;
+              loadBlocklyComponents();
+              _callback();
+              //window.goog = window.Blockly.goog;
+            }
+          })
+        }
+      })
+    }
+  })
 }
-const biBlocks = require('./lib/bi_blockly/blocks/bi_blockly.js')
-biBlocks(Blockly);
+
+//loadBlockly(function(){});
+
+var loadBlocklyComponents = function() {
+
 
 //import('../node_modules/blockpy/blockly/blocks/dicts.js')
 //import('../node_modules/blockpy/blockly/blocks/corgis.js')
 //import('../node_modules/blockpy/blockly/blocks/plot.js')
 
-const blocklyJS = require('node-blockly/lib/javascript_compressed');
-blocklyJS(Blockly);
+load('blockly/javascript_compressed.js', function (err, script) {
+    if (err) {
+    }
+    else {
+      const biBlocks = require('./lib/bi_blockly/blocks/bi_blockly.js')
+      //biBlocks(window.Blockly);
+      
+      load('blockly/python_compressed.js', function (err, script) {
+          if (err) {
+          }
+          else {
+            require('./lib/bi_blockly/generators/javascript/bi_blockly.js')
+            //biBlocksJS(Blockly);
+            loadPythonBlocks();
+          }
+      });    
+    }
+});
 
-const blocklyPy = require('node-blockly/lib/python_compressed');
-blocklyPy(Blockly);
 
-const biBlocksJS = require('./lib/bi_blockly/generators/javascript/bi_blockly.js')
-biBlocksJS(Blockly);
+//const blocklyJS = require('node-blockly/lib/javascript_compressed');
+//blocklyJS(Blockly);
+//
+//const blocklyPy = require('node-blockly/lib/python_compressed');
+//blocklyPy(Blockly);
+//
+}
+  
+var loadPythonBlocks= function () { 
+  import('../node_modules/blockpy/src/blockly_blocks/class.js')
+  import('../node_modules/blockpy/src/blockly_blocks/comment.js')
+  import('../node_modules/blockpy/src/blockly_blocks/comprehensions.js')
+  import('../node_modules/blockpy/src/blockly_blocks/decorator.js')
+  import('../node_modules/blockpy/src/blockly_blocks/dict.js')
+  import('../node_modules/blockpy/src/blockly_blocks/if.js')
+  import('../node_modules/blockpy/src/blockly_blocks/io.js')
+  import('../node_modules/blockpy/src/blockly_blocks/lists.js')
+  import('../node_modules/blockpy/src/blockly_blocks/loops.js')
+  import('../node_modules/blockpy/src/blockly_blocks/parking.js')
+  import('../node_modules/blockpy/src/blockly_blocks/sets.js')
+  import('../node_modules/blockpy/src/blockly_blocks/tuple.js')
+  import('../node_modules/blockpy/src/blockly_blocks/turtles.js')
 
-
-import('../node_modules/blockpy/src/blockly_blocks/class.js')
-import('../node_modules/blockpy/src/blockly_blocks/comment.js')
-import('../node_modules/blockpy/src/blockly_blocks/comprehensions.js')
-import('../node_modules/blockpy/src/blockly_blocks/decorator.js')
-import('../node_modules/blockpy/src/blockly_blocks/dict.js')
-import('../node_modules/blockpy/src/blockly_blocks/if.js')
-import('../node_modules/blockpy/src/blockly_blocks/io.js')
-import('../node_modules/blockpy/src/blockly_blocks/lists.js')
-import('../node_modules/blockpy/src/blockly_blocks/loops.js')
-import('../node_modules/blockpy/src/blockly_blocks/parking.js')
-import('../node_modules/blockpy/src/blockly_blocks/sets.js')
-import('../node_modules/blockpy/src/blockly_blocks/tuple.js')
-import('../node_modules/blockpy/src/blockly_blocks/turtles.js')
 
 //const biBlocksJS = require('../node_modules/blockpy/lib/  lib/bi_blockly/generators/javascript/bi_blockly.js')
 //biBlocksJS(Blockly);
@@ -88,14 +142,14 @@ window.PLUS_MINUS_updateShape = function(listItemName, startMessage) {
 //            }
         }
         if (!this.getInput('REMOVE')) {
-            var clickableMinus = new Blockly.FieldClickImage("images/minus-button.svg", 12, 24, '+', removeField, '-2px');
+            var clickableMinus = new window.Blockly.FieldClickImage("images/minus-button.svg", 12, 24, '+', removeField, '-2px');
             //clickablePlusMinus.imageElement_.style.y = '-2px';
             this.appendDummyInput('REMOVE')
                 .appendField(startMessage)
                 .appendField(clickableMinus);
         }
         if (!this.getInput('START')) {
-            var clickablePlus = new Blockly.FieldClickImage("images/plus-button.svg", 12, 24, '+', addField, '-2px');
+            var clickablePlus = new window.Blockly.FieldClickImage("images/plus-button.svg", 12, 24, '+', addField, '-2px');
             //clickablePlusMinus.imageElement_.style.y = '-2px';
             this.appendDummyInput('START')
                 .appendField(clickablePlus);
@@ -114,6 +168,8 @@ window.PLUS_MINUS_updateShape = function(listItemName, startMessage) {
     }
 }
 
+}
+
 window.PythonToBlocks = {
   KNOWN_MODULES:'',
   KNOWN_ATTR_FUNCTIONS:''
@@ -121,4 +177,4 @@ window.PythonToBlocks = {
 
 console.log("Blockly")
 
-module.exports = Blockly;
+module.exports = loadBlockly;

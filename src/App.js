@@ -6,7 +6,6 @@ import React, { Component } from 'react';
 import './App.css';
 import 'react-tabs/style/react-tabs.css';
 import Layout1 from './components/Layout1.jsx';
-import Blockly from './blockly';
 //import Snap from 'snapsvg';
 const Snap = require(`imports-loader?this=>window,fix=>module.exports=0!snapsvg/dist/snap.svg.js`);
 // Equivalent to script tag on a webpage
@@ -17,14 +16,10 @@ require(`script-loader!../node_modules/blockpy/src/python_to_blockly.js`);
 require(`script-loader!./lib/skulpt/skulpt.min.js`);
 //require(`script-loader!./lib/skulpt/skulpt-stdlib.js`);
 
-
 class App extends Component {
   componentWillMount(){
     // Global scope
-    window.Blockly = Blockly
     window.Snap = Snap
-
-    window.workspace = Blockly.mainWorkspace;
     
     console.log(window.Sk)
     //window.Sk = Sk

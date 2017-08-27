@@ -20,11 +20,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-module.exports = function(Blockly){
-          var goog = Blockly.goog;
-          //Blockly.Blocks={};
+//module.exports = function(Blockly){
+//            var goog = window.goog;
+//          //var goog = Blockly.goog;
+//          //Blockly.Blocks={};
 
 //'use strict';
+
+var goog = window.goog;
+var Blockly = window.Blockly;
 
 goog.provide('Blockly.Blocks.mm');
 
@@ -1066,6 +1070,41 @@ Blockly.Blocks['bi_parenthesis'] = {
     this.setHelpUrl('http://www.example.com/');
   }
 };
-  
-return Blockly.Blocks;
-}
+
+//TODO JCOA: Move this to its correct location
+Blockly.Blocks['lists_append'] = {
+  // Set element at index.
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.LISTS_APPEND_HELPURL);
+    this.setColour(Blockly.Blocks.lists.HUE);
+    this.appendValueInput('LIST')
+        .setCheck('Array')
+        .appendField(Blockly.Msg.LISTS_APPEND_TO);
+    this.appendValueInput('ITEM')
+        .appendField(Blockly.Msg.LISTS_APPEND);
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    //this.setTooltip(Blockly.Msg.LISTS_APPEND_TOOLTIP);
+  }
+};
+Blockly.JavaScript['lists_append'] = function(block) {
+  // Append
+  var list = Blockly.JavaScript.valueToCode(block, 'LIST',
+      Blockly.JavaScript.ORDER_MEMBER) || '___';
+  var value = Blockly.JavaScript.valueToCode(block, 'ITEM',
+      Blockly.JavaScript.ORDER_NONE) || '___';
+  return list + '.push(' + value + ')\n';
+};
+Blockly.Python = {}; // JCOA hack because we are calling this before loading python generators.
+Blockly.Python['lists_append'] = function(block) {
+  // Append
+  var list = Blockly.Python.valueToCode(block, 'LIST',
+      Blockly.Python.ORDER_MEMBER) || '___';
+  var value = Blockly.Python.valueToCode(block, 'ITEM',
+      Blockly.Python.ORDER_NONE) || '___';
+  return list + '.append(' + value + ')\n';
+};
+
+//return Blockly.Blocks;
+//}
