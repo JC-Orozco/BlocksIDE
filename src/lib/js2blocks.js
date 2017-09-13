@@ -453,6 +453,10 @@ export function walk1(ast, comments, block_loc, options){
     if(debug) console.log("Statement");
     c(node, st)
     if(!options.joinTopBlocks && current_node === root_node ){
+      let lastChild = current_node.children.length
+      //console.log('Statement '+lastChild);
+      current_node.children[lastChild-1].setAttribute('x', '0');
+      current_node.children[lastChild-1].setAttribute('y', (lastChild*10).toString());
     } else{
       if(current_node.children.length > 0){
         var next1 = newNode('next');
