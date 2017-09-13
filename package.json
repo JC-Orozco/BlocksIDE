@@ -1,7 +1,7 @@
 {
   "name": "BlocksIDE",
   "author": "Juan Carlos Orozco",
-  "version": "0.3.21",
+  "version": "0.3.22",
   "homepage": "https://jc-orozco.github.io/BlocksIDE/build",
   "private": true,
   "dependencies": {

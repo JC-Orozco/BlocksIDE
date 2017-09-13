@@ -1,4 +1,5 @@
 /* "height: 100vh" may be overspecified */ 
+/*
 html, body {
   height: 100vh;  
 }
@@ -8,13 +9,13 @@ html, body {
 }
 
 .App {
-  /* display: flex; */
   height: 100vh;
 }
 
 .Layout1 {
   height: 100vh;  
 }
+*/
 
 .Resizer {
     background: #000;
