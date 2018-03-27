@@ -1583,7 +1583,11 @@ export function parseCode(code){
     let tb = workspace.topBlocks_
     let id = tb[tb.length-1].id
     //console.log(id)
-    console.log('Error line number: '+ block_loc[id].start.line)
+    try{
+      console.log('Error line number: '+ block_loc[id].start.line) // TODO: JCOA Fix, this is returning an error.
+    } catch(err2) {
+      console.log(err2)
+    }
     //workspace.clear();
     //Blockly.Xml.domToWorkspace(workspace, xml1);
     //workspace.cleanUp_();    //workspace.addChangeListener(window._BIDE.updateWorkspace);

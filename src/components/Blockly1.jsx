@@ -418,8 +418,10 @@ class Blockly1 extends Component {
     var blocklyContainer = this.blocklyContainer; //document.getElementById('blocklyContainer');
     var blocklyArea = this.blocklyArea; //document.getElementById('blocklyArea');
     var blocklyDiv = this.blocklyDiv; //document.getElementById('blocklyDiv');
+    // NOTE: For this to work I had to copy media folder from blockly to public folder.
     var workspace = Blockly.inject(blocklyDiv,
-        { toolbox: toolbox,
+        { media: '/media/',
+          toolbox: toolbox,
           zoom:
             { controls: true,
               wheel: true,
