@@ -392,7 +392,7 @@ export function walk1(ast, comments, block_loc, options){
   var last_comment = 0
   options.joinTopBlocks = options.joinTopBlocks || false
   
-  var goog = window.Blockly.goog;
+  var goog = window.goog // window.Blockly.goog;
 
   //var xml = ['xml'];
   var xml1 = goog.dom.createDom('xml');
@@ -1571,7 +1571,7 @@ export function parseCode(code){
     //console.log(xml1);
     workspace.clear();
     Blockly.Xml.domToWorkspace(workspace, xml1);
-    workspace.cleanUp_(); // workspace.cleanUp(); // In updated Blockly 
+    workspace.cleanUp() // .cleanUp_(); // workspace.cleanUp(); // In updated Blockly 
     window._BIDE.updateWorkspace()
  //workspace.addChangeListener(window._BIDE.updateWorkspace);
     //var blockly_code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
@@ -1581,7 +1581,10 @@ export function parseCode(code){
     window._BIDE.b2c_error = true
     
     let tb = workspace.topBlocks_
-    let id = tb[tb.length-1].id
+    let id
+    if(tb.length > 0){
+      id = tb[tb.length-1].id
+    }
     //console.log(id)
     try{
       console.log('Error line number: '+ block_loc[id].start.line) // TODO: JCOA Fix, this is returning an error.

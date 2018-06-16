@@ -21,7 +21,8 @@
 // limitations under the License.
 
 module.exports = function(Blockly){
-          var goog = Blockly.goog;
+          //var goog = Blockly.goog;
+          var goog = window.goog;
           //Blockly.Blocks={};
 
 //'use strict';

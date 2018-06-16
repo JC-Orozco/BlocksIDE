@@ -36,6 +36,18 @@ class Blockly1 extends Component {
 <xml id="toolbox" style="display: none">    
     <category id="catLogic" name="Logic" colour="210">
       <block type="controls_if"></block>
+      <block type="logic_negate"></block>
+      <block type="logic_boolean"></block>
+      <block type="logic_null"></block>
+      <block type="logic_ternary"></block>
+    </category>
+</xml>`
+    
+/*    
+    var toolbox = `
+<xml id="toolbox" style="display: none">    
+    <category id="catLogic" name="Logic" colour="210">
+      <block type="controls_if"></block>
       <block type="bi_logic_compare"></block>
       <block type="bi_logic_operation"></block>
       <block type="logic_negate"></block>
@@ -415,6 +427,8 @@ class Blockly1 extends Component {
     </category>
   </xml>
 `   
+*/
+    
     var blocklyContainer = this.blocklyContainer; //document.getElementById('blocklyContainer');
     var blocklyArea = this.blocklyArea; //document.getElementById('blocklyArea');
     var blocklyDiv = this.blocklyDiv; //document.getElementById('blocklyDiv');

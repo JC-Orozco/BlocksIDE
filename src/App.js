@@ -6,20 +6,25 @@ import React, { Component } from 'react';
 import './App.css';
 import 'react-tabs/style/react-tabs.css';
 import Layout1 from './components/Layout1.jsx';
-import Blockly from './blockly';
+//import Blockly from './blockly';
 //import Snap from 'snapsvg';
-const Snap = require(`imports-loader?this=>window,fix=>module.exports=0!snapsvg/dist/snap.svg.js`);
+//const Snap = require(`imports-loader?this=>window,fix=>module.exports=0!snapsvg/dist/snap.svg.js`);
 
 class App extends Component {
   componentWillMount(){
     // Global scope
-    window.Blockly = Blockly
-    window.Snap = Snap
+    //window.Snap = Snap
 
     window._BIDE = {}
     let _BIDE = window._BIDE
     _BIDE.b2c_error = false
     _BIDE.code = 'var i=10'
+    
+    const biBlocks = require('./lib/bi_blockly/blocks/bi_blockly.js')
+    biBlocks(window.Blockly);
+
+    const biBlocksJS = require('./lib/bi_blockly/generators/javascript/bi_blockly.js')
+    biBlocksJS(window.Blockly);
     
     _BIDE.resize = {}
     _BIDE.resize.callbackList = []
