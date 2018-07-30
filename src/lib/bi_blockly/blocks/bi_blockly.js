@@ -30,7 +30,7 @@ module.exports = function(Blockly){
 goog.provide('Blockly.Blocks.mm');
 
 goog.require('Blockly.Blocks');
-
+  
 // TODO: JCOA Add drop down list with operator options
 Blockly.Blocks['bi_comment'] = {
   init: function() {
@@ -93,7 +93,8 @@ Blockly.Blocks['bi_math_arithmetic'] = {
          [Blockly.Msg.MATH_DIVISION_SYMBOL, 'DIVIDE'],
          [Blockly.Msg.MATH_POWER_SYMBOL, 'POWER']];
     this.setHelpUrl(Blockly.Msg.MATH_ARITHMETIC_HELPURL);
-    this.setColour(Blockly.Blocks.math.HUE);
+    /// JCO changed: 
+    this.setColour(160); //(Blockly.Blocks.math.HUE);
     this.setOutput(true, 'Number');
     this.appendValueInput('A')
         .setCheck(null); // .setCheck('Number');
@@ -453,13 +454,36 @@ Blockly.Blocks['bi_for_in'] = {
 };
 
 // JCOA: Use bi_case on each switch row
+//Blockly.Blocks['bi_switch'] = {
+//  init: function() {
+//    this.appendValueInput('switch')
+//        .setCheck(null)
+//        .appendField('switch');
+//    this.appendAddSubGroup('', 'items',null,
+//                           '');
+//    this.itemCount_ = 1;
+//    this.updateShape_();
+//    this.appendStatementInput('default')
+//        .setCheck(null)
+//        .appendField('default');
+//    this.setInputsInline(false);
+//    this.setHelpUrl('http://www.example.com/');
+//    this.setColour(120);
+//    this.setPreviousStatement(true, null);
+//    this.setNextStatement(true, null);
+//    //    this.setOutput(true, null);
+//    this.setTooltip('');
+//  }
+//};
+
+// JCOA: Use bi_case on each switch row
 Blockly.Blocks['bi_switch'] = {
   init: function() {
     this.appendValueInput('switch')
         .setCheck(null)
         .appendField('switch');
-    this.appendAddSubGroup('', 'items',null,
-                           '');
+    //this.appendAddSubGroup('', 'items',null,
+    //                       '');
     this.itemCount_ = 1;
     this.updateShape_();
     this.appendStatementInput('default')
@@ -472,9 +496,35 @@ Blockly.Blocks['bi_switch'] = {
     this.setNextStatement(true, null);
     //    this.setOutput(true, null);
     this.setTooltip('');
-  }
+  },
+  /**
+   * Create XML to represent list inputs.
+   * @return {!Element} XML storage element.
+   * @this Blockly.Block
+   */
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    container.setAttribute('items', this.itemCount_);
+    return container;
+  },
+  /**
+   * Parse XML to restore the list inputs.
+   * @param {!Element} xmlElement XML storage element.
+   * @this Blockly.Block
+   */
+  domToMutation: function(xmlElement) {
+    this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
+    this.updateShape_();
+  },
+  /**
+   * Modify this block to have the correct number of inputs.
+   * @private
+   * @this Blockly.Block
+   */
+  updateShape_: window.PLUS_MINUS_updateShape_(window.PLUS_MINUS_updateShape_types.PLAIN_X, 'items', '', 'default')
 };
 
+  
 Blockly.Blocks['bi_case'] = {
   init: function() {
     this.appendValueInput('case')
@@ -1067,5 +1117,85 @@ Blockly.Blocks['bi_parenthesis'] = {
     this.setHelpUrl('http://www.example.com/');
   }
 };
+  
+Blockly.Blocks['bi_controls_forEachKey'] = {
+  /**
+   * Block for 'for each map' loop.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": "(pending) for each key %1 in map %2",  //Blockly.Msg.CONTROLS_FOREACH_TITLE,
+      "args0": [
+        {
+          "type": "field_variable",
+          "name": "VAR",
+          "variable": null
+        },
+        {
+          "type": "input_value",
+          "name": "LIST",
+          "check": "Array"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": Blockly.Blocks.loops.HUE,
+      "helpUrl": Blockly.Msg.CONTROLS_FOREACH_HELPURL
+    });
+    this.appendStatementInput('DO')
+        .appendField(Blockly.Msg.CONTROLS_FOREACH_INPUT_DO);
+    // Assign 'this' to a variable for use in the tooltip closure below.
+    var thisBlock = this;
+    this.setTooltip(function() {
+      return Blockly.Msg.CONTROLS_FOREACH_TOOLTIP.replace('%1',
+          thisBlock.getFieldValue('VAR'));
+    });
+  },
+  customContextMenu: Blockly.Blocks['controls_for'].customContextMenu
+};
+  
+Blockly.Blocks['bi_maps_create_with'] = {
+  /**
+   * Block for creating a list with any number of elements of any type.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.LISTS_CREATE_WITH_HELPURL);
+    this.setColour(Blockly.Blocks.lists.HUE);
+    this.itemCount_ = 1;
+    this.itemNames_ = ["a", "b", "c"];
+    this.updateShape_();
+    this.setOutput(true, 'Array');
+    this.setInputsInline(true);
+    this.setTooltip(Blockly.Msg.LISTS_CREATE_WITH_TOOLTIP);
+  },
+  /**
+   * Create XML to represent list inputs.
+   * @return {!Element} XML storage element.
+   * @this Blockly.Block
+   */
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    container.setAttribute('items', this.itemCount_);
+    return container;
+  },
+  /**
+   * Parse XML to restore the list inputs.
+   * @param {!Element} xmlElement XML storage element.
+   * @this Blockly.Block
+   */
+  domToMutation: function(xmlElement) {
+    this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
+    this.updateShape_();
+  },
+  /**
+   * Modify this block to have the correct number of inputs.
+   * @private
+   * @this Blockly.Block
+   */
+  updateShape_: window.PLUS_MINUS_updateShape_(window.PLUS_MINUS_updateShape_types.NAMES_EDITABLE_X, 'ADD', 'create map with')
+};
+  
 return Blockly.Blocks;
 }

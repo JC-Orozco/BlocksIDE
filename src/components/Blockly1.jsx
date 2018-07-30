@@ -33,23 +33,24 @@ class Blockly1 extends Component {
     //      </xml>`
 
     var toolbox = `
-<xml id="toolbox" style="display: none">    
-    <category id="catLogic" name="Logic" colour="210">
-      <block type="controls_if"></block>
-      <block type="logic_negate"></block>
-      <block type="logic_boolean"></block>
-      <block type="logic_null"></block>
-      <block type="logic_ternary"></block>
+<xml id="toolbox" style="display: none">
+    <category name="JCO" colour="230">
+      <block type="block_A1"></block>
+      <block type="block_A2"></block>
+      <block type="block_A3"></block>    
+      <block type="block_A4"></block>    
+      <block type="block_B1"></block>
+      <block type="block_B2"></block>   
+      <block type="block_click1"></block>
+      <block type="test_block"></block>    
+      <block type="test2_block"></block>
+      <block type="lists_create"></block>        
+      <block type="named_list_create"></block>        
+      <block type="named_list_create_ed"></block>    
+      <block type="named_list_create_edx"></block>
     </category>
-</xml>`
-    
-/*    
-    var toolbox = `
-<xml id="toolbox" style="display: none">    
     <category id="catLogic" name="Logic" colour="210">
       <block type="controls_if"></block>
-      <block type="bi_logic_compare"></block>
-      <block type="bi_logic_operation"></block>
       <block type="logic_negate"></block>
       <block type="logic_boolean"></block>
       <block type="logic_null"></block>
@@ -88,7 +89,7 @@ class Blockly1 extends Component {
         </value>
       </block>
       <block type="controls_forEach"></block>
-      <block type="controls_forEachKey"></block>
+      <block type="bi_controls_forEachKey"></block>
       <block type="controls_flow_statements"></block>
       <block type="bi_throw"></block>
       <block type="bi_yield"></block>
@@ -193,6 +194,7 @@ class Blockly1 extends Component {
       </block>
       <block type="math_random_float"></block>
     </category>
+
     <category id="catText" name="Text" colour="160">
       <block type="bi_string_return"></block>
       <block type="text_join"></block>
@@ -324,7 +326,7 @@ class Blockly1 extends Component {
     </category>
     <category name="Maps" colour="345">
       <!-- <block type="maps_create_empty"></block> -->
-      <block type="maps_create_with"></block>
+      <block type="bi_maps_create_with"></block>
       <block type="maps_length"></block>
       <block type="maps_isempty"></block>
       <block type="maps_create"></block>
@@ -334,6 +336,13 @@ class Blockly1 extends Component {
       <block type="maps_setIndex"></block>
       <block type="maps_keys"></block>
     </category>
+
+    
+</xml>`
+    
+/*   
+      
+
     <category id="catColour" name="Color" colour="20">
       <block type="colour_picker"></block>
       <block type="colour_random"></block>

@@ -19,6 +19,7 @@ class App extends Component {
     let _BIDE = window._BIDE
     _BIDE.b2c_error = false
     _BIDE.code = 'var i=10'
+    //_BIDE.pm_types = window.PLUS_MINUS_updateShape_types;
     
     const biBlocks = require('./lib/bi_blockly/blocks/bi_blockly.js')
     biBlocks(window.Blockly);

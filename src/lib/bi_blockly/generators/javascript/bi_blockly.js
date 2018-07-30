@@ -250,10 +250,21 @@ Blockly.JavaScript['bi_for_in'] = function(block) {
 Blockly.JavaScript['bi_switch'] = function(block) {
   var value_switch = Blockly.JavaScript.valueToCode(block, 'switch', Blockly.JavaScript.ORDER_ATOMIC);
   var statement_default = Blockly.JavaScript.statementToCode(block, 'default');
-  var codeArr = new Array(block.itemCount_-1);
-  for (var n = 1; n < block.itemCount_; n++) {
-    codeArr[n-1] = Blockly.JavaScript.valueToCode(block, 'items' + n,
-        Blockly.JavaScript.ORDER_COMMA) || 'null';    
+  console.log("Input List")
+  console.log(block.inputList)
+  var codeArr = []
+  if(block.itemCount_-1 > 0){
+    codeArr = new Array(block.itemCount_-1)
+  }
+  var i = 0
+  for (var n = 0; n < block.inputList.length; n++) {
+    //codeArr[n-1] = Blockly.JavaScript.valueToCode(block, 'items' + n,
+    let name = block.inputList[n].name
+    if(name.substring(0,5) === 'items'){
+      codeArr[i] = Blockly.JavaScript.valueToCode(block, name,
+        Blockly.JavaScript.ORDER_COMMA) || 'null';
+      i += 1
+    }
   }
   var code = 'switch(' + value_switch + '){\n' + codeArr.join('\n') + '\ndefault: ' + statement_default +'}\n';
   return code;
