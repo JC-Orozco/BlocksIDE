@@ -1,5 +1,7 @@
 Juan Carlos Orozco WISHLIST:
 
+Implement a bi_for_in that takes the variable as an argument and not a a text name.
+
 Support debug or step by step execution.
 
 Create helper functions for readability. Ex:

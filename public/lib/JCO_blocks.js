@@ -1,17 +1,17 @@
 // Copyright Juan Carlos Orozco 2018
 
 'use strict';
-goog.provide('Blockly.Blocks.lists');
-goog.require('Blockly.Blocks');
+//goog.provide('Blockly.Blocks.lists');
+//goog.require('Blockly.Blocks');
 
-Blockly.Blocks.lists.HUE = 30;
+//Blockly.Blocks.lists.HUE = 30;
 
 var types = PLUS_MINUS_updateShape_types;
 
 Blockly.Blocks['block_click1'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(new Blockly.FieldImage("Profile1.png", 15, 15, "*", 
+        .appendField(new Blockly.FieldImage("images/Profile1.png", 15, 15, "*", 
           function(e){
             // e is the FieldImage block.
             alert("Clicked. Check console for more info")
@@ -172,7 +172,7 @@ Blockly.Blocks['lists_create'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.LISTS_CREATE_WITH_HELPURL);
-    this.setColour(Blockly.Blocks.lists.HUE);
+    this.setColour(Blockly.Msg["LISTS_HUE"]);
     this.itemCount_ = 1;
     this.updateShape_();
     this.setOutput(true, 'Array');
@@ -213,7 +213,7 @@ Blockly.Blocks['named_list_create'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.LISTS_CREATE_WITH_HELPURL);
-    this.setColour(Blockly.Blocks.lists.HUE);
+    this.setColour(Blockly.Msg["LISTS_HUE"]);
     this.itemCount_ = 1;
     this.itemNames_ = ["a", "b", "c"];
     this.updateShape_();
@@ -257,7 +257,7 @@ Blockly.Blocks['named_list_create_ed'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.LISTS_CREATE_WITH_HELPURL);
-    this.setColour(Blockly.Blocks.lists.HUE);
+    this.setColour(Blockly.Msg["LISTS_HUE"]);
     this.itemCount_ = 1;
     this.itemNames_ = ["a", "b", "c"];
     this.updateShape_();
@@ -299,7 +299,7 @@ Blockly.Blocks['named_list_create_edx'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.LISTS_CREATE_WITH_HELPURL);
-    this.setColour(Blockly.Blocks.lists.HUE);
+    this.setColour(Blockly.Msg["LISTS_HUE"]);
     this.itemCount_ = 1;
     this.itemNames_ = ["a", "b", "c"];
     this.updateShape_();
@@ -341,7 +341,7 @@ Blockly.Blocks['block_A1'] = {
     this.appendValueInput("NAME")
         .setCheck(null)
         .appendField("A1")
-        .appendField(new Blockly.FieldImage("Profile1.png", 15, 15, "*",
+        .appendField(new Blockly.FieldImage("images/Profile1.png", 15, 15, "*",
           function(e){
             // e is the FieldImage block.
             //alert("Clicked. Check console for more info")
@@ -377,7 +377,7 @@ Blockly.Blocks['block_A2'] = {
     this.appendValueInput("NAME")
         .setCheck(null)
         .appendField("A2")
-        .appendField(new Blockly.FieldImage("Profile1.png", 15, 15, "*",
+        .appendField(new Blockly.FieldImage("images/Profile1.png", 15, 15, "*",
           function(e){
             // e is the FieldImage block.
             //alert("Clicked. Check console for more info")
@@ -418,7 +418,7 @@ Blockly.Blocks['block_A3'] = {
     this.appendValueInput("NAME")
         .setCheck(null)
         .appendField("A3")
-        .appendField(new Blockly.FieldImage("Profile1.png", 15, 15, "*",
+        .appendField(new Blockly.FieldImage("images/Profile1.png", 15, 15, "*",
           function(e){
             // e is the FieldImage block.
             //alert("Clicked. Check console for more info")

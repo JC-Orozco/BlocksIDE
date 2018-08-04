@@ -51,6 +51,8 @@ class Blockly1 extends Component {
     </category>
     <category id="catLogic" name="Logic" colour="210">
       <block type="controls_if"></block>
+      <block type="bi_logic_compare"></block>
+      <block type="bi_logic_operation"></block>
       <block type="logic_negate"></block>
       <block type="logic_boolean"></block>
       <block type="logic_null"></block>
@@ -88,8 +90,7 @@ class Blockly1 extends Component {
           </shadow>
         </value>
       </block>
-      <block type="controls_forEach"></block>
-      <block type="bi_controls_forEachKey"></block>
+      <block type="bi_for_in"></block>
       <block type="controls_flow_statements"></block>
       <block type="bi_throw"></block>
       <block type="bi_yield"></block>
@@ -277,7 +278,7 @@ class Blockly1 extends Component {
       <!-- <block type="lists_create_with">
         <mutation items="0"></mutation>
       </block> -->
-      <block type="lists_create_with"></block>
+      <block type="bi_lists_create"></block>
       <block type="bi_index"></block>
       <block type="lists_repeat">
         <value name="NUM">

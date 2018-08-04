@@ -27,7 +27,8 @@ module.exports = function(Blockly){
 
 //'use strict';
 
-goog.provide('Blockly.Blocks.mm');
+// JCOA: Is this necesary? Fix name
+goog.provide('Blockly.Blocks.bi_blockly');
 
 goog.require('Blockly.Blocks');
   
@@ -94,7 +95,7 @@ Blockly.Blocks['bi_math_arithmetic'] = {
          [Blockly.Msg.MATH_POWER_SYMBOL, 'POWER']];
     this.setHelpUrl(Blockly.Msg.MATH_ARITHMETIC_HELPURL);
     /// JCO changed: 
-    this.setColour(160); //(Blockly.Blocks.math.HUE);
+    this.setColour(Blockly.Msg["MATH_HUE"])  //(160); //(Blockly.Blocks.math.HUE);
     this.setOutput(true, 'Number');
     this.appendValueInput('A')
         .setCheck(null); // .setCheck('Number');
@@ -140,7 +141,7 @@ Blockly.Blocks['bi_logic_compare'] = {
           ['\u2265', 'GTE']
         ];
     this.setHelpUrl(Blockly.Msg.LOGIC_COMPARE_HELPURL);
-    this.setColour(Blockly.Blocks.logic.HUE);
+    this.setColour(Blockly.Msg["LOGIC_HUE"]);
     this.setOutput(true, 'Boolean');
     this.appendValueInput('A');
     this.appendValueInput('B')
@@ -203,7 +204,7 @@ Blockly.Blocks['bi_logic_operation'] = {
         [[Blockly.Msg.LOGIC_OPERATION_AND, 'AND'],
          [Blockly.Msg.LOGIC_OPERATION_OR, 'OR']];
     this.setHelpUrl(Blockly.Msg.LOGIC_OPERATION_HELPURL);
-    this.setColour(Blockly.Blocks.logic.HUE);
+    this.setColour(Blockly.Msg["LOGIC_HUE"]);
     this.setOutput(true, 'Boolean');
     this.appendValueInput('A');
         //.setCheck('Boolean');
@@ -1140,7 +1141,7 @@ Blockly.Blocks['bi_controls_forEachKey'] = {
       ],
       "previousStatement": null,
       "nextStatement": null,
-      "colour": Blockly.Blocks.loops.HUE,
+      "colour": Blockly.Msg["LOOPS_HUE"],
       "helpUrl": Blockly.Msg.CONTROLS_FOREACH_HELPURL
     });
     this.appendStatementInput('DO')
@@ -1162,7 +1163,7 @@ Blockly.Blocks['bi_maps_create_with'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.LISTS_CREATE_WITH_HELPURL);
-    this.setColour(Blockly.Blocks.lists.HUE);
+    this.setColour(Blockly.Msg["LISTS_HUE"]);
     this.itemCount_ = 1;
     this.itemNames_ = ["a", "b", "c"];
     this.updateShape_();

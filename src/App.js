@@ -23,9 +23,21 @@ class App extends Component {
     
     const biBlocks = require('./lib/bi_blockly/blocks/bi_blockly.js')
     biBlocks(window.Blockly);
-
+    
     const biBlocksJS = require('./lib/bi_blockly/generators/javascript/bi_blockly.js')
     biBlocksJS(window.Blockly);
+    
+    const biLists = require('./lib/bi_blockly/blocks/bi_lists.js')
+    biLists(window.Blockly);
+    
+    const biListsJS = require('./lib/bi_blockly/generators/javascript/bi_lists.js')
+    biListsJS(window.Blockly);
+    
+    const biMaps = require('./lib/bi_blockly/blocks/bi_maps.js')
+    biMaps(window.Blockly);
+    
+    const biMapsJS = require('./lib/bi_blockly/generators/javascript/bi_maps.js')
+    biMapsJS(window.Blockly);
     
     _BIDE.resize = {}
     _BIDE.resize.callbackList = []

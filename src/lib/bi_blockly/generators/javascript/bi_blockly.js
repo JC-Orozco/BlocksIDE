@@ -21,7 +21,17 @@
 // limitations under the License.
 
 module.exports = function(Blockly){
+          //var goog = Blockly.goog;
+          var goog = window.goog;
+          //Blockly.Blocks={};
 
+//'use strict';
+
+// JCOA: Is this necesary? Fix name
+goog.provide('Blockly.JavaScript.bi_blockly');
+
+goog.require('Blockly.JavaScript');
+  
 Blockly.JavaScript['bi_comment'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
   var code = ''; // '...;\n';
@@ -702,4 +712,5 @@ Blockly.JavaScript['bi_spread'] = function(block) {
   //return [code, Blockly.JavaScript.ORDER_NONE];
   //return code;
 };
-return Blockly.JavaScript;}
+return Blockly.JavaScript;
+}

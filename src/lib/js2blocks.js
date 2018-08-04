@@ -947,13 +947,13 @@ export function walk1(ast, comments, block_loc, options){
   }; // ignore
   funcs.ArrayExpression = (node, st, c) => {
     if(debug) console.log("ArrayExpression");
-    var block1 = newNode('block',{type:'lists_create_with'}, '', node);
+    var block1 = newNode('block',{type:'bi_lists_create'}, '', node);
     current_node.appendChild(block1);
-    var mutation1 = newNode('mutation',{items:node.elements.length+1}); // TODO: Take out the +1 when list items number is corrected on core/blocks.js AddSub...
+    var mutation1 = newNode('mutation',{items:node.elements.length}); // TODO: Take out the +1 when list items number is corrected on core/blocks.js AddSub...
     block1.appendChild(mutation1);
     var node1 = current_node;
     for (let i = 0; i < node.elements.length; ++i) {
-      let element1 = newNode('value',{name:'items'+(i+1)});
+      let element1 = newNode('value',{name:'ADD'+i});
       block1.appendChild(element1);
       current_node = element1;
       let elt = node.elements[i]
@@ -1570,7 +1570,7 @@ export function parseCode(code){
     xml1 = walk1(ast1, comments, block_loc);
     //console.log(xml1);
     workspace.clear();
-    Blockly.Xml.domToWorkspace(workspace, xml1);
+    Blockly.Xml.domToWorkspace(xml1, workspace);
     workspace.cleanUp() // .cleanUp_(); // workspace.cleanUp(); // In updated Blockly 
     window._BIDE.updateWorkspace()
  //workspace.addChangeListener(window._BIDE.updateWorkspace);

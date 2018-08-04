@@ -1,5 +1,29 @@
 Juan Carlos Orozco TODO list:
 
+Quitar codigo de parser stock de mi parser...
+
+Use bi_create_list that can remove each item individually
+
+We have two ways of loading blocks. Decide which one is better and migrate all blocks to that one:
+1) public/lib/JCO_blocks.js
+2) src/lib/bi_blockly/blocks/*
+
+Use bi_lists_create instead. TODO Change parser to use bi_lists_create 
+For example [1,2,3] is creating a createe list with with 4 inputs instead of three. And the number blocks are not being created.
+Also change the "create list with" block for a bi_ one that uses my + and - buttons to add and delete fields
+
+This works OK in the original BlocksIDE
+
+Fixed. Use bi_for_in:
+Fix both of this blocks
+<block type="controls_forEach"></block>
+<block type="bi_controls_forEachKey"></block>
+controls_forEach uses the internal variables.
+Make a bi_controls_forEach that replaces both of this cases.
+Just converts for(let i in x){} for example
+
+forEach variable name, list or map name.
+
 Layout:
 Fix layout to avoid overflowing the full page.
 Add scrollbar to console1 pane
