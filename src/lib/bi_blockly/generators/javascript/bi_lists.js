@@ -13,14 +13,32 @@ goog.require('Blockly.JavaScript');
 
 Blockly.JavaScript['bi_lists_create'] = function(block) {
   // Create a list with any number of elements of any type.
-  var code = new Array(block.itemCount_);
-  for (var n = 0; n < block.itemCount_; n++) {
-    // code[n] = Blockly.JavaScript.valueToCode(block, 'ADD' + n,
-    //     Blockly.JavaScript.ORDER_COMMA) || 'null';
-    // TODO: Fix the naming on the AddSubGroup block and use code above
-    code[n] = Blockly.JavaScript.valueToCode(block, 'ADD' + n,
-        Blockly.JavaScript.ORDER_COMMA) || 'null';
-  }
+  let code = new Array(block.itemCount_);
+  //const MAX_ITEM_COUNT = 999; // A large number to avoid infinite loops
+  let itemCount = 0;
+  
+  //console.log('list inputs')
+  for(let i in block.inputList){
+    let input1 = block.inputList[i].name
+    if(input1.substring(0,3) === 'ADD'){
+      code[itemCount] = Blockly.JavaScript.valueToCode(block, input1, Blockly.JavaScript.ORDER_COMMA) || 'null';
+      itemCount += 1;
+    }
+  }  
+  
+//  for (var n = 0; (n < MAX_ITEM_COUNT) && (itemCount < block.itemCount_); n++) {
+//    // code[n] = Blockly.JavaScript.valueToCode(block, 'ADD' + n,
+//    //     Blockly.JavaScript.ORDER_COMMA) || 'null';
+//    // TODO: Fix the naming on the AddSubGroup block and use code above
+//    item = Blockly.JavaScript.valueToCode(block, 'ADD' + n,
+//        Blockly.JavaScript.ORDER_COMMA);
+//    console.log('typeof item')
+//    console.log(typeof item)
+//    if(item){
+//      code[itemCount] = item
+//      itemCount += 1
+//    }
+//  }
   var code_text = '[' + code.join(', ') + ']';
   return [code_text, Blockly.JavaScript.ORDER_ATOMIC];
 };

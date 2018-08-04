@@ -2,11 +2,18 @@ Juan Carlos Orozco TODO list:
 
 Quitar codigo de parser stock de mi parser...
 
-Use bi_create_list that can remove each item individually
+l = [null]; null translates to empty string!
+
+Use bi_create_list that can remove each item individually. Done with PLAIN_X. But parser needs fixing to take into account separate ADDx inputs
+
+Do the same fix to bi_create_map
 
 We have two ways of loading blocks. Decide which one is better and migrate all blocks to that one:
 1) public/lib/JCO_blocks.js
 2) src/lib/bi_blockly/blocks/*
+
+We also use a third library loading method on js2blocks.js parser:
+import acorn from 'acorn-dynamic-import';
 
 Use bi_lists_create instead. TODO Change parser to use bi_lists_create 
 For example [1,2,3] is creating a createe list with with 4 inputs instead of three. And the number blocks are not being created.

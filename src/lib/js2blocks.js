@@ -23,6 +23,7 @@
 // Uses code from walk.js script of acorn.js javascript code parser under MIT license
 // https://github.com/ternjs/acorn
 
+// TODO JCOA: Fix walk import
 //require('acorn')
 //import acorn from 'acorn'
 import acorn from 'acorn-dynamic-import';

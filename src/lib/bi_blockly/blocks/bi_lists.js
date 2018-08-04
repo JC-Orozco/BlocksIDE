@@ -51,7 +51,7 @@ Blockly.Blocks['bi_lists_create'] = {
    * @private
    * @this Blockly.Block
    */
-  updateShape_: window.PLUS_MINUS_updateShape_(types.PLAIN, 'ADD', "create list of")
+  updateShape_: window.PLUS_MINUS_updateShape_(types.PLAIN_X, 'ADD', "create list of")
 };
   
 return Blockly.Blocks;
