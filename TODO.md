@@ -1,7 +1,5 @@
 Juan Carlos Orozco TODO list:
 
-Quitar codigo de parser stock de mi parser...
-
 l = [null]; null translates to empty string!
 
 Use bi_create_list that can remove each item individually. Done with PLAIN_X. But parser needs fixing to take into account separate ADDx inputs
