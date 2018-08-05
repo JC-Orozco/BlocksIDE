@@ -70,6 +70,30 @@ Blockly.JavaScript['maps_create_empty'] = function(block) {
 //   return [declVar, Blockly.JavaScript.ORDER_ATOMIC];
 // };
 
+Blockly.JavaScript['bi_maps_create_with'] = function(block) {
+  // Create a list with any number of elements of any type.
+  let code = new Array(block.itemCount_);
+  //const MAX_ITEM_COUNT = 999; // A large number to avoid infinite loops
+  let itemCount = 0;
+  
+  //console.log('bi_maps_create_with generator')
+  //console.log(block)
+  //console.log('list inputs')
+  for(let i in block.inputList){
+    let input1 = block.inputList[i].name
+    if(input1.substring(0,3) === 'ADD'){
+      // JCOA Hack: Removes ADD from input1 to get the item number to getFieldValue name.
+      ///let name = block.getFieldValue('NAME'+input1.slice(3))
+      let value = Blockly.JavaScript.valueToCode(block, input1, Blockly.JavaScript.ORDER_COMMA) || 'null'
+      code[itemCount] = value ///name+':'+value;
+      itemCount += 1;
+    }
+  }  
+  
+  var code_text = '{' + code.join(', ') + '}';
+  return [code_text, Blockly.JavaScript.ORDER_ATOMIC];
+};
+  
 Blockly.JavaScript['maps_create_with'] = function(block) {
   // Create a map with any number of elements of any type.
   //var text_name = block.getFieldValue('NAME');

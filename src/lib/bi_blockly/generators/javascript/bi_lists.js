@@ -26,19 +26,6 @@ Blockly.JavaScript['bi_lists_create'] = function(block) {
     }
   }  
   
-//  for (var n = 0; (n < MAX_ITEM_COUNT) && (itemCount < block.itemCount_); n++) {
-//    // code[n] = Blockly.JavaScript.valueToCode(block, 'ADD' + n,
-//    //     Blockly.JavaScript.ORDER_COMMA) || 'null';
-//    // TODO: Fix the naming on the AddSubGroup block and use code above
-//    item = Blockly.JavaScript.valueToCode(block, 'ADD' + n,
-//        Blockly.JavaScript.ORDER_COMMA);
-//    console.log('typeof item')
-//    console.log(typeof item)
-//    if(item){
-//      code[itemCount] = item
-//      itemCount += 1
-//    }
-//  }
   var code_text = '[' + code.join(', ') + ']';
   return [code_text, Blockly.JavaScript.ORDER_ATOMIC];
 };

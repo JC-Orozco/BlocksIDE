@@ -964,13 +964,13 @@ export function walk1(ast, comments, block_loc, options){
   }
   funcs.ObjectExpression = (node, st, c) => {
     if(debug) console.log("ObjectExpression");
-    var block1 = newNode('block',{type:'maps_create_with'}, '', node);
+    var block1 = newNode('block',{type:'bi_maps_create_with'}, '', node);
     current_node.appendChild(block1);
-    var mutation1 = newNode('mutation',{items:node.properties.length+1}); // TODO: Take out the +1 when list items number is corrected on core/blocks.js AddSub...
+    var mutation1 = newNode('mutation',{items:node.properties.length}); // TODO: Take out the +1 when list items number is corrected on core/blocks.js AddSub...
     block1.appendChild(mutation1);    
     var node1 = current_node;
     for (let i = 0; i < node.properties.length; ++i){
-      let property1 = newNode('value',{name:'ADD'+(i+1)});
+      let property1 = newNode('value',{name:'ADD'+(i)});
       block1.appendChild(property1);
       current_node = property1;
       c(node.properties[i], st)

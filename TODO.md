@@ -19,6 +19,8 @@ Use bi_lists_create instead. TODO Change parser to use bi_lists_create
 For example [1,2,3] is creating a createe list with with 4 inputs instead of three. And the number blocks are not being created.
 Also change the "create list with" block for a bi_ one that uses my + and - buttons to add and delete fields
 
+Check which blocks are used on toolbar and remove the ones not used from the code.
+
 This works OK in the original BlocksIDE
 
 Fixed. Use bi_for_in:

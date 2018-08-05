@@ -59,7 +59,89 @@ Blockly.Blocks['maps_create_empty'] = {
   },
   typeblock: Blockly.Msg.MAPS_CREATE_EMPTY_TYPEBLOCK
 };
+  
+//Blockly.Blocks['bi_controls_forEachKey'] = {
+//  /**
+//   * Block for 'for each map' loop.
+//   * @this Blockly.Block
+//   */
+//  init: function() {
+//    this.jsonInit({
+//      "message0": "(pending) for each key %1 in map %2",  //Blockly.Msg.CONTROLS_FOREACH_TITLE,
+//      "args0": [
+//        {
+//          "type": "field_variable",
+//          "name": "VAR",
+//          "variable": null
+//        },
+//        {
+//          "type": "input_value",
+//          "name": "LIST",
+//          "check": "Array"
+//        }
+//      ],
+//      "previousStatement": null,
+//      "nextStatement": null,
+//      "colour": Blockly.Msg["LOOPS_HUE"],
+//      "helpUrl": Blockly.Msg.CONTROLS_FOREACH_HELPURL
+//    });
+//    this.appendStatementInput('DO')
+//        .appendField(Blockly.Msg.CONTROLS_FOREACH_INPUT_DO);
+//    // Assign 'this' to a variable for use in the tooltip closure below.
+//    var thisBlock = this;
+//    this.setTooltip(function() {
+//      return Blockly.Msg.CONTROLS_FOREACH_TOOLTIP.replace('%1',
+//          thisBlock.getFieldValue('VAR'));
+//    });
+//  },
+//  customContextMenu: Blockly.Blocks['controls_for'].customContextMenu
+//};
 
+Blockly.Blocks['bi_maps_create_with'] = {
+  /**
+   * Block for creating a map with any number of elements of any type.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.MAPS_CREATE_WITH_HELPURL);
+    // TODO JCOA: Fix color and tooltips for maps
+    this.setColour(125); //(Blockly.Msg["MAP_HUE"]);
+    this.itemCount_ = 1;
+    ///this.itemNames_ = ["a", "b", "c"];
+    this.updateShape_();
+    this.setOutput(true, 'Array');
+    this.setInputsInline(true);
+    this.setTooltip('') //(Blockly.Msg.MAPS_CREATE_WITH_TOOLTIP);
+  },
+  /**
+   * Create XML to represent map inputs.
+   * @return {!Element} XML storage element.
+   * @this Blockly.Block
+   */
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    container.setAttribute('items', this.itemCount_);
+    return container;
+  },
+  /**
+   * Parse XML to restore the map inputs.
+   * @param {!Element} xmlElement XML storage element.
+   * @this Blockly.Block
+   */
+  domToMutation: function(xmlElement) {
+    this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
+    this.updateShape_();
+  },
+  /**
+   * Modify this block to have the correct number of inputs.
+   * @private
+   * @this Blockly.Block
+   */
+  ///updateShape_: window.PLUS_MINUS_updateShape_(window.PLUS_MINUS_updateShape_types.NAMES_EDITABLE_X, 'ADD', 'create map with')
+  updateShape_: window.PLUS_MINUS_updateShape_(window.PLUS_MINUS_updateShape_types.PLAIN_X, 'ADD', 'create map with')
+};
+  
+  
 Blockly.Blocks['maps_create_with'] = {
   /**
    * Block for creating a list with any number of elements of any type.
