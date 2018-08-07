@@ -34,21 +34,6 @@ class Blockly1 extends Component {
 
     var toolbox = `
 <xml id="toolbox" style="display: none">
-    <category name="JCO" colour="230">
-      <block type="block_A1"></block>
-      <block type="block_A2"></block>
-      <block type="block_A3"></block>    
-      <block type="block_A4"></block>    
-      <block type="block_B1"></block>
-      <block type="block_B2"></block>   
-      <block type="block_click1"></block>
-      <block type="test_block"></block>    
-      <block type="test2_block"></block>
-      <block type="lists_create"></block>        
-      <block type="named_list_create"></block>        
-      <block type="named_list_create_ed"></block>    
-      <block type="named_list_create_edx"></block>
-    </category>
     <category id="catLogic" name="Logic" colour="210">
       <block type="controls_if"></block>
       <block type="bi_logic_compare"></block>
@@ -337,14 +322,7 @@ class Blockly1 extends Component {
       <block type="maps_setIndex"></block>
       <block type="maps_keys"></block>
     </category>
-
-    
-</xml>`
-    
-/*   
-      
-
-    <category id="catColour" name="Color" colour="20">
+<category id="catColour" name="Color" colour="20">
       <block type="colour_picker"></block>
       <block type="colour_random"></block>
       <block type="colour_rgb">
@@ -417,7 +395,6 @@ class Blockly1 extends Component {
       <block type="bi_set"></block>
     </category>
 
-
     <category name="Advanced js" colour="90">
       <block type="bi_try_catch"></block>      
       <block type="bi_catch"></block>      
@@ -427,6 +404,24 @@ class Blockly1 extends Component {
       <block type="bi_comment"></block>
     </category>
     <sep></sep>
+</xml>`
+
+/*   
+  <category name="JCO" colour="230">
+      <block type="block_A1"></block>
+      <block type="block_A2"></block>
+      <block type="block_A3"></block>    
+      <block type="block_A4"></block>    
+      <block type="block_B1"></block>
+      <block type="block_B2"></block>   
+      <block type="block_click1"></block>
+      <block type="test_block"></block>    
+      <block type="test2_block"></block>
+      <block type="lists_create"></block>        
+      <block type="named_list_create"></block>        
+      <block type="named_list_create_ed"></block>    
+      <block type="named_list_create_edx"></block>
+    </category>
     <category name="Library" expanded="true">
       <!--
       <block type="bi_var"></block>
@@ -435,7 +430,6 @@ class Blockly1 extends Component {
       </category>
       -->
     </category>
-  </xml>
 `   
 */
     

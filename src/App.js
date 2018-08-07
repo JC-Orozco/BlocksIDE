@@ -21,24 +21,6 @@ class App extends Component {
     _BIDE.code = 'var i=10'
     //_BIDE.pm_types = window.PLUS_MINUS_updateShape_types;
     
-    const biBlocks = require('./lib/bi_blockly/blocks/bi_blockly.js')
-    biBlocks(window.Blockly);
-    
-    const biBlocksJS = require('./lib/bi_blockly/generators/javascript/bi_blockly.js')
-    biBlocksJS(window.Blockly);
-    
-    const biLists = require('./lib/bi_blockly/blocks/bi_lists.js')
-    biLists(window.Blockly);
-    
-    const biListsJS = require('./lib/bi_blockly/generators/javascript/bi_lists.js')
-    biListsJS(window.Blockly);
-    
-    const biMaps = require('./lib/bi_blockly/blocks/bi_maps.js')
-    biMaps(window.Blockly);
-    
-    const biMapsJS = require('./lib/bi_blockly/generators/javascript/bi_maps.js')
-    biMapsJS(window.Blockly);
-    
     _BIDE.resize = {}
     _BIDE.resize.callbackList = []
     _BIDE.resize.addCallback = function(callback){

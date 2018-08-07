@@ -2,6 +2,7 @@
 
 Blockly.FieldImage.prototype.EDITABLE = true
 
+Blockly.Msg["MAPS_HUE"] = 345;
 
 // https://groups.google.com/forum/#!topic/blockly/Bf6mp2vBTUc
 /**
