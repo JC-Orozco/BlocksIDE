@@ -377,10 +377,11 @@ class Blockly1 extends Component {
     <category id="catFunctions" name="Functions" colour="290">
       <block type="bi_function"></block>
       <block type="bi_function_return"></block>
-<!--      <block type="bi_call"></block>      -->
-      <block type="bi_call_editable"></block>      
-      <block type="bi_call_editable_return"></block>     <block type="bi_direct_call_editable"></block>      
-      <block type="bi_direct_call_editable_return"></block>      
+<!--      <block type="bi_call"></block>  -->    
+      <block type="bi_call_editable"></block>    
+      <block type="bi_call_editable_return"></block>     
+      <block type="bi_direct_call_editable"></block>      
+      <block type="bi_direct_call_editable_return"></block>    
       <block type="bi_return"></block>
       <block type="bi_spread"></block>
     </category>
@@ -403,11 +404,7 @@ class Blockly1 extends Component {
       <block type="bi_import_as"></block>
       <block type="bi_comment"></block>
     </category>
-    <sep></sep>
-</xml>`
-
-/*   
-  <category name="JCO" colour="230">
+    <category name="Experimental JCO" colour="230">
       <block type="block_A1"></block>
       <block type="block_A2"></block>
       <block type="block_A3"></block>    
@@ -422,6 +419,11 @@ class Blockly1 extends Component {
       <block type="named_list_create_ed"></block>    
       <block type="named_list_create_edx"></block>
     </category>
+    <sep></sep>
+</xml>`
+
+/*   
+  
     <category name="Library" expanded="true">
       <!--
       <block type="bi_var"></block>

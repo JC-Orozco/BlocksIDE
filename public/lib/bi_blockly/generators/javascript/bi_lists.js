@@ -14,7 +14,6 @@
 Blockly.JavaScript['bi_lists_create'] = function(block) {
   // Create a list with any number of elements of any type.
   let code = new Array(block.itemCount_);
-  //const MAX_ITEM_COUNT = 999; // A large number to avoid infinite loops
   let itemCount = 0;
   
   //console.log('list inputs')

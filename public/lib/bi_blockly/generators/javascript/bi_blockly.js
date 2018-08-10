@@ -182,14 +182,18 @@ Blockly.JavaScript['bi_export'] = function(block) {
 
 Blockly.JavaScript['bi_import'] = function(block) {
 //  var value_import = Blockly.JavaScript.valueToCode(block, 'import', Blockly.JavaScript.ORDER_ATOMIC);
-  var codeArr = new Array(block.itemCount_-1);
-  for (var n = 1; n < block.itemCount_; n++) {
-    codeArr[n-1] = Blockly.JavaScript.valueToCode(block, 'items' + n,
-        Blockly.JavaScript.ORDER_COMMA) || 'null';    
+  var codeArr = new Array(block.itemCount_);
+  let itemCount = 0;
+  for(let i in block.inputList){
+    let input1 = block.inputList[i].name
+    if(input1.substring(0,3) === 'ADD'){
+      codeArr[itemCount] = Blockly.JavaScript.valueToCode(block, input1, Blockly.JavaScript.ORDER_COMMA) || 'null';
+      itemCount += 1;
+    }
   }
   var value_from = Blockly.JavaScript.valueToCode(block, 'from', Blockly.JavaScript.ORDER_ATOMIC);
   var code = 'import '
-  if(block.itemCount_ === 2){
+  if(block.itemCount_ === 1){
     code += codeArr[0]
   } else{
     code += '{'+codeArr.join(',')+'}'
@@ -262,18 +266,14 @@ Blockly.JavaScript['bi_switch'] = function(block) {
   var statement_default = Blockly.JavaScript.statementToCode(block, 'default');
   console.log("Input List")
   console.log(block.inputList)
-  var codeArr = []
-  if(block.itemCount_-1 > 0){
-    codeArr = new Array(block.itemCount_-1)
-  }
+  var codeArr = new Array(block.itemCount_)
+  let itemCount = 0
   var i = 0
-  for (var n = 0; n < block.inputList.length; n++) {
-    //codeArr[n-1] = Blockly.JavaScript.valueToCode(block, 'items' + n,
-    let name = block.inputList[n].name
-    if(name.substring(0,5) === 'items'){
-      codeArr[i] = Blockly.JavaScript.valueToCode(block, name,
-        Blockly.JavaScript.ORDER_COMMA) || 'null';
-      i += 1
+  for(let i in block.inputList){
+    let input1 = block.inputList[i].name
+    if(input1.substring(0,3) === 'ADD'){
+      codeArr[itemCount] = Blockly.JavaScript.valueToCode(block, input1, Blockly.JavaScript.ORDER_COMMA) || 'null';
+      itemCount += 1;
     }
   }
   var code = 'switch(' + value_switch + '){\n' + codeArr.join('\n') + '\ndefault: ' + statement_default +'}\n';
@@ -343,12 +343,12 @@ Blockly.JavaScript['bi_call'] = function(block) {
   // Create a list with any number of elements of any type.
   var text_name = block.getFieldValue('NAME');
   var value_chain = Blockly.JavaScript.valueToCode(block, 'chain', Blockly.JavaScript.ORDER_ATOMIC);
-  var codeArr = new Array(block.itemCount_-1);
-  for (var n = 1; n < block.itemCount_; n++) {
+  var codeArr = new Array(block.itemCount_);
+  for (var n = 0; n < block.itemCount_; n++) {
     // code[n] = Blockly.JavaScript.valueToCode(block, 'ADD' + n,
     //     Blockly.JavaScript.ORDER_COMMA) || 'null';
     // TODO: Fix the naming on the AddSubGroup block and use code above
-    codeArr[n-1] = Blockly.JavaScript.valueToCode(block, 'items' + n,
+    codeArr[n] = Blockly.JavaScript.valueToCode(block, 'ADD' + n,
         Blockly.JavaScript.ORDER_COMMA) || 'null';
   }
   var chain = "";
@@ -364,13 +364,14 @@ Blockly.JavaScript['bi_call'] = function(block) {
 Blockly.JavaScript['bi_direct_call_editable'] = function(block) {
   var value_function = Blockly.JavaScript.valueToCode(block, 'function', Blockly.JavaScript.ORDER_ATOMIC);
   var value_chain = Blockly.JavaScript.valueToCode(block, 'chain', Blockly.JavaScript.ORDER_ATOMIC);
-  var codeArr = new Array(block.itemCount_-1); // block.itemCount_);
-  for (var n = 1; n < block.itemCount_; n++) {
-    // code[n] = Blockly.JavaScript.valueToCode(block, 'ADD' + n,
-    //     Blockly.JavaScript.ORDER_COMMA) || 'null';
-    // TODO: Fix the naming on the AddSubGroup block and use code above
-    codeArr[n-1] = Blockly.JavaScript.valueToCode(block, 'items' + n,
-        Blockly.JavaScript.ORDER_COMMA) || 'null';
+  var codeArr = new Array(block.itemCount_);
+  let itemCount = 0;
+  for(let i in block.inputList){
+    let input1 = block.inputList[i].name
+    if(input1.substring(0,3) === 'ADD'){
+      codeArr[itemCount] = Blockly.JavaScript.valueToCode(block, input1, Blockly.JavaScript.ORDER_COMMA) || 'null';
+      itemCount += 1;
+    }
   }
   var chain = "";
   if(value_chain !== ""){
@@ -385,13 +386,14 @@ Blockly.JavaScript['bi_direct_call_editable'] = function(block) {
 Blockly.JavaScript['bi_direct_call_editable_return'] = function(block) {
   var value_function = Blockly.JavaScript.valueToCode(block, 'function', Blockly.JavaScript.ORDER_ATOMIC);
   var value_chain = Blockly.JavaScript.valueToCode(block, 'chain', Blockly.JavaScript.ORDER_ATOMIC);
-  var codeArr = new Array(block.itemCount_-1); // block.itemCount_);
-  for (var n = 1; n < block.itemCount_; n++) {
-    // code[n] = Blockly.JavaScript.valueToCode(block, 'ADD' + n,
-    //     Blockly.JavaScript.ORDER_COMMA) || 'null';
-    // TODO: Fix the naming on the AddSubGroup block and use code above
-    codeArr[n-1] = Blockly.JavaScript.valueToCode(block, 'items' + n,
-        Blockly.JavaScript.ORDER_COMMA) || 'null';
+  var codeArr = new Array(block.itemCount_);
+  let itemCount = 0;
+  for(let i in block.inputList){
+    let input1 = block.inputList[i].name
+    if(input1.substring(0,3) === 'ADD'){
+      codeArr[itemCount] = Blockly.JavaScript.valueToCode(block, input1, Blockly.JavaScript.ORDER_COMMA) || 'null';
+      itemCount += 1;
+    }
   }
   var chain = "";
   if(value_chain !== ""){
@@ -406,13 +408,14 @@ Blockly.JavaScript['bi_direct_call_editable_return'] = function(block) {
 Blockly.JavaScript['bi_call_editable'] = function(block) {
   var text_name = block.getFieldValue('NAME');
   var value_chain = Blockly.JavaScript.valueToCode(block, 'chain', Blockly.JavaScript.ORDER_ATOMIC);
-  var codeArr = new Array(block.itemCount_-1); // block.itemCount_);
-  for (var n = 1; n < block.itemCount_; n++) {
-    // code[n] = Blockly.JavaScript.valueToCode(block, 'ADD' + n,
-    //     Blockly.JavaScript.ORDER_COMMA) || 'null';
-    // TODO: Fix the naming on the AddSubGroup block and use code above
-    codeArr[n-1] = Blockly.JavaScript.valueToCode(block, 'items' + n,
-        Blockly.JavaScript.ORDER_COMMA) || 'null';
+  var codeArr = new Array(block.itemCount_);
+  let itemCount = 0;
+  for(let i in block.inputList){
+    let input1 = block.inputList[i].name
+    if(input1.substring(0,3) === 'ADD'){
+      codeArr[itemCount] = Blockly.JavaScript.valueToCode(block, input1, Blockly.JavaScript.ORDER_COMMA) || 'null';
+      itemCount += 1;
+    }
   }
   var chain = "";
   if(value_chain !== ""){
@@ -427,13 +430,14 @@ Blockly.JavaScript['bi_call_editable'] = function(block) {
 Blockly.JavaScript['bi_call_editable_return'] = function(block) {
   var text_name = block.getFieldValue('NAME');
   var value_chain = Blockly.JavaScript.valueToCode(block, 'chain', Blockly.JavaScript.ORDER_ATOMIC);
-  var codeArr = new Array(block.itemCount_-1); // block.itemCount_);
-  for (var n = 1; n < block.itemCount_; n++) {
-    // code[n] = Blockly.JavaScript.valueToCode(block, 'ADD' + n,
-    //     Blockly.JavaScript.ORDER_COMMA) || 'null';
-    // TODO: Fix the naming on the AddSubGroup block and use code above
-    codeArr[n-1] = Blockly.JavaScript.valueToCode(block, 'items' + n,
-        Blockly.JavaScript.ORDER_COMMA) || 'null';
+  var codeArr = new Array(block.itemCount_);
+  let itemCount = 0;
+  for(let i in block.inputList){
+    let input1 = block.inputList[i].name
+    if(input1.substring(0,3) === 'ADD'){
+      codeArr[itemCount] = Blockly.JavaScript.valueToCode(block, input1, Blockly.JavaScript.ORDER_COMMA) || 'null';
+      itemCount += 1;
+    }
   }
   var chain = "";
   if(value_chain !== ""){

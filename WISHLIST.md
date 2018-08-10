@@ -1,5 +1,7 @@
 Juan Carlos Orozco WISHLIST:
 
+Make a custom field for PLUS_MINUS_updateShape instead of needing mutationToDom, domToMutation and updateShape_ methods.
+
 Implement a bi_for_in that takes the variable as an argument and not a a text name.
 
 Support for calculated fields for example on maps like {[a]:1, b:2, c:3} (in this case [a] is evaluated to generate the corresponding key to the first map element?). Check js documentation.

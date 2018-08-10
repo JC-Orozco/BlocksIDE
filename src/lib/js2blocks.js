@@ -204,14 +204,14 @@ export function walk1(ast, comments, block_loc, options){
     if(cases_len && (node.cases[cases_len-1].test == null)){
       hasDefault = 1;
     }
-    var mutation1 = newNode('mutation', {items:node.cases.length+1-hasDefault}) // TODO: Take out +1 when items count corrected on AddSub block
+    var mutation1 = newNode('mutation', {items:node.cases.length-hasDefault})
     block1.appendChild(mutation1)
     var switch1 = newNode('value', {name:'switch'})
     block1.appendChild(switch1)
     current_node = switch1;
     c(node.discriminant, st, "Expression")
     for (let i = 0; i < node.cases.length-hasDefault; ++i) {
-      let item = newNode('value',{name:'items'+(i+1)})
+      let item = newNode('value',{name:'ADD'+(i)})
       block1.appendChild(item)
       let case1 = newNode('block', {type:'bi_case'}, '', node)
       item.appendChild(case1)
@@ -623,7 +623,7 @@ export function walk1(ast, comments, block_loc, options){
     if(debug) console.log("ArrayExpression");
     var block1 = newNode('block',{type:'bi_lists_create'}, '', node);
     current_node.appendChild(block1);
-    var mutation1 = newNode('mutation',{items:node.elements.length}); // TODO: Take out the +1 when list items number is corrected on core/blocks.js AddSub...
+    var mutation1 = newNode('mutation',{items:node.elements.length});
     block1.appendChild(mutation1);
     var node1 = current_node;
     for (let i = 0; i < node.elements.length; ++i) {
@@ -639,7 +639,7 @@ export function walk1(ast, comments, block_loc, options){
     if(debug) console.log("ObjectExpression");
     var block1 = newNode('block',{type:'bi_maps_create_with'}, '', node);
     current_node.appendChild(block1);
-    var mutation1 = newNode('mutation',{items:node.properties.length}); // TODO: Take out the +1 when list items number is corrected on core/blocks.js AddSub...
+    var mutation1 = newNode('mutation',{items:node.properties.length});
     block1.appendChild(mutation1);    
     var node1 = current_node;
     for (let i = 0; i < node.properties.length; ++i){
@@ -796,7 +796,7 @@ export function walk1(ast, comments, block_loc, options){
     current_call = true;
     var call1 = newNode('block', {type:'bi_call_editable_return'}, '', node);
     value1.appendChild(call1)
-    var mutation1 = newNode('mutation', {items:node.arguments.length+1, names:''}) // TODO: Take out +1 when AddSub... is fixed on the actual length required.
+    var mutation1 = newNode('mutation', {items:node.arguments.length, names:''})
     call1.appendChild(mutation1);
     call1.appendChild(newNode('field',{name:'NAME'},node.callee.name));
     c(node.callee, st, "Expression")
@@ -804,7 +804,7 @@ export function walk1(ast, comments, block_loc, options){
     //  c(node.arguments[i], st, "Expression")
     var node1 = current_node;
     if (node.arguments) for (let i = 0; i < node.arguments.length; ++i){
-      let value2 = newNode('value', {name:'items'+(i+1)});
+      let value2 = newNode('value', {name:'ADD'+(i)});
       call1.appendChild(value2);
       current_node = value2;
       c(node.arguments[i], st, "Expression")
@@ -840,7 +840,7 @@ export function walk1(ast, comments, block_loc, options){
       }
       current_node.appendChild(block1);
     }
-    var mutation1 = newNode('mutation', {items:node.arguments.length+1, names:''}) // TODO: Take out +1 when AddSub... is fixed on the actual length required.
+    var mutation1 = newNode('mutation', {items:node.arguments.length, names:''})
     block1.appendChild(mutation1);
     node3 = current_node
     if(node.callee.type === "FunctionExpression"){
@@ -860,7 +860,7 @@ export function walk1(ast, comments, block_loc, options){
     current_path_chain = [];
     var node1 = current_node;
     if (node.arguments) for (let i = 0; i < node.arguments.length; ++i){
-      let value2 = newNode('value', {name:'items'+(i+1)});
+      let value2 = newNode('value', {name:'ADD'+(i)});
       block1.appendChild(value2);
       current_node = value2;
       c(node.arguments[i], st, "Expression")
@@ -953,10 +953,10 @@ export function walk1(ast, comments, block_loc, options){
     var block1 = newNode('block',{type:'bi_import'}, '', node);
     current_node.appendChild(block1);
     var node1 = current_node;
-    var mutation1 = newNode('mutation', {items:node.specifiers.length+1}) // TODO: Take out +1 when items count corrected on AddSub block
+    var mutation1 = newNode('mutation', {items:node.specifiers.length})
     block1.appendChild(mutation1)
     for (let i = 0; i < node.specifiers.length; i++){
-      let item = newNode('value',{name:'items'+(i+1)})
+      let item = newNode('value',{name:'ADD'+(i)})
       block1.appendChild(item)
       current_node = item
       c(node.specifiers[i], st)

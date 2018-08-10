@@ -131,8 +131,8 @@ Blockly.Blocks['bi_maps_create_with'] = {
    * @private
    * @this Blockly.Block
    */
-  ///updateShape_: window.PLUS_MINUS_updateShape_(window.PLUS_MINUS_updateShape_types.NAMES_EDITABLE_X, 'ADD', 'create map with')
-  updateShape_: window.PLUS_MINUS_updateShape_(window.PLUS_MINUS_updateShape_types.PLAIN_X, 'ADD', 'create map with')
+  ///updateShape_: window.PLUS_MINUS_updateShape_(window.PLUS_MINUS_updateShape_types.NAMES_EDITABLE_X, false, 'ADD', 'create map with')
+  updateShape_: window.PLUS_MINUS_updateShape_(window.PLUS_MINUS_updateShape_types.PLAIN_X, false, 'ADD', 'create map with')
 };
   
   

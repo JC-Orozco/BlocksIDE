@@ -218,7 +218,8 @@ window.PLUS_MINUS_updateShape_types = PLUS_MINUS_updateShape_types
 // nextInput is the name of the input that should go 
 // before this list of items or null if this items are 
 // the last inputs of the block
-function PLUS_MINUS_updateShape_(type, listItemName, startMessage, nextInput) {
+// flush: boolean inputs are placed flush or not on the block
+function PLUS_MINUS_updateShape_(type, flush, listItemName, startMessage, nextInput) {
     // JCOA: We should use itemCount_ and lastItem_ in this context
     return function() {
         let types = PLUS_MINUS_updateShape_types
@@ -236,7 +237,9 @@ function PLUS_MINUS_updateShape_(type, listItemName, startMessage, nextInput) {
             console.log(e)
             console.log(i)
             that.itemCount_ -= 1;
-            that.removeInput("HIDE_ME" + i);
+            if(!flush){
+              that.removeInput("HIDE_ME" + i);
+            }
             that.removeInput(listItemName + i);
           }
         }
@@ -247,7 +250,9 @@ function PLUS_MINUS_updateShape_(type, listItemName, startMessage, nextInput) {
           console.log(e)
           if (that.itemCount_ > 0) {
               that.itemCount_ -= 1;
-              that.removeInput("HIDE_ME" + that.itemCount_);
+              if(!flush){
+                that.removeInput("HIDE_ME" + that.itemCount_);
+              }
               that.removeInput(listItemName + that.itemCount_);
           }
         }
@@ -262,9 +267,10 @@ function PLUS_MINUS_updateShape_(type, listItemName, startMessage, nextInput) {
           } else {
             itemId = that.itemCount_
           }
-          
-          that.appendStatementInput("HIDE_ME" + itemId)
+          if(!flush){
+            that.appendStatementInput("HIDE_ME" + itemId)
                 .setCheck(null);
+          }
           let input = that.appendValueInput(listItemName + itemId)
           if(nextInput){
             that.moveInputBefore(listItemName + itemId, nextInput)
@@ -306,8 +312,10 @@ function PLUS_MINUS_updateShape_(type, listItemName, startMessage, nextInput) {
         for (var i = 0; i < this.itemCount_; i++) {
           this.lastItem += 1;
           if (!this.getInput(listItemName + i)) {
-            this.appendStatementInput("HIDE_ME" + i)
+            if(!flush){
+              this.appendStatementInput("HIDE_ME" + i)
                 .setCheck(null);
+            }
             let input = this.appendValueInput(listItemName + i)
             switch(type){
               case types.PLAIN_X:
@@ -330,247 +338,12 @@ function PLUS_MINUS_updateShape_(type, listItemName, startMessage, nextInput) {
         }
         // Remove deleted inputs.
         while (this.getInput(listItemName + i)) {
-          this.removeInput("HIDE_ME" + i);
+          if(!flush){
+            this.removeInput("HIDE_ME" + i);
+          }
           this.removeInput(listItemName + i);
           i++;
           console.log(this);
         }
     }
 }
-
-/*
-function PLUS_MINUS_updateShape(listItemName, startMessage) {
-    return function() {
-        var that = this;
-        function addField(e){
-          // e is the FieldImage block.
-          //alert("Clicked. Check console for more info")
-          console.log(e)
-          that.appendStatementInput("HIDE_ME" + that.itemCount_)
-                .setCheck(null);
-          var input = that.appendValueInput(listItemName + that.itemCount_);
-          that.itemCount_ += 1;
-        }
-        function removeField(e){
-          // e is the FieldImage block.
-          //alert("Clicked. Check console for more info")
-          console.log(e)
-          if (that.itemCount_ > 0) {
-              that.itemCount_ -= 1;
-              that.removeInput("HIDE_ME" + that.itemCount_);
-              that.removeInput(listItemName + that.itemCount_);
-          }
-        }
-
-        if (!this.getInput('START')) {
-            //var clickablePlusMinus = new Blockly.FieldImage("./images/plus-minus-button.svg", 12, 24, '+', addField2);
-            var clickablePlus = new Blockly.FieldImage("./images/plus.png", 18, 18, '+', addField);
-            var clickableMinus = new Blockly.FieldImage("./images/minus.png",18, 18, '-', removeField);
-           //clickablePlusMinus.imageElement_.style.y = '-2px';
-            this.appendDummyInput('START')
-                .appendField(startMessage)
-                .appendField(clickablePlus)
-                .appendField(clickableMinus);
-            //this.appendStatementInput("HIDE_ME")
-            //    .setCheck(null);
-        }
-        // Add new inputs.
-        for (var i = 0; i < this.itemCount_; i++) {
-          if (!this.getInput(listItemName + i)) {
-            this.appendStatementInput("HIDE_ME" + i)
-                .setCheck(null);
-            var input = this.appendValueInput(listItemName + i);
-            console.log(this);
-          }
-        }
-        // Remove deleted inputs.
-        while (this.getInput(listItemName + i)) {
-          this.removeInput("HIDE_ME" + i);
-          this.removeInput(listItemName + i);
-          i++;
-          console.log(this);
-        }
-    }
-}
-
-function PLUS_MINUS_updateShapeNames(listItemName, startMessage) {
-    return function() {
-        var that = this;
-        function addField(e){
-          // e is the FieldImage block.
-          //alert("Clicked. Check console for more info")
-          console.log(e)
-          that.appendStatementInput("HIDE_ME" + that.itemCount_)
-                .setCheck(null);
-          that.itemNames_.push(that.itemCount_.toString())
-          var input = that.appendValueInput(listItemName + that.itemCount_)
-            .appendField(that.itemNames_[that.itemCount_])
-          that.itemCount_ += 1;
-        }
-        function removeField(e){
-          // e is the FieldImage block.
-          //alert("Clicked. Check console for more info")
-          console.log(e)
-          if (that.itemCount_ > 0) {
-              that.itemCount_ -= 1;
-              that.removeInput("HIDE_ME" + that.itemCount_);
-              that.removeInput(listItemName + that.itemCount_);
-          }
-        }
-
-        if (!this.getInput('START')) {
-            //var clickablePlusMinus = new Blockly.FieldImage("./images/plus-minus-button.svg", 12, 24, '+', addField2);
-            var clickablePlus = new Blockly.FieldImage("./images/plus.png", 18, 18, '+', addField);
-            var clickableMinus = new Blockly.FieldImage("./images/minus.png",18, 18, '-', removeField);
-           //clickablePlusMinus.imageElement_.style.y = '-2px';
-            this.appendDummyInput('START')
-                .appendField(startMessage)
-                .appendField(clickablePlus)
-                .appendField(clickableMinus);
-            //this.appendStatementInput("HIDE_ME")
-            //    .setCheck(null);
-        }
-        // Add new inputs.
-        for (var i = 0; i < this.itemCount_; i++) {
-          if (!this.getInput(listItemName + i)) {
-            this.appendStatementInput("HIDE_ME" + i)
-                .setCheck(null);
-            var input = this.appendValueInput(listItemName + i)
-              .appendField(this.itemNames_[i])
-              // .appendField(new Blockly.FieldTextInput("default"), "NAME");
-            console.log(this);
-          }
-        }
-        // Remove deleted inputs.
-        while (this.getInput(listItemName + i)) {
-          this.removeInput("HIDE_ME" + i);
-          this.removeInput(listItemName + i);
-          i++;
-          console.log(this);
-        }
-    }
-}
-
-function PLUS_MINUS_updateShapeNamesEd(listItemName, startMessage) {
-    return function() {
-        var that = this;
-        function addField(e){
-          // e is the FieldImage block.
-          //alert("Clicked. Check console for more info")
-          console.log(e)
-          that.appendStatementInput("HIDE_ME" + that.itemCount_)
-                .setCheck(null);
-          var input = that.appendValueInput(listItemName + that.itemCount_)
-            .appendField(new Blockly.FieldTextInput(that.itemCount_.toString()), "NAME"+that.itemCount_);
-          that.itemCount_ += 1;
-        }
-        function removeField(e){
-          // e is the FieldImage block.
-          //alert("Clicked. Check console for more info")
-          console.log(e)
-          if (that.itemCount_ > 0) {
-              that.itemCount_ -= 1;
-              that.removeInput("HIDE_ME" + that.itemCount_);
-              that.removeInput(listItemName + that.itemCount_);
-          }
-        }
-
-        if (!this.getInput('START')) {
-            //var clickablePlusMinus = new Blockly.FieldImage("./images/plus-minus-button.svg", 12, 24, '+', addField2);
-            var clickablePlus = new Blockly.FieldImage("./images/plus.png", 18, 18, '+', addField);
-            var clickableMinus = new Blockly.FieldImage("./images/minus.png",18, 18, '-', removeField);
-           //clickablePlusMinus.imageElement_.style.y = '-2px';
-            this.appendDummyInput('START')
-                .appendField(startMessage)
-                .appendField(clickablePlus)
-                .appendField(clickableMinus);
-            //this.appendStatementInput("HIDE_ME")
-            //    .setCheck(null);
-        }
-        // Add new inputs.
-        for (var i = 0; i < this.itemCount_; i++) {
-          if (!this.getInput(listItemName + i)) {
-            this.appendStatementInput("HIDE_ME" + i)
-                .setCheck(null);
-            var input = this.appendValueInput(listItemName + i)
-              .appendField(new Blockly.FieldTextInput(i.toString()), "NAME"+i);
-            console.log(this);
-          }
-        }
-        // Remove deleted inputs.
-        while (this.getInput(listItemName + i)) {
-          this.removeInput("HIDE_ME" + i);
-          this.removeInput(listItemName + i);
-          i++;
-          console.log(this);
-        }
-    }
-}
-
-// JCOA:
-// Note: We need to add fields to addField and // add new items sections. The same for remove fields.
-// We may be able to integrate all PLUS_MINUS functions by adding extra parameters for configuration options.
-function PLUS_MINUS_updateShapeNamesEdX(listItemName, startMessage) {
-    // JCOA: We should use itemCount_ and lastItem_ in this context
-    return function() {
-        this.lastItem = 0;
-        var that = this;
-        function removeField(i){
-          // e is the FieldImage block.
-          //alert("Clicked. Check console for more info")
-          return function(e){
-            console.log(e)
-            console.log(i)
-            that.itemCount_ -= 1;
-            that.removeInput("HIDE_ME" + i);
-            that.removeInput(listItemName + i);
-          }
-        }
-
-        var clickablePlus = new Blockly.FieldImage("./images/plus.png", 18, 18, '+', addField);
-        var clickableMinus = new Blockly.FieldImage("./images/minus.png",18, 18, '-', removeField);
-        //clickablePlusMinus.imageElement_.style.y = '-2px';
-      
-        function addField(e){
-          // e is the FieldImage block.
-          //alert("Clicked. Check console for more info")
-          console.log(e)
-          that.appendStatementInput("HIDE_ME" + that.lastItem)
-                .setCheck(null);
-          var input = that.appendValueInput(listItemName + that.lastItem)
-            .appendField(new Blockly.FieldImage("./images/minus.png",18, 18, '-', removeField(that.lastItem)))
-            .appendField(new Blockly.FieldTextInput(that.lastItem.toString()), "NAME"+that.lastItem);
-          that.itemCount_ += 1;
-          that.lastItem += 1;
-        }
-      
-        if (!this.getInput('START')) {
-            this.appendDummyInput('START')
-                .appendField(startMessage)
-                .appendField(clickablePlus)
-                //.appendField(clickableMinus);
-            //this.appendStatementInput("HIDE_ME")
-            //    .setCheck(null);
-        }
-        // Add new inputs.
-        for (var i = 0; i < this.itemCount_; i++) {
-          this.lastItem += 1;
-          if (!this.getInput(listItemName + i)) {
-            this.appendStatementInput("HIDE_ME" + i)
-                .setCheck(null);
-            var input = this.appendValueInput(listItemName + i)
-              .appendField(new Blockly.FieldImage("./images/minus.png",18, 18, '-', removeField(i)))
-              .appendField(new Blockly.FieldTextInput(i.toString()), "NAME"+i);
-            console.log(this);
-          }
-        }
-        // Remove deleted inputs.
-        while (this.getInput(listItemName + i)) {
-          this.removeInput("HIDE_ME" + i);
-          this.removeInput(listItemName + i);
-          i++;
-          console.log(this);
-        }
-    }
-}
-*/

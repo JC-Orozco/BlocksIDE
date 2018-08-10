@@ -203,7 +203,7 @@ Blockly.Blocks['lists_create'] = {
    * @private
    * @this Blockly.Block
    */
-  updateShape_: PLUS_MINUS_updateShape_(types.PLAIN, 'ADD', "create list of")
+  updateShape_: PLUS_MINUS_updateShape_(types.PLAIN, false, 'ADD', "create list of")
 };
 
 Blockly.Blocks['named_list_create'] = {
@@ -247,7 +247,7 @@ Blockly.Blocks['named_list_create'] = {
    * @private
    * @this Blockly.Block
    */
-  updateShape_: PLUS_MINUS_updateShape_(types.NAMES, 'ADD', "create named list of")
+  updateShape_: PLUS_MINUS_updateShape_(types.NAMES, false, 'ADD', "create named list of")
 };
 
 Blockly.Blocks['named_list_create_ed'] = {
@@ -289,7 +289,7 @@ Blockly.Blocks['named_list_create_ed'] = {
    * @private
    * @this Blockly.Block
    */
-  updateShape_: PLUS_MINUS_updateShape_(types.NAMES_EDITABLE, 'ADD', "create named ed list of")
+  updateShape_: PLUS_MINUS_updateShape_(types.NAMES_EDITABLE, false, 'ADD', "create named ed list of")
 };
 
 Blockly.Blocks['named_list_create_edx'] = {
@@ -331,7 +331,7 @@ Blockly.Blocks['named_list_create_edx'] = {
    * @private
    * @this Blockly.Block
    */
-  updateShape_: PLUS_MINUS_updateShape_(types.NAMES_EDITABLE_X, 'ADD', 'create named edx list of')
+  updateShape_: PLUS_MINUS_updateShape_(types.NAMES_EDITABLE_X, false, 'ADD', 'create named edx list of')
 };
 
 Blockly.Blocks['block_A1'] = {

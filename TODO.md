@@ -1,5 +1,17 @@
 Juan Carlos Orozco TODO list:
 
+parser is not ordering the block fields well. Parse this for example:
+  switch(x){
+  case 0:  for (var count = 0; count < 10; count++) {
+    }
+  case 1:  for (var count2 = 0; count2 < 10; count2++) {
+    }
+  default:   a = 3
+  }
+
+or this:
+  fcall2(abc,cdf).abc
+
 l = [null]; null translates to empty string!
 
 Use bi_create_list that can remove each item individually. Done with PLAIN_X. But parser needs fixing to take into account separate ADDx inputs

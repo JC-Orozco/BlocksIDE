@@ -318,26 +318,66 @@ Blockly.Blocks['bi_export'] = {
 };
 
 Blockly.Blocks['bi_import'] = {
+  /**
+   * Block for creating a list with any number of elements of any type.
+   * @this Blockly.Block
+   */
   init: function() {
-    this.appendDummyInput()
-        .appendField('import');
-//    this.appendValueInput('import')
-//        .setCheck(null)
-//        .appendField('import');
-    this.appendAddSubGroup('', 'items',null,
-                           '');
-    this.itemCount_ = 2;
-    this.updateShape_();    
+    this.setHelpUrl(Blockly.Msg.LISTS_CREATE_WITH_HELPURL);
+    this.setColour(90);
+    this.itemCount_ = 1;
+    this.updateShape_();
     this.appendValueInput('from')
-        .setCheck(null)
         .appendField('from');
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(90);
+    this.setInputsInline(false); //(true);
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
-  }
+  },
+  /**
+   * Create XML to represent list inputs.
+   * @return {!Element} XML storage element.
+   * @this Blockly.Block
+   */
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    container.setAttribute('items', this.itemCount_);
+    return container;
+  },
+  /**
+   * Parse XML to restore the list inputs.
+   * @param {!Element} xmlElement XML storage element.
+   * @this Blockly.Block
+   */
+  domToMutation: function(xmlElement) {
+    this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
+    this.updateShape_();
+  },
+  // Seting 'from' as next input makes from always appear after the import inputs. 
+  updateShape_: window.PLUS_MINUS_updateShape_(types.PLAIN_X, false, 'ADD', 'import', 'from')
 };
+
+//Blockly.Blocks['bi_import'] = {
+//  init: function() {
+//    this.appendDummyInput()
+//        .appendField('import');
+////    this.appendValueInput('import')
+////        .setCheck(null)
+////        .appendField('import');
+//    this.appendAddSubGroup('', 'items',null,
+//                           '');
+//    this.itemCount_ = 2;
+//    this.updateShape_();    
+//    this.appendValueInput('from')
+//        .setCheck(null)
+//        .appendField('from');
+//    this.setPreviousStatement(true, null);
+//    this.setNextStatement(true, null);
+//    this.setColour(90);
+//    this.setTooltip('');
+//    this.setHelpUrl('http://www.example.com/');
+//  }
+//};
 
 Blockly.Blocks['bi_import_as'] = {
   init: function() {
@@ -522,7 +562,7 @@ Blockly.Blocks['bi_switch'] = {
    * @private
    * @this Blockly.Block
    */
-  updateShape_: window.PLUS_MINUS_updateShape_(window.PLUS_MINUS_updateShape_types.PLAIN_X, 'items', '', 'default')
+  updateShape_: window.PLUS_MINUS_updateShape_(window.PLUS_MINUS_updateShape_types.PLAIN_X, false, 'ADD', '', 'default')
 };
 
   
@@ -599,20 +639,52 @@ Blockly.Blocks['bi_call'] = {
         .appendField('(');
     this.setHelpUrl(Blockly.Msg.LISTS_CREATE_WITH_HELPURL);
     this.setColour(290);
-    this.appendAddSubNamed('', 'items',
-                           null,
-                           '');
     this.itemCount_ = 1;
     this.updateShape_();
     this.appendValueInput('chain')
         .appendField(')')
         .setCheck(null);  // (['Method', 'Field']);
-    this.setInputsInline(true);
-    //this.setOutput(true, null);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setTooltip(Blockly.Msg.LISTS_CREATE_WITH_TOOLTIP);
-  }
+    this.setInputsInline(true); //(true);
+    this.setTooltip('');
+    
+//    this.appendAddSubNamed('', 'items',
+//                           null,
+//                           '');
+//    this.itemCount_ = 1;
+//    this.updateShape_();
+//    this.appendValueInput('chain')
+//        .appendField(')')
+//        .setCheck(null);  // (['Method', 'Field']);
+//    this.setInputsInline(true);
+//    //this.setOutput(true, null);
+//    this.setPreviousStatement(true, null);
+//    this.setNextStatement(true, null);
+//    this.setTooltip(Blockly.Msg.LISTS_CREATE_WITH_TOOLTIP);
+  },
+  
+  /**
+   * Create XML to represent list inputs.
+   * @return {!Element} XML storage element.
+   * @this Blockly.Block
+   */
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    container.setAttribute('items', this.itemCount_);
+    return container;
+  },
+  /**
+   * Parse XML to restore the list inputs.
+   * @param {!Element} xmlElement XML storage element.
+   * @this Blockly.Block
+   */
+  domToMutation: function(xmlElement) {
+    this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
+    this.updateShape_();
+  },
+  // Seting 'from' as next input makes from always appear after the import inputs. 
+  updateShape_: window.PLUS_MINUS_updateShape_(types.PLAIN_X, false, 'ADD', '', 'chain')
 };
 
 Blockly.Blocks['bi_call_return'] = {
@@ -653,20 +725,42 @@ Blockly.Blocks['bi_direct_call_editable'] = {
         .appendField(')(');
     this.setHelpUrl('http://www.example.com/');
     this.setColour(290);
-    this.appendAddSubGroup('', 'items',
-                             null,
-                             '');
+    //this.appendAddSubGroup('', 'items',
+    //                         null,
+    //                         '');
+    this.itemCount_ = 1;
+    this.updateShape_();
     this.appendValueInput('chain')
         .appendField(')')
         .setCheck(null); // (['Method', 'Field']);
-    this.itemCount_ = 1;
-    this.updateShape_();
     this.setInputsInline(true);
     this.setPreviousStatement(true, null); // 'Method');
     this.setNextStatement(true, null); // 'Method');
     //this.setOutput(true, 'Array');
     this.setTooltip('');
-  }
+  },
+  
+  /**
+   * Create XML to represent list inputs.
+   * @return {!Element} XML storage element.
+   * @this Blockly.Block
+   */
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    container.setAttribute('items', this.itemCount_);
+    return container;
+  },
+  /**
+   * Parse XML to restore the list inputs.
+   * @param {!Element} xmlElement XML storage element.
+   * @this Blockly.Block
+   */
+  domToMutation: function(xmlElement) {
+    this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
+    this.updateShape_();
+  },
+  // Seting 'from' as next input makes from always appear after the import inputs. 
+  updateShape_: window.PLUS_MINUS_updateShape_(types.PLAIN_X, true, 'ADD', '', 'chain')
 };
 
 Blockly.Blocks['bi_direct_call_editable_return'] = {
@@ -681,20 +775,42 @@ Blockly.Blocks['bi_direct_call_editable_return'] = {
         .appendField(')(');
     this.setHelpUrl('http://www.example.com/');
     this.setColour(290);
-    this.appendAddSubGroup('', 'items',
-                             null,
-                             '');
+    //this.appendAddSubGroup('', 'items',
+    //                         null,
+    //                         '');
+    this.itemCount_ = 1;
+    this.updateShape_();
     this.appendValueInput('chain')
         .appendField(')')
         .setCheck(null); // (['Method', 'Field']);
-    this.itemCount_ = 1;
-    this.updateShape_();
     this.setInputsInline(true);
     //this.setPreviousStatement(true, null); // 'Method');
     //this.setNextStatement(true, null); // 'Method');
     this.setOutput(true, 'Array');
     this.setTooltip('');
-  }
+  },
+  
+  /**
+   * Create XML to represent list inputs.
+   * @return {!Element} XML storage element.
+   * @this Blockly.Block
+   */
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    container.setAttribute('items', this.itemCount_);
+    return container;
+  },
+  /**
+   * Parse XML to restore the list inputs.
+   * @param {!Element} xmlElement XML storage element.
+   * @this Blockly.Block
+   */
+  domToMutation: function(xmlElement) {
+    this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
+    this.updateShape_();
+  },
+  // Seting 'from' as next input makes from always appear after the import inputs. 
+  updateShape_: window.PLUS_MINUS_updateShape_(types.PLAIN_X, true, 'ADD', '', 'chain')
 };
   
 Blockly.Blocks['bi_call_editable'] = {
@@ -708,20 +824,43 @@ Blockly.Blocks['bi_call_editable'] = {
         .appendField('(');
     this.setHelpUrl('http://www.example.com/');
     this.setColour(290);
-    this.appendAddSubGroup('', 'items',
-                             null,
-                             '');
+    //this.appendAddSubGroup('', 'items',
+    //                         null,
+    //                         '');
+    this.itemCount_ = 1;
+    this.updateShape_();
     this.appendValueInput('chain')
         .appendField(')')
         .setCheck(null); // (['Method', 'Field']);
-    this.itemCount_ = 1;
-    this.updateShape_();
+    
     this.setInputsInline(true);
     this.setPreviousStatement(true, null); // 'Method');
     this.setNextStatement(true, null); // 'Method');
     //this.setOutput(true, 'Array');
     this.setTooltip('');
-  }
+  },
+  
+  /**
+   * Create XML to represent list inputs.
+   * @return {!Element} XML storage element.
+   * @this Blockly.Block
+   */
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    container.setAttribute('items', this.itemCount_);
+    return container;
+  },
+  /**
+   * Parse XML to restore the list inputs.
+   * @param {!Element} xmlElement XML storage element.
+   * @this Blockly.Block
+   */
+  domToMutation: function(xmlElement) {
+    this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
+    this.updateShape_();
+  },
+  // Seting 'from' as next input makes from always appear after the import inputs. 
+  updateShape_: window.PLUS_MINUS_updateShape_(types.PLAIN_X, true, 'ADD', '', 'chain')
 };
 
 Blockly.Blocks['bi_call_editable_return'] = {
@@ -735,20 +874,41 @@ Blockly.Blocks['bi_call_editable_return'] = {
         .appendField('(');
     this.setHelpUrl('http://www.example.com/');
     this.setColour(290);
-    this.appendAddSubGroup('', 'items',
-                             null,
-                             '');
-    this.appendValueInput('chain')
+    //this.appendAddSubGroup('', 'items',
+    //                         null,
+    //                         '');
+    this.itemCount_ = 1;
+    this.updateShape_();this.appendValueInput('chain')
         .appendField(')')
         .setCheck(null); // (['Method', 'Field']);
-    this.itemCount_ = 1;
-    this.updateShape_();
     this.setInputsInline(true);
     //this.setPreviousStatement(true, null); // 'Method');
     //this.setNextStatement(true, null); // 'Method');
     this.setOutput(true, 'Array');
     this.setTooltip('');
-  }
+  },
+  
+  /**
+   * Create XML to represent list inputs.
+   * @return {!Element} XML storage element.
+   * @this Blockly.Block
+   */
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    container.setAttribute('items', this.itemCount_);
+    return container;
+  },
+  /**
+   * Parse XML to restore the list inputs.
+   * @param {!Element} xmlElement XML storage element.
+   * @this Blockly.Block
+   */
+  domToMutation: function(xmlElement) {
+    this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
+    this.updateShape_();
+  },
+  // Seting 'from' as next input makes from always appear after the import inputs. 
+  updateShape_: window.PLUS_MINUS_updateShape_(types.PLAIN_X, true, 'ADD', '', 'chain')
 };
 
 Blockly.Blocks['bi_function_return'] = {
