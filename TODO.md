@@ -12,6 +12,90 @@ parser is not ordering the block fields well. Parse this for example:
 or this:
   fcall2(abc,cdf).abc
 
+  <block type="bi_call_editable" id="3" x="0" y="55">
+    <mutation items="2"></mutation>
+    <field name="NAME">fcall1</field>
+    <value name="ADD0">
+      <block type="bi_field_return" id="4">
+        <field name="NAME">a</field>
+      </block>
+    </value>
+    <value name="ADD2">
+      <block type="bi_field_return" id="5">
+        <field name="NAME">b</field>
+      </block>
+    </value>
+    <value name="chain">
+      <block type="bi_field_return" id="2">
+        <field name="NAME">c</field>
+      </block>
+    </value>
+  </block>
+  
+  <block type="bi_call_editable" id="3" x="0" y="55">
+    <mutation items="2"></mutation>
+    <field name="NAME">fcall1</field>
+    <value name="ADD0">
+      <block type="bi_field_return" id="4">
+        <field name="NAME">a</field>
+      </block>
+    </value>
+    <value name="chain">
+      <block type="bi_field_return" id="2">
+        <field name="NAME">c</field>
+      </block>
+    </value>
+    <value name="ADD1">
+      <block type="bi_field_return" id="5">
+        <field name="NAME">b</field>
+      </block>
+    </value>
+  </block>
+
+<block type="bi_call_editable" id="3">
+  <mutation items="2" names=""></mutation>
+  <field name="NAME">fcall1</field>
+  <value name="ADD0">
+    <block type="bi_field_return" id="4">
+      <field name="NAME">a</field>
+      <value name="chain"></value>
+    </block>
+  </value>
+  <value name="ADD1">
+    <block type="bi_field_return" id="5">
+      <field name="NAME">b</field>
+      <value name="chain"></value>
+    </block>
+  </value>
+  <value name="chain"></value>
+</block>"
+
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="bi_call_editable" id="1" x="0" y="10">
+    <mutation items="2" names=""></mutation>
+    <field name="NAME">fcall1</field>
+    <value name="ADD0">
+      <block type="bi_field_return" id="2">
+        <field name="NAME">a</field>
+        <value name="chain"></value>
+      </block>
+    </value>
+    <value name="ADD1">
+      <block type="bi_field_return" id="3">
+        <field name="NAME">b</field>
+        <value name="chain"></value>
+      </block>
+    </value>
+    <value name="chain">
+      <block type="bi_field_return" id="0">
+        <field name="NAME">c</field>
+        <value name="chain"></value>
+      </block>
+    </value>
+  </block>
+</xml>
+
+
 l = [null]; null translates to empty string!
 
 Use bi_create_list that can remove each item individually. Done with PLAIN_X. But parser needs fixing to take into account separate ADDx inputs

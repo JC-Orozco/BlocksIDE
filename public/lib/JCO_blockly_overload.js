@@ -317,6 +317,9 @@ function PLUS_MINUS_updateShape_(type, flush, listItemName, startMessage, nextIn
                 .setCheck(null);
             }
             let input = this.appendValueInput(listItemName + i)
+            if(nextInput){
+              that.moveInputBefore(listItemName + i, nextInput)
+            }
             switch(type){
               case types.PLAIN_X:
                 input.appendField(new Blockly.FieldImage("./images/minus.png",18, 18, '-', removeField_i(i)))

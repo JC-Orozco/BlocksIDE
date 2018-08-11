@@ -23,3 +23,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 Uses other open source components like Blockly and acornjs
+
+Use this to see xml of blocks (on devtools console):
+var workspace = Blockly.mainWorkspace
+var xmlDom = Blockly.Xml.workspaceToDom(workspace);
+var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+xmlText
