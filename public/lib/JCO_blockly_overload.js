@@ -230,6 +230,7 @@ function PLUS_MINUS_updateShape_(type, flush, listItemName, startMessage, nextIn
         var clickableMinus = new Blockly.FieldImage("./images/minus.png",18, 18, '-', removeField);
         //clickablePlusMinus.imageElement_.style.y = '-2px';
       
+        // Called when - button is clicked      
         function removeField_i(i){
           // e is the FieldImage block.
           //alert("Clicked. Check console for more info")
@@ -243,7 +244,7 @@ function PLUS_MINUS_updateShape_(type, flush, listItemName, startMessage, nextIn
             that.removeInput(listItemName + i);
           }
         }
-      
+        // Called when - button is clicked      
         function removeField(e){
           // e is the FieldImage block.
           //alert("Clicked. Check console for more info")
@@ -256,7 +257,7 @@ function PLUS_MINUS_updateShape_(type, flush, listItemName, startMessage, nextIn
               that.removeInput(listItemName + that.itemCount_);
           }
         }
- 
+        // Called when + button is clicked
         function addField(e){
           // e is the FieldImage block.
           //alert("Clicked. Check console for more info")
@@ -297,6 +298,9 @@ function PLUS_MINUS_updateShape_(type, flush, listItemName, startMessage, nextIn
           that.itemCount_ += 1;
         }
       
+        // This code is called when a new block is 
+        // created from code or from convertion from xml
+        // for example using Blockly.Xml.domToWorkspace(xml1, workspace);
         if (!this.getInput('START')) {
           var dummyInput1 = 
             this.appendDummyInput('START')
