@@ -1,38 +1,29 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name="theme-color" content="#000000"><link rel="manifest" href="/BlocksIDE/build/manifest.json"><link rel="shortcut icon" href="/BlocksIDE/build/favicon.ico"><title>React App</title><link href="/BlocksIDE/build/static/css/main.36ae78d3.css" rel="stylesheet">
 <script>
-  if (!Event.prototype.hasOwnProperty('path')) {
-    Object.defineProperty(Event.prototype, 'path', {
-      get: function() {
-        // 1. If we already calculated and cached the path, return it immediately.
-        if (this._cachedPath) return this._cachedPath;
-
-        // 2. Try modern composedPath() first
-        if (this.composedPath) {
-          var cp = this.composedPath();
-          if (cp && cp.length > 0) {
-            this._cachedPath = cp;
-            return cp;
+  // Intercept events during the "capturing phase" (before Blockly processes them)
+  // and permanently cache the path data so it survives asynchronous delays.
+  ['mousedown', 'pointerdown', 'touchstart', 'mousemove', 'pointermove', 'touchmove'].forEach(function(eventType) {
+    window.addEventListener(eventType, function(e) {
+      if (!e.path) {
+        // Forcefully attach the path array to the event object
+        e.path = e.composedPath ? e.composedPath() : [];
+        
+        // Failsafe for deep React/Blockly shadow DOMs
+        if (e.path.length === 0) {
+          var path = [];
+          var target = e.target;
+          while (target) {
+            path.push(target);
+            target = target.parentNode || target.parentElement;
           }
+          if (path.indexOf(window) === -1) {
+            path.push(document);
+            path.push(window);
+          }
+          e.path = path;
         }
-
-        // 3. Fallback: Manual DOM traversal if composedPath() is already empty
-        var path = [];
-        var target = this.target;
-        while (target) {
-          path.push(target);
-          target = target.parentElement || target.parentNode;
-        }
-        
-        // Ensure standard global objects are at the end of the path
-        if (path.length > 0 && path.indexOf(window) === -1) {
-          path.push(document);
-          path.push(window);
-        }
-        
-        this._cachedPath = path;
-        return path;
       }
-    });
-  }
+    }, true); // The 'true' here is critical—it means capturing phase!
+  });
 </script>
 </head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div><script type="text/javascript" src="/BlocksIDE/build/static/js/main.9589fc27.js"></script></body></html>
