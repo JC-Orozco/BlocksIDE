@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name="theme-color" content="#000000"><link rel="manifest" href="/BlocksIDE/build/manifest.json"><link rel="shortcut icon" href="/BlocksIDE/build/favicon.ico"><title>React App</title><link href="/BlocksIDE/build/static/css/main.36ae78d3.css" rel="stylesheet">
 <script>
   window.addEventListener('load', function() {
-    // 1. The Event.path Polyfill (Still required for Chrome 109+)
+    // 1. Keep the Event.path Polyfill (Crucial for Chrome 109+)
     if (!Event.prototype.hasOwnProperty('path')) {
       Object.defineProperty(Event.prototype, 'path', {
         get: function() {
@@ -10,33 +10,23 @@
       });
     }
 
-    // 2. The Chrome PointerCancel Fix
-    // We intercept Blockly's hide command and delay it until you drop the block.
-    if (window.Blockly && window.Blockly.Flyout) {
-      var originalHide = window.Blockly.Flyout.prototype.hide;
-      
-      window.Blockly.Flyout.prototype.hide = function() {
-        var flyout = this;
-        
-        // Prevent stacking listeners if called multiple times rapidly
-        if (flyout._isWaitingToHide) return;
-        flyout._isWaitingToHide = true;
-        
-        var completeHide = function() {
-          originalHide.call(flyout);
-          flyout._isWaitingToHide = false;
-          // Clean up the listeners once the flyout is safely hidden
-          window.removeEventListener('mouseup', completeHide);
-          window.removeEventListener('pointerup', completeHide);
-          window.removeEventListener('touchend', completeHide);
-        };
-        
-        // Wait for the mouse to be released BEFORE applying display: none
-        window.addEventListener('mouseup', completeHide);
-        window.addEventListener('pointerup', completeHide);
-        window.addEventListener('touchend', completeHide);
-      };
-    }
+    // 2. The PointerCapture Redirect Fix
+    // This prevents Chrome from firing "pointercancel" when the flyout hides.
+    window.addEventListener('pointerdown', function(e) {
+      // Check if the user is clicking inside the toolbar/flyout
+      if (e.target && e.target.closest && e.target.closest('.blocklyFlyout')) {
+        var mainSvg = document.querySelector('svg.blocklySvg');
+        if (mainSvg) {
+          try {
+            // Transfer the pointer gesture to the main workspace SVG.
+            // Since the workspace doesn't hide, Chrome allows the drag to continue!
+            mainSvg.setPointerCapture(e.pointerId);
+          } catch (err) {
+            // Ignore capture errors
+          }
+        }
+      }
+    }, true); // The 'true' ensures we capture it before Blockly hides the flyout
   });
 </script>
 </head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div><script type="text/javascript" src="/BlocksIDE/build/static/js/main.9589fc27.js"></script></body></html>
