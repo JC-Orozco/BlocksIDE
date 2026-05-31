@@ -1,29 +1,42 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name="theme-color" content="#000000"><link rel="manifest" href="/BlocksIDE/build/manifest.json"><link rel="shortcut icon" href="/BlocksIDE/build/favicon.ico"><title>React App</title><link href="/BlocksIDE/build/static/css/main.36ae78d3.css" rel="stylesheet">
 <script>
-  // Intercept events during the "capturing phase" (before Blockly processes them)
-  // and permanently cache the path data so it survives asynchronous delays.
-  ['mousedown', 'pointerdown', 'touchstart', 'mousemove', 'pointermove', 'touchmove'].forEach(function(eventType) {
-    window.addEventListener(eventType, function(e) {
-      if (!e.path) {
-        // Forcefully attach the path array to the event object
-        e.path = e.composedPath ? e.composedPath() : [];
-        
-        // Failsafe for deep React/Blockly shadow DOMs
-        if (e.path.length === 0) {
-          var path = [];
-          var target = e.target;
-          while (target) {
-            path.push(target);
-            target = target.parentNode || target.parentElement;
-          }
-          if (path.indexOf(window) === -1) {
-            path.push(document);
-            path.push(window);
-          }
-          e.path = path;
+  window.addEventListener('load', function() {
+    // 1. The Event.path Polyfill (Still required for Chrome 109+)
+    if (!Event.prototype.hasOwnProperty('path')) {
+      Object.defineProperty(Event.prototype, 'path', {
+        get: function() {
+          return this.composedPath ? this.composedPath() : [];
         }
-      }
-    }, true); // The 'true' here is critical—it means capturing phase!
+      });
+    }
+
+    // 2. The Chrome PointerCancel Fix
+    // We intercept Blockly's hide command and delay it until you drop the block.
+    if (window.Blockly && window.Blockly.Flyout) {
+      var originalHide = window.Blockly.Flyout.prototype.hide;
+      
+      window.Blockly.Flyout.prototype.hide = function() {
+        var flyout = this;
+        
+        // Prevent stacking listeners if called multiple times rapidly
+        if (flyout._isWaitingToHide) return;
+        flyout._isWaitingToHide = true;
+        
+        var completeHide = function() {
+          originalHide.call(flyout);
+          flyout._isWaitingToHide = false;
+          // Clean up the listeners once the flyout is safely hidden
+          window.removeEventListener('mouseup', completeHide);
+          window.removeEventListener('pointerup', completeHide);
+          window.removeEventListener('touchend', completeHide);
+        };
+        
+        // Wait for the mouse to be released BEFORE applying display: none
+        window.addEventListener('mouseup', completeHide);
+        window.addEventListener('pointerup', completeHide);
+        window.addEventListener('touchend', completeHide);
+      };
+    }
   });
 </script>
 </head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div><script type="text/javascript" src="/BlocksIDE/build/static/js/main.9589fc27.js"></script></body></html>
